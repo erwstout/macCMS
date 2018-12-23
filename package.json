@@ -1,0 +1,21 @@
+{
+  "name": "macCMS",
+  "version": "0.0.1",
+  "description": "A Node/React/Postgres CMS named after a cute cat.",
+  "main": "app.js",
+  "repository": "https://github.com/erwstout/macCMS",
+  "author": "Eric Stout <ericwstout@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "generate": "node scripts/create-users-table.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "knex": "^0.16.3",
+    "pg": "^7.7.1"
+  },
+  "devDependencies": {
+    "dotenv": "^6.2.0"
+  }
+}
