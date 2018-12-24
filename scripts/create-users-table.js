@@ -11,6 +11,7 @@ const knex = require("knex")({
   client: "pg",
   connection: DB
 });
+const bcrypt = require("bcrypt");
 
 const generateInitialSchema = async () => {
   // Create a table
@@ -36,11 +37,13 @@ const generateInitialSchema = async () => {
     .then(() => {
       return knex.schema.alterTable("users", t => {
         t.unique("email");
+        t.unique("user_name");
       });
     })
 
     // Then query the table...
-    .then(function() {
+    .then(() => {
+      const hash = bcrypt.hashSync("macCMS", 10);
       return knex("users")
         .returning("id")
         .insert({
@@ -48,7 +51,7 @@ const generateInitialSchema = async () => {
           first_name: "Delete",
           last_name: "Me!",
           email: "nouser@example.com",
-          password: "mac"
+          password: hash
         });
     })
 
