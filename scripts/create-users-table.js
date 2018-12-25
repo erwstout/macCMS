@@ -28,6 +28,7 @@ const generateInitialSchema = async () => {
       table.string("instagram_url");
       table.string("youtube_url");
       table.string("password");
+      table.string("profile_img");
       table.timestamp("created_at").defaultTo(knex.fn.now());
       table.timestamp("deleted_at");
       table.timestamp("last_login");

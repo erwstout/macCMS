@@ -16,10 +16,10 @@ async function getUser() {
   const user = await knex("users")
     .where({
       user_name: "admin",
-      password: "mac"
+      id: 1
     })
     .select("*");
-  console.log(user[0].password);
+  console.warn("Default Admin user still exists! Delete user immediately!");
 }
 
 getUser();

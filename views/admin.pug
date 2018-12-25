@@ -1,9 +1,8 @@
 html
   head
     title= title
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto:300,400,500')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
+
   body
-    h1= message
-    form(method='post', action='/mac-cms/login')
-        input#user_name(name='user_name', placeholder='Username')
-        input#password(type='password', name='password', placeholder='password')
-        input#submit(type='submit', value='Login', name='submit')
+    #root
