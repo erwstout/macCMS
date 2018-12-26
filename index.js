@@ -1,4 +1,3 @@
-// @flow
 const DB =
   process.env.DATABASE_URL ||
   "postgres://lecmwkvvigimya:68ab7997e91d6bfe136b26664d17f80bfc81e3320330728f65b64104c8a36e29@ec2-54-235-247-209.compute-1.amazonaws.com:5432/dafi32r5igglia";
@@ -7,7 +6,11 @@ const bodyParser = require("body-parser");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const Bundler = require("parcel-bundler");
 const express = require("express");
+const app = express();
+
+const port = process.env.PORT || 3005;
 
 /**
  * Setup our database connection
@@ -21,17 +24,28 @@ const knex = require("knex")({
 });
 const bcrypt = require("bcrypt");
 
-const app = express();
-const port = process.env.PORT || 3005;
+/**
+ * Parcel Bundler
+ */
+const adminFile = "./admin/index.js";
+const adminOptions = {
+  outDir: "./public",
+  outFile: "admin.js"
+};
+const adminBundler = new Bundler(adminFile, adminOptions);
 
+/**
+ * Express Configs
+ */
+app.use(adminBundler.middleware());
 app.use(express.static("public"));
-app.use(session({ secret: "cats" }));
+
+app.set("view engine", "pug");
+app.use(session({ secret: "macCMS" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-
-app.set("view engine", "pug");
 
 /**
  * Setup Passport Authentication
@@ -66,16 +80,6 @@ passport.deserializeUser(async function(id, done) {
 });
 
 /**
- * Render the front end of the site, can be pug, react, whatever.
- */
-app.get("/", (req, res) => res.render("index"));
-
-/**
- * Render Login screen (no express render for this, handled by react router?)
- */
-// app.get("/mac-cms/login", (req, res) => res.render("login")); // TODO: Add check if user is logged in, if so kick them to admin
-
-/**
  * POST login handling
  */
 app.post(
@@ -90,16 +94,14 @@ app.post(
 );
 
 /**
- * Mac CMS Admin Route
+ * Admin Route
  */
 app.get("/mac-cms", (req, res) => {
-  // if no user is logged in kick them to the login screen
+  // if no user kick them to login screen
   if (!req.user) {
     return res.redirect("/mac-cms/login");
   }
-  return res.render("admin", {
-    user: req.user[0]
-  });
+  return res.render("admin", { title: "MacCMS Admin", user: req.user[0] });
 });
 
 /**
@@ -110,4 +112,14 @@ app.get("/mac-cms/logout", function(req, res) {
   res.redirect("/mac-cms/login");
 });
 
-app.listen(port, () => console.log(`MacCMS is running on port ${port}`));
+/**
+ * All other Admin Routes handled by React
+ */
+app.get("/mac-cms/*", (req, res) =>
+  res.render("admin", { title: "MacCMS Admin" })
+);
+
+/**
+ * Express Listener
+ */
+app.listen(port, () => console.log(`Mac is listening on port ${port}...`));
