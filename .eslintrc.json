@@ -1,7 +1,0 @@
-{
-  "extends": "airbnb",
-  "rules": {
-    "quotes": ["warn", "double"],
-    "no-console": ["warn", { "allow": ["warn"] }]
-  }
-}

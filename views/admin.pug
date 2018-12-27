@@ -1,6 +1,24 @@
 html
   head 
     title=title 
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css')
+
+    style.
+      html {
+      margin: 0;
+      padding: 0;
+      }
+      body {
+      margin: 0;
+      padding: 0;
+      }
+      * {
+      box-sizing: border-box;
+      }
+
   body
-    #root 
+    #root
+    if(props)
+      script.
+        var props = !{JSON.stringify(props)}
     script(src="/admin.js")
