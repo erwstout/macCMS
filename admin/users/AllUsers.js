@@ -9,15 +9,20 @@ import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Loading from "../common/Loading";
-import moment from "moment";
+import NoAccess from "../NoAccess";
+import { withGlobalContext } from "../GlobalContext";
+import UserTable from "./UserTable";
+import values from "lodash/values";
 
 type $Props = {
-  classes: Object
+  classes: Object,
+  user: Object
 };
 
 type $State = {
   loading: boolean,
-  users: Array<Object>
+  users: Array<Object>,
+  restricted: boolean
 };
 
 class AllUsers extends Component<$Props, $State> {
@@ -26,12 +31,17 @@ class AllUsers extends Component<$Props, $State> {
 
     this.state = {
       loading: true,
-      users: []
+      users: [],
+      restricted: false
     };
   }
 
   componentDidMount() {
-    this.getAllUsers();
+    if (this.props.user && this.props.user.is_super) {
+      this.getAllUsers();
+    } else {
+      this.setRestricted();
+    }
   }
 
   getAllUsers = () => {
@@ -41,86 +51,27 @@ class AllUsers extends Component<$Props, $State> {
       .catch(err => console.error(err));
   };
 
+  setRestricted = () => {
+    this.setState({ restricted: true, loading: false });
+  };
+
   render() {
     const { classes } = this.props;
-    const { loading, users } = this.state;
+    const { loading, users, restricted } = this.state;
     if (loading) {
       return <Loading />;
+    } else if (restricted && !loading) {
+      return <NoAccess />;
+    } else {
+      return (
+        <AdminContainer>
+          <Paper className={classes.container}>
+            <Heading heading="All Users" Icon={<AccountCircle />} />
+            <UserTable orderBy="id" tableTitle="Active Users" data={users} />
+          </Paper>
+        </AdminContainer>
+      );
     }
-    return (
-      <AdminContainer>
-        <Paper className={classes.container}>
-          <Heading heading="All Users" Icon={<AccountCircle />} />
-          {users && users.length > 0 ? (
-            <div className={classes.userTable}>
-              <div
-                className={classNames(
-                  classes.userTableRow,
-                  classes.userTableHeader
-                )}
-              >
-                <div>
-                  <Typography variant="subtitle2">ID</Typography>
-                </div>
-                <div>
-                  <Typography variant="subtitle2">Username</Typography>
-                </div>
-                <div>
-                  <Typography variant="subtitle2">First Name</Typography>
-                </div>
-                <div>
-                  <Typography variant="subtitle2">Last Name</Typography>
-                </div>
-                <div>
-                  <Typography variant="subtitle2">Email</Typography>
-                </div>
-                <div>
-                  <Typography variant="subtitle2">Created At</Typography>
-                </div>
-                <div>
-                  <Typography variant="subtitle2">Last Login</Typography>
-                </div>
-              </div>
-              {users.map((user, i) => (
-                <div key={i} className={classes.userTableRow}>
-                  <div>
-                    <Typography variant="body2">{user.id}</Typography>
-                  </div>
-                  <div>
-                    <Typography variant="body2">{user.username}</Typography>
-                  </div>
-                  <div>
-                    <Typography variant="body2">{user.first_name}</Typography>
-                  </div>
-                  <div>
-                    <Typography variant="body2">{user.last_name}</Typography>
-                  </div>
-                  <div>
-                    <Typography variant="body2">{user.email}</Typography>
-                  </div>
-                  <div>
-                    <Typography variant="body2">
-                      {user.created_at
-                        ? moment(user.created_at).format("MM/DD/YYYY")
-                        : "N/A"}
-                    </Typography>
-                  </div>
-                  <div>
-                    <Typography variant="body2">
-                      {user.last_login
-                        ? moment(user.last_login).fromNow()
-                        : "Never"}
-                    </Typography>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <Typography variant="body1">No Users Found!</Typography>
-          )}
-        </Paper>
-      </AdminContainer>
-    );
   }
 }
 
@@ -159,4 +110,4 @@ const styles = theme => ({
   }
 });
 
-export default withStyles(styles)(AllUsers);
+export default withStyles(styles)(withGlobalContext(AllUsers));

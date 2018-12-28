@@ -27,3 +27,16 @@ exports.getAllUsers = async (req, res) => {
     .select();
   return res.json(users);
 };
+
+// delete a user
+exports.deleteUser = async (req, res) => {
+  await db
+    .knex("users")
+    .where("id", "=", req.params.id)
+    .update({ deleted_at: db.knex.fn.now() })
+    .catch(err => {
+      console.error("Error deleting user", err);
+      return res.send("Error deleting user");
+    });
+  return res.send(200);
+};

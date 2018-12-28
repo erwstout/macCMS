@@ -1,6 +1,7 @@
 // @flow
 import React, { Component, Fragment } from "react";
 import { withStyles } from "@material-ui/core/styles";
+import { withGlobalContext } from "./GlobalContext";
 import List from "@material-ui/core/List";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Create from "@material-ui/icons/Create";
@@ -86,4 +87,4 @@ const styles = () => ({
   }
 });
 
-export default withStyles(styles)(Sidebar);
+export default withStyles(styles)(withGlobalContext(Sidebar));

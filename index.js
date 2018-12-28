@@ -112,6 +112,15 @@ app.get("/mac-cms/logout", function(req, res) {
 // get users
 app.get("/mac-cms/api/users", (req, res) => users.getAllUsers(req, res));
 
+// delete user
+app.post(
+  "/mac-cms/api/users/delete/:id",
+  passport.authenticate("local", {
+    failureRedirect: "/mac-cms/login"
+  }),
+  (req, res) => users.deleteUser(req, res)
+);
+
 /**
  * All other Admin Routes handled by React
  */
@@ -124,7 +133,10 @@ app.get("/mac-cms/*", (req, res) => {
   if (!req.user) {
     return res.redirect("/mac-cms/login");
   }
-  return res.render("admin", { title: "MacCMS Admin" });
+  const reactProps = {
+    user: req.user[0]
+  };
+  return res.render("admin", { title: "MacCMS Admin", props: reactProps });
 });
 
 /**

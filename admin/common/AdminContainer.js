@@ -1,6 +1,7 @@
 // @flow
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
+import { withGlobalContext } from "../GlobalContext";
 
 const AdminContainer = ({ classes, children }) => (
   <div className={classes.root}>{children}</div>
@@ -15,8 +16,9 @@ const styles = theme => ({
     justifyContent: "flex-start",
     alignItems: "center",
     padding: "20px 14px",
-    backgroundColor: "#f9f7f7"
+    backgroundColor: "#f9f7f7",
+    overflow: "hidden"
   }
 });
 
-export default withStyles(styles)(AdminContainer);
+export default withStyles(styles)(withGlobalContext(AdminContainer));
