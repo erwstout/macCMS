@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Login from "./Login";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import AllUsers from "./users/AllUsers";
 import { GlobalProvider } from "./GlobalContext";
 
 type $Props = {
@@ -11,7 +12,6 @@ type $Props = {
 };
 
 type $State = {
-  viewTitle: string,
   showNav: boolean
 };
 
@@ -20,57 +20,52 @@ class Admin extends Component<$Props, $State> {
     super(props);
 
     this.state = {
-      viewTitle: "Dashboard",
       showNav: true
     };
   }
-
-  handleViewTitle = (updatedTitle: string) => {
-    this.setState({ viewTitle: updatedTitle });
-  };
 
   handleNavigationToggle = () => {
     this.setState(state => ({ showNav: !state.showNav }));
   };
 
   render() {
-    const { user } = this.props;
-    const { showNav, viewTitle } = this.state;
+    const { showNav } = this.state;
     return (
-      <GlobalProvider user={user}>
+      <GlobalProvider user={this.props.user}>
         <Router>
           <div>
             <Route exact path="/mac-cms/login" component={Login} />
             <div>
-              <Header viewTitle={viewTitle} />
+              <Header viewTitle={"MacCMS Dashboard"} />
               <div
                 style={{
                   display: "flex",
+                  position: "relative",
                   flexFlow: "row nowrap",
-                  justifyContent: "flex-start"
+                  justifyContent: "flex-start",
+                  width: "100%"
                 }}
               >
                 <Sidebar isOpen={showNav} />
-                <div>
-                  <Switch>
-                    <Route
-                      exact
-                      path="/mac-cms"
-                      render={() => (
-                        <div>
-                          Hello, {this.props.user.username}! Welcome to the
-                          dashboard, <Link to="/mac-cms/users">Users</Link>
-                        </div>
-                      )}
-                    />
-                    <Route
-                      exact
-                      path="/mac-cms/users/all"
-                      render={() => <div>Users</div>}
-                    />
-                    <Route exact render={() => <div>404!</div>} />
-                  </Switch>
-                </div>
+
+                <Switch>
+                  <Route
+                    exact
+                    path="/mac-cms"
+                    render={() => (
+                      <div>
+                        Hello, {this.props.user.username}! Welcome to the
+                        dashboard, <Link to="/mac-cms/users">Users</Link>
+                      </div>
+                    )}
+                  />
+                  <Route
+                    exact
+                    path="/mac-cms/users/all"
+                    render={() => <AllUsers />}
+                  />
+                  <Route exact render={() => <div>404!</div>} />
+                </Switch>
               </div>
             </div>
           </div>

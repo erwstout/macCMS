@@ -115,9 +115,17 @@ app.get("/mac-cms/api/users", (req, res) => users.getAllUsers(req, res));
 /**
  * All other Admin Routes handled by React
  */
-app.get("/mac-cms/*", (req, res) =>
+app.get("/mac-cms/login", (req, res) =>
   res.render("admin", { title: "MacCMS Admin" })
 );
+
+app.get("/mac-cms/*", (req, res) => {
+  // if no user kick them to login screen
+  if (!req.user) {
+    return res.redirect("/mac-cms/login");
+  }
+  return res.render("admin", { title: "MacCMS Admin" });
+});
 
 /**
  * Express Listener

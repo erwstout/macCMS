@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import AccountCircle from "@material-ui/icons/AccountCircle";
@@ -16,7 +16,8 @@ import Collapse from "@material-ui/core/Collapse";
 import ListItemWIcon from "./Sidebar/ListItemWIcon";
 
 type $Props = {
-  classes: Object
+  classes: Object,
+  user: Object
 };
 
 type $State = {
@@ -46,27 +47,31 @@ class Sidebar extends Component<$Props, $State> {
             primary="Posts"
             icon={<Create />}
           />
-          <ListItem button onClick={this.handleListExpand}>
-            <ListItemIcon>
-              <AccountCircle />
-            </ListItemIcon>
-            <ListItemText inset primary="Users" />
-            {usersOpen ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={usersOpen} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItemWIcon
-                to="/mac-cms/users/new"
-                primary="New User"
-                icon={<Add />}
-              />
-              <ListItemWIcon
-                to="/mac-cms/users/all"
-                primary="View All Users"
-                icon={<ListIcon />}
-              />
-            </List>
-          </Collapse>
+          {this.props.user && this.props.user.is_super === true ? (
+            <Fragment>
+              <ListItem button onClick={this.handleListExpand}>
+                <ListItemIcon>
+                  <AccountCircle />
+                </ListItemIcon>
+                <ListItemText inset primary="Users" />
+                {usersOpen ? <ExpandLess /> : <ExpandMore />}
+              </ListItem>
+              <Collapse in={usersOpen} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  <ListItemWIcon
+                    to="/mac-cms/users/new"
+                    primary="New User"
+                    icon={<Add />}
+                  />
+                  <ListItemWIcon
+                    to="/mac-cms/users/all"
+                    primary="View All Users"
+                    icon={<ListIcon />}
+                  />
+                </List>
+              </Collapse>
+            </Fragment>
+          ) : null}
         </List>
       </div>
     );
@@ -75,7 +80,7 @@ class Sidebar extends Component<$Props, $State> {
 
 const styles = () => ({
   root: {
-    width: 250,
+    flex: "0 0 250px",
     height: "100vh",
     borderRight: "1px solid #ececec"
   }
