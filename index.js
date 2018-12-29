@@ -24,10 +24,19 @@ const adminOptions = {
 };
 const adminBundler = new Bundler(adminFile, adminOptions);
 
+// login bundler
+const loginFile = "./login/index.js";
+const loginOptions = {
+  outDir: "./public",
+  outFile: "login.js"
+};
+const loginBundler = new Bundler(loginFile, loginOptions);
+
 /**
  * Express Configs
  */
 app.use(adminBundler.middleware());
+app.use(loginBundler.middleware());
 app.use(express.static("public"));
 app.set("view engine", "pug");
 app.use(session({ secret: "macCMS" }));
@@ -72,7 +81,7 @@ passport.deserializeUser(async function(id, done) {
 });
 
 /**
- * POST login handling
+ *  login handling
  */
 app.post(
   "/mac-cms/login",
@@ -83,6 +92,10 @@ app.post(
   function(req, res) {
     return res.redirect("/mac-cms");
   }
+);
+
+app.get("/mac-cms/login", (req, res) =>
+  res.render("login", { title: "Login | MacCMS Admin" })
 );
 
 /**
@@ -132,9 +145,6 @@ app.post("/mac-cms/api/users/add", (req, res) => {
 /**
  * All other Admin Routes handled by React
  */
-app.get("/mac-cms/login", (req, res) =>
-  res.render("admin", { title: "MacCMS Admin" })
-);
 
 app.get("/mac-cms/*", (req, res) => {
   // if no user kick them to login screen

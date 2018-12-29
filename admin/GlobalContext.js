@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
-import theme from "./styles/theme";
+import theme from "../styles/theme";
 
 const GlobalContext = React.createContext({
   user: {}
