@@ -31,7 +31,7 @@ class NewUser extends Component<$Props, $State> {
     super(props);
 
     this.state = {
-      success: true,
+      success: false,
       error: false
     };
   }
