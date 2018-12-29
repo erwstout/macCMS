@@ -39,6 +39,12 @@ class Header extends Component<$Props, $State> {
     this.setState({ anchorEl: null });
   };
 
+  handleLogout = () => {
+    fetch("/mac-cms/logout")
+      .then(() => location.reload(true))
+      .catch(err => console.error(err));
+  };
+
   render() {
     const { classes, viewTitle } = this.props;
     const { anchorEl } = this.state;
@@ -84,6 +90,7 @@ class Header extends Component<$Props, $State> {
               >
                 <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                 <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
               </Menu>
             </div>
           </Toolbar>

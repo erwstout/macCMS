@@ -63783,6 +63783,14 @@ function (_Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "handleLogout", function () {
+      fetch("/mac-cms/logout").then(function () {
+        return location.reload(true);
+      }).catch(function (err) {
+        return console.error(err);
+      });
+    });
+
     _this.state = {
       anchorEl: null
     };
@@ -63831,7 +63839,9 @@ function (_Component) {
         onClick: this.handleClose
       }, "Profile"), _react.default.createElement(_MenuItem.default, {
         onClick: this.handleClose
-      }, "My account"))))));
+      }, "My account"), _react.default.createElement(_MenuItem.default, {
+        onClick: this.handleLogout
+      }, "Logout"))))));
     }
   }]);
 
@@ -80109,7 +80119,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53875" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64742" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
