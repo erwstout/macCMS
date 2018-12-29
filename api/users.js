@@ -38,5 +38,13 @@ exports.deleteUser = async (req, res) => {
       console.error("Error deleting user", err);
       return res.send("Error deleting user");
     });
-  return res.send(200);
+  return res.sendStatus(200);
+};
+
+// create a user
+exports.createUser = async (req, res) => {
+  console.log(req.body);
+  await db.knex("users").insert(req.body);
+  return res.sendStatus(201);
+  // await db.knex('users')
 };

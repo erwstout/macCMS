@@ -177,6 +177,7 @@ let EnhancedTableToolbar = props => {
       className={classNames(classes.root, {
         [classes.highlight]: numSelected > 0
       })}
+      handleDelete={props.handleDelete}
     >
       <div className={classes.title}>
         {numSelected > 0 ? (
@@ -192,9 +193,9 @@ let EnhancedTableToolbar = props => {
       <div className={classes.spacer} />
       <div className={classes.actions}>
         {numSelected > 0 ? (
-          <Tooltip title="Delete">
+          <Tooltip handleDelete={props.handleDelete} title="Delete">
             <IconButton
-              onClick={props => props.handleDelete}
+              onClick={() => props.handleDelete()}
               aria-label="Delete"
             >
               <DeleteIcon />
@@ -242,13 +243,27 @@ class UserTable extends React.Component {
     rowsPerPage: 25
   };
 
+  componentDidUpdate(prevProps) {
+    if (this.props.data !== prevProps.data) {
+      this.setState({ data: this.props.data });
+    }
+  }
+
   handleDelete = () => {
-    console.log("handle delete hit");
-    return fetch(`/mac-cms/api/users/delete/${this.state.selected}`, {
-      method: "POST"
-    })
-      .then(res => res.json())
-      .catch(err => console.error(err));
+    const users = this.state.selected;
+    if (!users) {
+      return null;
+    }
+
+    return users.forEach(user => {
+      fetch(`/mac-cms/api/users/delete/${user}`, {
+        method: "POST"
+      })
+        .then(res => res.text())
+        .then(() => this.props.getAllUsers())
+        .then(() => this.setState({ selected: [] }))
+        .catch(err => console.error(err));
+    });
   };
 
   handleRequestSort = (event, property) => {

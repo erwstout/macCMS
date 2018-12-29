@@ -48,7 +48,7 @@ class Sidebar extends Component<$Props, $State> {
             primary="Posts"
             icon={<Create />}
           />
-          {this.props.user && this.props.user.is_super === true ? (
+          {this.props.user && this.props.user.user_type === "super" ? (
             <Fragment>
               <ListItem button onClick={this.handleListExpand}>
                 <ListItemIcon>

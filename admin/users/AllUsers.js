@@ -37,7 +37,7 @@ class AllUsers extends Component<$Props, $State> {
   }
 
   componentDidMount() {
-    if (this.props.user && this.props.user.is_super) {
+    if (this.props.user && this.props.user.user_type === "super") {
       this.getAllUsers();
     } else {
       this.setRestricted();
@@ -45,7 +45,8 @@ class AllUsers extends Component<$Props, $State> {
   }
 
   getAllUsers = () => {
-    fetch("/mac-cms/api/users")
+    console.log("get all users fetched");
+    return fetch("/mac-cms/api/users")
       .then(res => res.json())
       .then(users => this.setState({ users, loading: false }))
       .catch(err => console.error(err));
@@ -67,7 +68,12 @@ class AllUsers extends Component<$Props, $State> {
         <AdminContainer>
           <Paper className={classes.container}>
             <Heading heading="All Users" Icon={<AccountCircle />} />
-            <UserTable orderBy="id" tableTitle="Active Users" data={users} />
+            <UserTable
+              orderBy="id"
+              tableTitle="Active Users"
+              data={users}
+              getAllUsers={this.getAllUsers}
+            />
           </Paper>
         </AdminContainer>
       );

@@ -32,6 +32,7 @@ app.use(express.static("public"));
 app.set("view engine", "pug");
 app.use(session({ secret: "macCMS" }));
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -113,13 +114,20 @@ app.get("/mac-cms/logout", function(req, res) {
 app.get("/mac-cms/api/users", (req, res) => users.getAllUsers(req, res));
 
 // delete user
-app.post(
-  "/mac-cms/api/users/delete/:id",
-  passport.authenticate("local", {
-    failureRedirect: "/mac-cms/login"
-  }),
-  (req, res) => users.deleteUser(req, res)
-);
+app.post("/mac-cms/api/users/delete/:id", (req, res) => {
+  if (!req.user) {
+    return res.sendStatus(401);
+  }
+  return users.deleteUser(req, res);
+});
+
+// add user
+app.post("/mac-cms/api/users/add", (req, res) => {
+  if (!req.user) {
+    return res.sendStatus(401);
+  }
+  return users.createUser(req, res);
+});
 
 /**
  * All other Admin Routes handled by React
