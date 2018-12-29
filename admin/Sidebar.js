@@ -12,6 +12,7 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import Add from "@material-ui/icons/Add";
 import ListIcon from "@material-ui/icons/List";
+import Delete from "@material-ui/icons/Delete";
 import Collapse from "@material-ui/core/Collapse";
 
 import ListItemWIcon from "./Sidebar/ListItemWIcon";
@@ -68,6 +69,11 @@ class Sidebar extends Component<$Props, $State> {
                     to="/mac-cms/users/all"
                     primary="View All Users"
                     icon={<ListIcon />}
+                  />
+                  <ListItemWIcon
+                    to="/mac-cms/users/deleted"
+                    primary="View Deleted Users"
+                    icon={<Delete />}
                   />
                 </List>
               </Collapse>

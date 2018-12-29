@@ -8,6 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import Delete from "@material-ui/icons/Delete";
 import Loading from "../common/Loading";
 import NoAccess from "../NoAccess";
 import { withGlobalContext } from "../GlobalContext";
@@ -45,7 +46,6 @@ class AllUsers extends Component<$Props, $State> {
   }
 
   getAllUsers = () => {
-    console.log("get all users fetched");
     return fetch("/mac-cms/api/users")
       .then(res => res.json())
       .then(users => this.setState({ users, loading: false }))

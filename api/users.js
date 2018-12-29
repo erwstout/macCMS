@@ -32,6 +32,16 @@ exports.getAllUsers = async (req, res) => {
   return res.json(users);
 };
 
+// get all deleted users
+exports.getDeletedUsers = async (req, res) => {
+  const users = await db
+    .knex("users")
+    .columns(defaultColumns)
+    .whereNotNull("deleted_at")
+    .select();
+  return res.json(users);
+};
+
 // delete a user
 exports.deleteUser = async (req, res) => {
   await db
@@ -41,6 +51,32 @@ exports.deleteUser = async (req, res) => {
     .catch(err => {
       console.error("Error deleting user", err);
       return res.send("Error deleting user");
+    });
+  return res.sendStatus(200);
+};
+
+// permanently delete a user from the database
+exports.permanentDeleteUser = async (req, res) => {
+  await db
+    .knex("users")
+    .where("id", "=", req.params.id)
+    .del()
+    .catch(err => {
+      console.error("Error permanently deleting user", err);
+      return res.status(500).send("Error permanently deleting user");
+    });
+  return res.sendStatus(200);
+};
+
+// restore a user
+exports.restoreUser = async (req, res) => {
+  await db
+    .knex("users")
+    .where("id", "=", req.params.id)
+    .update({ deleted_at: null })
+    .catch(err => {
+      console.error("Error restoring user", err);
+      return res.status(500).send("Error restoring user");
     });
   return res.sendStatus(200);
 };

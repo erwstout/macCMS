@@ -18,26 +18,16 @@ const port = process.env.PORT || 3005;
 /**
  * Parcel Bundler
  */
-const adminFile = "./admin/index.js";
+const adminFile = ["./admin/index.js", "./login/index.js"];
 const adminOptions = {
-  outDir: "./public",
-  outFile: "admin.js"
+  outDir: "./public"
 };
 const adminBundler = new Bundler(adminFile, adminOptions);
-
-// login bundler
-const loginFile = "./login/index.js";
-const loginOptions = {
-  outDir: "./public",
-  outFile: "login.js"
-};
-const loginBundler = new Bundler(loginFile, loginOptions);
 
 /**
  * Express Configs
  */
 app.use(adminBundler.middleware());
-app.use(loginBundler.middleware());
 app.use(express.static("public"));
 app.set("view engine", "pug");
 app.use(session({ secret: "macCMS" }));
@@ -128,12 +118,33 @@ app.get("/mac-cms/logout", function(req, res) {
 // get users
 app.get("/mac-cms/api/users", (req, res) => users.getAllUsers(req, res));
 
+// get deleted users
+app.get("/mac-cms/api/users/deleted", (req, res) =>
+  users.getDeletedUsers(req, res)
+);
+
 // delete user
 app.post("/mac-cms/api/users/delete/:id", (req, res) => {
   if (!req.user) {
     return res.sendStatus(401);
   }
   return users.deleteUser(req, res);
+});
+
+// permanently delete (remove) a user from the DB
+app.post("/mac-cms/api/users/remove/:id", (req, res) => {
+  if (!req.user) {
+    return res.sendStatus(401);
+  }
+  return users.permanentDeleteUser(req, res);
+});
+
+// restore a user from deleted to active
+app.post("/mac-cms/api/users/restore/:id", (req, res) => {
+  if (!req.user) {
+    return res.sendStatus(401);
+  }
+  return users.restoreUser(req, res);
 });
 
 // add user
