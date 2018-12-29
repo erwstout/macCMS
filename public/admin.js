@@ -60991,6 +60991,11 @@ var rows = [{
   disablePadding: false,
   label: "Username"
 }, {
+  id: "user_type",
+  numeric: false,
+  disablePadding: false,
+  label: "User Type"
+}, {
   id: "first_name",
   numeric: false,
   disablePadding: false,
@@ -61355,6 +61360,8 @@ function (_React$Component2) {
           align: "left"
         }, n.username), _react.default.createElement(_TableCell.default, {
           align: "left"
+        }, n.user_type), _react.default.createElement(_TableCell.default, {
+          align: "left"
         }, n.first_name), _react.default.createElement(_TableCell.default, {
           align: "left"
         }, n.last_name), _react.default.createElement(_TableCell.default, {
@@ -61363,9 +61370,9 @@ function (_React$Component2) {
           align: "left"
         }, (0, _moment.default)(n.created_at).format("MM/DD/YYYY")), _react.default.createElement(_TableCell.default, {
           align: "left"
-        }, n.last_login ? (0, _moment.default)(n.last_login).format("MM/DD/YYYY") : "Never"));
+        }, n.last_login ? (0, _moment.default)(n.last_login).format("MM/DD/YYYY, h:mm a") : "Never"));
       }), emptyRows > 0 && _react.default.createElement(_TableRow.default, null, _react.default.createElement(_TableCell.default, {
-        colSpan: 8
+        colSpan: 9
       }))))), _react.default.createElement(_TablePagination.default, {
         rowsPerPageOptions: [5, 10, 25],
         component: "div",
@@ -79918,7 +79925,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63697" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49314" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

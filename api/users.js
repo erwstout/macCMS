@@ -7,6 +7,7 @@ const bcrypt = require("bcrypt");
 const defaultColumns = [
   "id",
   "username",
+  "user_type",
   "first_name",
   "last_name",
   "email",

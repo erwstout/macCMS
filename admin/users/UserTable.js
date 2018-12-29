@@ -54,6 +54,12 @@ const rows = [
   },
   { id: "username", numeric: false, disablePadding: false, label: "Username" },
   {
+    id: "user_type",
+    numeric: false,
+    disablePadding: false,
+    label: "User Type"
+  },
+  {
     id: "first_name",
     numeric: false,
     disablePadding: false,
@@ -354,6 +360,7 @@ class UserTable extends React.Component {
                         {n.id}
                       </TableCell>
                       <TableCell align="left">{n.username}</TableCell>
+                      <TableCell align="left">{n.user_type}</TableCell>
                       <TableCell align="left">{n.first_name}</TableCell>
                       <TableCell align="left">{n.last_name}</TableCell>
                       <TableCell align="left">{n.email}</TableCell>
@@ -362,7 +369,7 @@ class UserTable extends React.Component {
                       </TableCell>
                       <TableCell align="left">
                         {n.last_login
-                          ? moment(n.last_login).format("MM/DD/YYYY")
+                          ? moment(n.last_login).format("MM/DD/YYYY, h:mm a")
                           : "Never"}
                       </TableCell>
                     </TableRow>
@@ -370,7 +377,7 @@ class UserTable extends React.Component {
                 })}
               {emptyRows > 0 && (
                 <TableRow>
-                  <TableCell colSpan={8} />
+                  <TableCell colSpan={9} />
                 </TableRow>
               )}
             </TableBody>
