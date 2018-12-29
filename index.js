@@ -9,6 +9,7 @@ const bcrypt = require("bcrypt");
 const users = require("./api/users");
 const db = require("./util/db");
 const express = require("express");
+const api = require("./api/users");
 
 const app = express();
 
@@ -90,6 +91,7 @@ app.post(
     failureFlash: "Error logging in!"
   }),
   function(req, res) {
+    api.userLogin(req.user);
     return res.redirect("/mac-cms");
   }
 );

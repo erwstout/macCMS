@@ -70,3 +70,11 @@ exports.createUser = async (req, res) => {
   await db.knex("users").insert(transformedUser);
   return res.sendStatus(201);
 };
+
+// update user last_login
+exports.userLogin = async user => {
+  return await db
+    .knex("users")
+    .where("id", "=", user.id)
+    .update({ last_login: db.knex.fn.now() });
+};

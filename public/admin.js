@@ -56361,28 +56361,6 @@ var _default = (0, _createSvgIcon.default)(_react.default.createElement(_react.d
 })), 'Delete');
 
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@material-ui/icons/node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"../node_modules/react/index.js","./utils/createSvgIcon":"../node_modules/@material-ui/icons/utils/createSvgIcon.js"}],"../node_modules/@material-ui/icons/FilterList.js":[function(require,module,exports) {
-"use strict";
-
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _createSvgIcon = _interopRequireDefault(require("./utils/createSvgIcon"));
-
-var _default = (0, _createSvgIcon.default)(_react.default.createElement(_react.default.Fragment, null, _react.default.createElement("path", {
-  d: "M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"
-}), _react.default.createElement("path", {
-  fill: "none",
-  d: "M0 0h24v24H0z"
-})), 'FilterList');
-
-exports.default = _default;
 },{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@material-ui/icons/node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"../node_modules/react/index.js","./utils/createSvgIcon":"../node_modules/@material-ui/icons/utils/createSvgIcon.js"}],"../node_modules/moment/moment.js":[function(require,module,exports) {
 var define;
 var global = arguments[3];
@@ -60898,7 +60876,7 @@ var global = arguments[3];
 
 })));
 
-},{}],"users/UserTable.js":[function(require,module,exports) {
+},{}],"../admin/users/UserTable.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -60941,8 +60919,6 @@ var _IconButton = _interopRequireDefault(require("@material-ui/core/IconButton")
 var _Tooltip = _interopRequireDefault(require("@material-ui/core/Tooltip"));
 
 var _Delete = _interopRequireDefault(require("@material-ui/icons/Delete"));
-
-var _FilterList = _interopRequireDefault(require("@material-ui/icons/FilterList"));
 
 var _colorManipulator = require("@material-ui/core/styles/colorManipulator");
 
@@ -61166,11 +61142,7 @@ var EnhancedTableToolbar = function EnhancedTableToolbar(props) {
       return props.handleDelete();
     },
     "aria-label": "Delete"
-  }, _react.default.createElement(_Delete.default, null))) : _react.default.createElement(_Tooltip.default, {
-    title: "Filter list"
-  }, _react.default.createElement(_IconButton.default, {
-    "aria-label": "Filter list"
-  }, _react.default.createElement(_FilterList.default, null)))));
+  }, _react.default.createElement(_Delete.default, null))) : null));
 };
 
 EnhancedTableToolbar.propTypes = {
@@ -61422,7 +61394,7 @@ UserTable.propTypes = {
 var _default = (0, _styles.withStyles)(styles)(UserTable);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js","prop-types":"../node_modules/prop-types/index.js","@material-ui/core/styles":"../node_modules/@material-ui/core/styles/index.js","@material-ui/core/Table":"../node_modules/@material-ui/core/Table/index.js","@material-ui/core/TableBody":"../node_modules/@material-ui/core/TableBody/index.js","@material-ui/core/TableCell":"../node_modules/@material-ui/core/TableCell/index.js","@material-ui/core/TableHead":"../node_modules/@material-ui/core/TableHead/index.js","@material-ui/core/TablePagination":"../node_modules/@material-ui/core/TablePagination/index.js","@material-ui/core/TableRow":"../node_modules/@material-ui/core/TableRow/index.js","@material-ui/core/TableSortLabel":"../node_modules/@material-ui/core/TableSortLabel/index.js","@material-ui/core/Toolbar":"../node_modules/@material-ui/core/Toolbar/index.js","@material-ui/core/Typography":"../node_modules/@material-ui/core/Typography/index.js","@material-ui/core/Paper":"../node_modules/@material-ui/core/Paper/index.js","@material-ui/core/Checkbox":"../node_modules/@material-ui/core/Checkbox/index.js","@material-ui/core/IconButton":"../node_modules/@material-ui/core/IconButton/index.js","@material-ui/core/Tooltip":"../node_modules/@material-ui/core/Tooltip/index.js","@material-ui/icons/Delete":"../node_modules/@material-ui/icons/Delete.js","@material-ui/icons/FilterList":"../node_modules/@material-ui/icons/FilterList.js","@material-ui/core/styles/colorManipulator":"../node_modules/@material-ui/core/styles/colorManipulator.js","moment":"../node_modules/moment/moment.js"}],"../node_modules/lodash/_arrayMap.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","classnames":"../node_modules/classnames/index.js","prop-types":"../node_modules/prop-types/index.js","@material-ui/core/styles":"../node_modules/@material-ui/core/styles/index.js","@material-ui/core/Table":"../node_modules/@material-ui/core/Table/index.js","@material-ui/core/TableBody":"../node_modules/@material-ui/core/TableBody/index.js","@material-ui/core/TableCell":"../node_modules/@material-ui/core/TableCell/index.js","@material-ui/core/TableHead":"../node_modules/@material-ui/core/TableHead/index.js","@material-ui/core/TablePagination":"../node_modules/@material-ui/core/TablePagination/index.js","@material-ui/core/TableRow":"../node_modules/@material-ui/core/TableRow/index.js","@material-ui/core/TableSortLabel":"../node_modules/@material-ui/core/TableSortLabel/index.js","@material-ui/core/Toolbar":"../node_modules/@material-ui/core/Toolbar/index.js","@material-ui/core/Typography":"../node_modules/@material-ui/core/Typography/index.js","@material-ui/core/Paper":"../node_modules/@material-ui/core/Paper/index.js","@material-ui/core/Checkbox":"../node_modules/@material-ui/core/Checkbox/index.js","@material-ui/core/IconButton":"../node_modules/@material-ui/core/IconButton/index.js","@material-ui/core/Tooltip":"../node_modules/@material-ui/core/Tooltip/index.js","@material-ui/icons/Delete":"../node_modules/@material-ui/icons/Delete.js","@material-ui/core/styles/colorManipulator":"../node_modules/@material-ui/core/styles/colorManipulator.js","moment":"../node_modules/moment/moment.js"}],"../node_modules/lodash/_arrayMap.js":[function(require,module,exports) {
 /**
  * A specialized version of `_.map` for arrays without support for iteratee
  * shorthands.
@@ -62490,7 +62462,7 @@ var styles = function styles(theme) {
 var _default = (0, _styles.withStyles)(styles)((0, _GlobalContext.withGlobalContext)(AllUsers));
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","@material-ui/core/styles":"../node_modules/@material-ui/core/styles/index.js","classnames":"../node_modules/classnames/index.js","../common/AdminContainer":"common/AdminContainer.js","../common/Heading":"common/Heading.js","@material-ui/core/Paper":"../node_modules/@material-ui/core/Paper/index.js","@material-ui/core/Typography":"../node_modules/@material-ui/core/Typography/index.js","@material-ui/core/Divider":"../node_modules/@material-ui/core/Divider/index.js","@material-ui/icons/AccountCircle":"../node_modules/@material-ui/icons/AccountCircle.js","../common/Loading":"common/Loading.js","../NoAccess":"NoAccess.js","../GlobalContext":"../admin/GlobalContext.js","./UserTable":"users/UserTable.js","lodash/values":"../node_modules/lodash/values.js"}],"../node_modules/tslib/tslib.es6.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@material-ui/core/styles":"../node_modules/@material-ui/core/styles/index.js","classnames":"../node_modules/classnames/index.js","../common/AdminContainer":"common/AdminContainer.js","../common/Heading":"common/Heading.js","@material-ui/core/Paper":"../node_modules/@material-ui/core/Paper/index.js","@material-ui/core/Typography":"../node_modules/@material-ui/core/Typography/index.js","@material-ui/core/Divider":"../node_modules/@material-ui/core/Divider/index.js","@material-ui/icons/AccountCircle":"../node_modules/@material-ui/icons/AccountCircle.js","../common/Loading":"common/Loading.js","../NoAccess":"NoAccess.js","../GlobalContext":"../admin/GlobalContext.js","./UserTable":"../admin/users/UserTable.js","lodash/values":"../node_modules/lodash/values.js"}],"../node_modules/tslib/tslib.es6.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -79946,7 +79918,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53453" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63697" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
