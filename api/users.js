@@ -2,6 +2,7 @@
 const db = require("../util/db");
 const pickBy = require("lodash/pickBy");
 const identity = require("lodash/identity");
+const bcrypt = require("bcrypt");
 
 const defaultColumns = [
   "id",
@@ -46,6 +47,26 @@ exports.deleteUser = async (req, res) => {
 // create a user
 exports.createUser = async (req, res) => {
   const user = pickBy(req.body, identity);
-  await db.knex("users").insert(user);
+  const transformedUser = {};
+  const generateHash = new Promise((resolve, reject) => {
+    return bcrypt.hash(user.password, 10, (err, hash) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(hash);
+    });
+  });
+
+  await generateHash
+    .then(hash => (transformedUser.password = hash))
+    .then(() =>
+      Object.keys(user).map(key => {
+        if (key !== "password") {
+          transformedUser[key] = user[key];
+        }
+      })
+    );
+
+  await db.knex("users").insert(transformedUser);
   return res.sendStatus(201);
 };
