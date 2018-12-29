@@ -1,5 +1,7 @@
 // @flow
 const db = require("../util/db");
+const pickBy = require("lodash/pickBy");
+const identity = require("lodash/identity");
 
 const defaultColumns = [
   "id",
@@ -43,8 +45,7 @@ exports.deleteUser = async (req, res) => {
 
 // create a user
 exports.createUser = async (req, res) => {
-  console.log(req.body);
-  await db.knex("users").insert(req.body);
+  const user = pickBy(req.body, identity);
+  await db.knex("users").insert(user);
   return res.sendStatus(201);
-  // await db.knex('users')
 };
