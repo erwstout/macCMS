@@ -6,6 +6,7 @@ import Sidebar from "./Sidebar";
 import AllUsers from "./users/AllUsers";
 import NewUser from "./users/NewUser";
 import DeletedUsers from "./users/DeletedUsers";
+import MyAccount from "./users/MyAccount";
 import { GlobalProvider } from "./GlobalContext";
 
 type $Props = {
@@ -72,6 +73,11 @@ class Admin extends Component<$Props, $State> {
                   exact
                   path="/mac-cms/users/new"
                   render={() => <NewUser />}
+                />
+                <Route
+                  exact
+                  path="/mac-cms/users/my-account"
+                  render={() => <MyAccount />}
                 />
                 <Route exact render={() => <div>404!</div>} />
               </Switch>

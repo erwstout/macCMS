@@ -155,6 +155,22 @@ app.post("/mac-cms/api/users/add", (req, res) => {
   return users.createUser(req, res);
 });
 
+// update user
+app.post("/mac-cms/api/users/update", (req, res) => {
+  if (!req.user) {
+    return res.sendStatus(401);
+  }
+  return users.userUpdate(req, res);
+});
+
+// update user password
+app.post("/mac-cms/api/users/change-password", (req, res) => {
+  if (!req.user) {
+    return res.sendStatus(401);
+  }
+  return users.changePassword(req, res);
+});
+
 /**
  * All other Admin Routes handled by React
  */

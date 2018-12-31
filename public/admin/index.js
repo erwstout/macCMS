@@ -46407,7 +46407,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _Menu = _interopRequireDefault(require("./Menu"));
-},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","./Menu":"../node_modules/@material-ui/core/Menu/Menu.js"}],"Header.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","./Menu":"../node_modules/@material-ui/core/Menu/Menu.js"}],"admin/Header.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -46440,6 +46440,8 @@ var _FormGroup = _interopRequireDefault(require("@material-ui/core/FormGroup"));
 var _MenuItem = _interopRequireDefault(require("@material-ui/core/MenuItem"));
 
 var _Menu2 = _interopRequireDefault(require("@material-ui/core/Menu"));
+
+var _reactRouterDom = require("react-router-dom");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -46541,11 +46543,12 @@ function (_Component) {
         },
         open: open,
         onClose: this.handleClose
+      }, _react.default.createElement(_reactRouterDom.Link, {
+        className: classes.linkStyle,
+        to: "/mac-cms/users/my-account"
       }, _react.default.createElement(_MenuItem.default, {
         onClick: this.handleClose
-      }, "Profile"), _react.default.createElement(_MenuItem.default, {
-        onClick: this.handleClose
-      }, "My account"), _react.default.createElement(_MenuItem.default, {
+      }, "My account")), _react.default.createElement(_MenuItem.default, {
         onClick: this.handleLogout
       }, "Logout"))))));
     }
@@ -46554,7 +46557,7 @@ function (_Component) {
   return Header;
 }(_react.Component);
 
-var styles = function styles() {
+var styles = function styles(theme) {
   return {
     root: {
       position: "relative",
@@ -46567,6 +46570,10 @@ var styles = function styles() {
     menuButton: {
       marginLeft: -12,
       marginRight: 20
+    },
+    linkStyle: {
+      outline: "none",
+      textDecoration: "none"
     }
   };
 };
@@ -46574,57 +46581,57 @@ var styles = function styles() {
 var _default = (0, _styles.withStyles)(styles)(Header);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","@material-ui/core/styles":"../node_modules/@material-ui/core/styles/index.js","@material-ui/core/AppBar":"../node_modules/@material-ui/core/AppBar/index.js","@material-ui/core/Toolbar":"../node_modules/@material-ui/core/Toolbar/index.js","@material-ui/core/Typography":"../node_modules/@material-ui/core/Typography/index.js","@material-ui/core/IconButton":"../node_modules/@material-ui/core/IconButton/index.js","@material-ui/icons/Menu":"../node_modules/@material-ui/icons/Menu.js","@material-ui/icons/AccountCircle":"../node_modules/@material-ui/icons/AccountCircle.js","@material-ui/core/Switch":"../node_modules/@material-ui/core/Switch/index.js","@material-ui/core/FormControlLabel":"../node_modules/@material-ui/core/FormControlLabel/index.js","@material-ui/core/FormGroup":"../node_modules/@material-ui/core/FormGroup/index.js","@material-ui/core/MenuItem":"../node_modules/@material-ui/core/MenuItem/index.js","@material-ui/core/Menu":"../node_modules/@material-ui/core/Menu/index.js"}],"../node_modules/@material-ui/core/colors/deepPurple.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@material-ui/core/styles":"../node_modules/@material-ui/core/styles/index.js","@material-ui/core/AppBar":"../node_modules/@material-ui/core/AppBar/index.js","@material-ui/core/Toolbar":"../node_modules/@material-ui/core/Toolbar/index.js","@material-ui/core/Typography":"../node_modules/@material-ui/core/Typography/index.js","@material-ui/core/IconButton":"../node_modules/@material-ui/core/IconButton/index.js","@material-ui/icons/Menu":"../node_modules/@material-ui/icons/Menu.js","@material-ui/icons/AccountCircle":"../node_modules/@material-ui/icons/AccountCircle.js","@material-ui/core/Switch":"../node_modules/@material-ui/core/Switch/index.js","@material-ui/core/FormControlLabel":"../node_modules/@material-ui/core/FormControlLabel/index.js","@material-ui/core/FormGroup":"../node_modules/@material-ui/core/FormGroup/index.js","@material-ui/core/MenuItem":"../node_modules/@material-ui/core/MenuItem/index.js","@material-ui/core/Menu":"../node_modules/@material-ui/core/Menu/index.js","react-router-dom":"../node_modules/react-router-dom/es/index.js"}],"node_modules/@material-ui/core/colors/lightBlue.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var deepPurple = {
-  50: '#ede7f6',
-  100: '#d1c4e9',
-  200: '#b39ddb',
-  300: '#9575cd',
-  400: '#7e57c2',
-  500: '#673ab7',
-  600: '#5e35b1',
-  700: '#512da8',
-  800: '#4527a0',
-  900: '#311b92',
-  A100: '#b388ff',
-  A200: '#7c4dff',
-  A400: '#651fff',
-  A700: '#6200ea'
+var lightBlue = {
+  50: '#e1f5fe',
+  100: '#b3e5fc',
+  200: '#81d4fa',
+  300: '#4fc3f7',
+  400: '#29b6f6',
+  500: '#03a9f4',
+  600: '#039be5',
+  700: '#0288d1',
+  800: '#0277bd',
+  900: '#01579b',
+  A100: '#80d8ff',
+  A200: '#40c4ff',
+  A400: '#00b0ff',
+  A700: '#0091ea'
 };
-var _default = deepPurple;
+var _default = lightBlue;
 exports.default = _default;
-},{}],"../node_modules/@material-ui/core/colors/deepOrange.js":[function(require,module,exports) {
+},{}],"node_modules/@material-ui/core/colors/amber.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var deepOrange = {
-  50: '#fbe9e7',
-  100: '#ffccbc',
-  200: '#ffab91',
-  300: '#ff8a65',
-  400: '#ff7043',
-  500: '#ff5722',
-  600: '#f4511e',
-  700: '#e64a19',
-  800: '#d84315',
-  900: '#bf360c',
-  A100: '#ff9e80',
-  A200: '#ff6e40',
-  A400: '#ff3d00',
-  A700: '#dd2c00'
+var amber = {
+  50: '#fff8e1',
+  100: '#ffecb3',
+  200: '#ffe082',
+  300: '#ffd54f',
+  400: '#ffca28',
+  500: '#ffc107',
+  600: '#ffb300',
+  700: '#ffa000',
+  800: '#ff8f00',
+  900: '#ff6f00',
+  A100: '#ffe57f',
+  A200: '#ffd740',
+  A400: '#ffc400',
+  A700: '#ffab00'
 };
-var _default = deepOrange;
+var _default = amber;
 exports.default = _default;
-},{}],"../styles/theme.js":[function(require,module,exports) {
+},{}],"styles/theme.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -46634,16 +46641,16 @@ exports.default = void 0;
 
 var _styles = require("@material-ui/core/styles");
 
-var _deepPurple = _interopRequireDefault(require("@material-ui/core/colors/deepPurple"));
+var _lightBlue = _interopRequireDefault(require("@material-ui/core/colors/lightBlue"));
 
-var _deepOrange = _interopRequireDefault(require("@material-ui/core/colors/deepOrange"));
+var _amber = _interopRequireDefault(require("@material-ui/core/colors/amber"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var theme = (0, _styles.createMuiTheme)({
   palette: {
-    primary: _deepPurple.default,
-    secondary: _deepOrange.default
+    primary: _lightBlue.default,
+    secondary: _amber.default
   },
   typography: {
     useNextVariants: true
@@ -46651,7 +46658,7 @@ var theme = (0, _styles.createMuiTheme)({
 });
 var _default = theme;
 exports.default = _default;
-},{"@material-ui/core/styles":"../node_modules/@material-ui/core/styles/index.js","@material-ui/core/colors/deepPurple":"../node_modules/@material-ui/core/colors/deepPurple.js","@material-ui/core/colors/deepOrange":"../node_modules/@material-ui/core/colors/deepOrange.js"}],"../admin/GlobalContext.js":[function(require,module,exports) {
+},{"@material-ui/core/styles":"../node_modules/@material-ui/core/styles/index.js","@material-ui/core/colors/lightBlue":"node_modules/@material-ui/core/colors/lightBlue.js","@material-ui/core/colors/amber":"node_modules/@material-ui/core/colors/amber.js"}],"../admin/GlobalContext.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -46734,7 +46741,7 @@ var withGlobalContext = function withGlobalContext(Component) {
 };
 
 exports.withGlobalContext = withGlobalContext;
-},{"react":"../node_modules/react/index.js","@material-ui/core/styles/MuiThemeProvider":"../node_modules/@material-ui/core/styles/MuiThemeProvider.js","../styles/theme":"../styles/theme.js"}],"../node_modules/@material-ui/icons/Create.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@material-ui/core/styles/MuiThemeProvider":"../node_modules/@material-ui/core/styles/MuiThemeProvider.js","../styles/theme":"styles/theme.js"}],"../node_modules/@material-ui/icons/Create.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -81440,7 +81447,1796 @@ var styles = function styles(theme) {
 var _default = (0, _styles.withStyles)(styles)((0, _GlobalContext.withGlobalContext)(AllUsers));
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","@material-ui/core/styles":"../node_modules/@material-ui/core/styles/index.js","classnames":"../node_modules/classnames/index.js","../common/AdminContainer":"common/AdminContainer.js","../common/Heading":"common/Heading.js","@material-ui/core/Paper":"../node_modules/@material-ui/core/Paper/index.js","@material-ui/core/Typography":"../node_modules/@material-ui/core/Typography/index.js","@material-ui/core/Divider":"../node_modules/@material-ui/core/Divider/index.js","@material-ui/icons/Delete":"../node_modules/@material-ui/icons/Delete.js","../common/Loading":"common/Loading.js","../NoAccess":"NoAccess.js","../GlobalContext":"../admin/GlobalContext.js","./DeletedUsersTable":"admin/users/DeletedUsersTable.js","lodash/values":"../node_modules/lodash/values.js"}],"admin/Admin.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@material-ui/core/styles":"../node_modules/@material-ui/core/styles/index.js","classnames":"../node_modules/classnames/index.js","../common/AdminContainer":"common/AdminContainer.js","../common/Heading":"common/Heading.js","@material-ui/core/Paper":"../node_modules/@material-ui/core/Paper/index.js","@material-ui/core/Typography":"../node_modules/@material-ui/core/Typography/index.js","@material-ui/core/Divider":"../node_modules/@material-ui/core/Divider/index.js","@material-ui/icons/Delete":"../node_modules/@material-ui/icons/Delete.js","../common/Loading":"common/Loading.js","../NoAccess":"NoAccess.js","../GlobalContext":"../admin/GlobalContext.js","./DeletedUsersTable":"admin/users/DeletedUsersTable.js","lodash/values":"../node_modules/lodash/values.js"}],"node_modules/@material-ui/icons/Update.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _createSvgIcon = _interopRequireDefault(require("./utils/createSvgIcon"));
+
+var _default = (0, _createSvgIcon.default)(_react.default.createElement(_react.default.Fragment, null, _react.default.createElement("defs", null, _react.default.createElement("path", {
+  id: "a",
+  d: "M0 0h24v24H0V0z"
+})), _react.default.createElement("path", {
+  d: "M21 10.12h-6.78l2.74-2.82c-2.73-2.7-7.15-2.8-9.88-.1a6.875 6.875 0 0 0 0 9.79c2.73 2.71 7.15 2.71 9.88 0C18.32 15.65 19 14.08 19 12.1h2c0 1.98-.88 4.55-2.64 6.29-3.51 3.48-9.21 3.48-12.72 0-3.5-3.47-3.53-9.11-.02-12.58 3.51-3.47 9.14-3.47 12.65 0L21 3v7.12zM12.5 8v4.25l3.5 2.08-.72 1.21L11 13V8h1.5z"
+})), 'Update');
+
+exports.default = _default;
+},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@material-ui/icons/node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"../node_modules/react/index.js","./utils/createSvgIcon":"../node_modules/@material-ui/icons/utils/createSvgIcon.js"}],"node_modules/@material-ui/core/ClickAwayListener/ClickAwayListener.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf3 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactDom = _interopRequireDefault(require("react-dom"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _reactEventListener = _interopRequireDefault(require("react-event-listener"));
+
+var _ownerDocument = _interopRequireDefault(require("../utils/ownerDocument")); // @inheritedComponent EventListener
+
+/**
+ * Listen for click events that occur somewhere in the document, outside of the element itself.
+ * For instance, if you need to hide a menu when people click anywhere else on your page.
+ */
+
+
+var ClickAwayListener =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inherits2.default)(ClickAwayListener, _React$Component);
+
+  function ClickAwayListener() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    (0, _classCallCheck2.default)(this, ClickAwayListener);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(ClickAwayListener)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _this.mounted = false;
+    _this.moved = false;
+
+    _this.handleClickAway = function (event) {
+      // Ignore events that have been `event.preventDefault()` marked.
+      if (event.defaultPrevented) {
+        return;
+      } // IE 11 support, which trigger the handleClickAway even after the unbind
+
+
+      if (!_this.mounted) {
+        return;
+      } // Do not act if user performed touchmove
+
+
+      if (_this.moved) {
+        _this.moved = false;
+        return;
+      } // The child might render null.
+
+
+      if (!_this.node) {
+        return;
+      }
+
+      var doc = (0, _ownerDocument.default)(_this.node);
+
+      if (doc.documentElement && doc.documentElement.contains(event.target) && !_this.node.contains(event.target)) {
+        _this.props.onClickAway(event);
+      }
+    };
+
+    _this.handleTouchMove = function () {
+      _this.moved = true;
+    };
+
+    return _this;
+  }
+
+  (0, _createClass2.default)(ClickAwayListener, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      // Finds the first child when a component returns a fragment.
+      // https://github.com/facebook/react/blob/036ae3c6e2f056adffc31dfb78d1b6f0c63272f0/packages/react-dom/src/__tests__/ReactDOMFiber-test.js#L105
+      this.node = _reactDom.default.findDOMNode(this);
+      this.mounted = true;
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.mounted = false;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          children = _this$props.children,
+          mouseEvent = _this$props.mouseEvent,
+          touchEvent = _this$props.touchEvent,
+          onClickAway = _this$props.onClickAway,
+          other = (0, _objectWithoutProperties2.default)(_this$props, ["children", "mouseEvent", "touchEvent", "onClickAway"]);
+      var listenerProps = {};
+
+      if (mouseEvent !== false) {
+        listenerProps[mouseEvent] = this.handleClickAway;
+      }
+
+      if (touchEvent !== false) {
+        listenerProps[touchEvent] = this.handleClickAway;
+        listenerProps.onTouchMove = this.handleTouchMove;
+      }
+
+      return _react.default.createElement(_react.default.Fragment, null, children, _react.default.createElement(_reactEventListener.default, (0, _extends2.default)({
+        target: "document"
+      }, listenerProps, other)));
+    }
+  }]);
+  return ClickAwayListener;
+}(_react.default.Component);
+
+"development" !== "production" ? ClickAwayListener.propTypes = {
+  /**
+   * The wrapped element.
+   */
+  children: _propTypes.default.element.isRequired,
+
+  /**
+   * The mouse event to listen to. You can disable the listener by providing `false`.
+   */
+  mouseEvent: _propTypes.default.oneOf(['onClick', 'onMouseDown', 'onMouseUp', false]),
+
+  /**
+   * Callback fired when a "click away" event is detected.
+   */
+  onClickAway: _propTypes.default.func.isRequired,
+
+  /**
+   * The touch event to listen to. You can disable the listener by providing `false`.
+   */
+  touchEvent: _propTypes.default.oneOf(['onTouchStart', 'onTouchEnd', false])
+} : void 0;
+ClickAwayListener.defaultProps = {
+  mouseEvent: 'onMouseUp',
+  touchEvent: 'onTouchEnd'
+};
+var _default = ClickAwayListener;
+exports.default = _default;
+},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/extends":"../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutProperties":"../node_modules/@babel/runtime/helpers/objectWithoutProperties.js","@babel/runtime/helpers/classCallCheck":"../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"../node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"../node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/inherits":"../node_modules/@babel/runtime/helpers/inherits.js","react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","prop-types":"../node_modules/prop-types/index.js","react-event-listener":"../node_modules/react-event-listener/dist/react-event-listener.cjs.js","../utils/ownerDocument":"../node_modules/@material-ui/core/utils/ownerDocument.js"}],"node_modules/@material-ui/core/ClickAwayListener/index.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _ClickAwayListener.default;
+  }
+});
+
+var _ClickAwayListener = _interopRequireDefault(require("./ClickAwayListener"));
+},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","./ClickAwayListener":"node_modules/@material-ui/core/ClickAwayListener/ClickAwayListener.js"}],"node_modules/@material-ui/core/Slide/Slide.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.setTranslateValue = setTranslateValue;
+exports.default = void 0;
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _reactDom = _interopRequireDefault(require("react-dom"));
+
+var _reactEventListener = _interopRequireDefault(require("react-event-listener"));
+
+var _debounce = _interopRequireDefault(require("debounce"));
+
+var _Transition = _interopRequireDefault(require("react-transition-group/Transition"));
+
+var _ownerWindow = _interopRequireDefault(require("../utils/ownerWindow"));
+
+var _withTheme = _interopRequireDefault(require("../styles/withTheme"));
+
+var _transitions = require("../styles/transitions");
+
+var _utils = require("../transitions/utils"); // @inheritedComponent Transition
+// < 1kb payload overhead when lodash/debounce is > 3kb.
+
+
+var GUTTER = 24; // Translate the node so he can't be seen on the screen.
+// Later, we gonna translate back the node to his original location
+// with `translate3d(0, 0, 0)`.`
+
+function getTranslateValue(props, node) {
+  var direction = props.direction;
+  var rect = node.getBoundingClientRect();
+  var transform;
+
+  if (node.fakeTransform) {
+    transform = node.fakeTransform;
+  } else {
+    var computedStyle = (0, _ownerWindow.default)(node).getComputedStyle(node);
+    transform = computedStyle.getPropertyValue('-webkit-transform') || computedStyle.getPropertyValue('transform');
+  }
+
+  var offsetX = 0;
+  var offsetY = 0;
+
+  if (transform && transform !== 'none' && typeof transform === 'string') {
+    var transformValues = transform.split('(')[1].split(')')[0].split(',');
+    offsetX = parseInt(transformValues[4], 10);
+    offsetY = parseInt(transformValues[5], 10);
+  }
+
+  if (direction === 'left') {
+    return "translateX(100vw) translateX(-".concat(rect.left - offsetX, "px)");
+  }
+
+  if (direction === 'right') {
+    return "translateX(-".concat(rect.left + rect.width + GUTTER - offsetX, "px)");
+  }
+
+  if (direction === 'up') {
+    return "translateY(100vh) translateY(-".concat(rect.top - offsetY, "px)");
+  } // direction === 'down'
+
+
+  return "translateY(-".concat(rect.top + rect.height + GUTTER - offsetY, "px)");
+}
+
+function setTranslateValue(props, node) {
+  var transform = getTranslateValue(props, node);
+
+  if (transform) {
+    node.style.webkitTransform = transform;
+    node.style.transform = transform;
+  }
+}
+/**
+ * The Slide transition is used by the [Snackbar](/demos/snackbars/) component.
+ * It uses [react-transition-group](https://github.com/reactjs/react-transition-group) internally.
+ */
+
+
+var Slide =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inherits2.default)(Slide, _React$Component);
+
+  function Slide() {
+    var _this;
+
+    (0, _classCallCheck2.default)(this, Slide);
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(Slide).call(this));
+    _this.mounted = false;
+
+    _this.handleEnter = function (node) {
+      setTranslateValue(_this.props, node);
+      (0, _utils.reflow)(node);
+
+      if (_this.props.onEnter) {
+        _this.props.onEnter(node);
+      }
+    };
+
+    _this.handleEntering = function (node) {
+      var theme = _this.props.theme;
+      var transitionProps = (0, _utils.getTransitionProps)(_this.props, {
+        mode: 'enter'
+      });
+      node.style.webkitTransition = theme.transitions.create('-webkit-transform', (0, _extends2.default)({}, transitionProps, {
+        easing: theme.transitions.easing.easeOut
+      }));
+      node.style.transition = theme.transitions.create('transform', (0, _extends2.default)({}, transitionProps, {
+        easing: theme.transitions.easing.easeOut
+      }));
+      node.style.webkitTransform = 'translate(0, 0)';
+      node.style.transform = 'translate(0, 0)';
+
+      if (_this.props.onEntering) {
+        _this.props.onEntering(node);
+      }
+    };
+
+    _this.handleExit = function (node) {
+      var theme = _this.props.theme;
+      var transitionProps = (0, _utils.getTransitionProps)(_this.props, {
+        mode: 'exit'
+      });
+      node.style.webkitTransition = theme.transitions.create('-webkit-transform', (0, _extends2.default)({}, transitionProps, {
+        easing: theme.transitions.easing.sharp
+      }));
+      node.style.transition = theme.transitions.create('transform', (0, _extends2.default)({}, transitionProps, {
+        easing: theme.transitions.easing.sharp
+      }));
+      setTranslateValue(_this.props, node);
+
+      if (_this.props.onExit) {
+        _this.props.onExit(node);
+      }
+    };
+
+    _this.handleExited = function (node) {
+      // No need for transitions when the component is hidden
+      node.style.webkitTransition = '';
+      node.style.transition = '';
+
+      if (_this.props.onExited) {
+        _this.props.onExited(node);
+      }
+    };
+
+    if (typeof window !== 'undefined') {
+      _this.handleResize = (0, _debounce.default)(function () {
+        // Skip configuration where the position is screen size invariant.
+        if (_this.props.in || _this.props.direction === 'down' || _this.props.direction === 'right') {
+          return;
+        }
+
+        if (_this.transitionRef) {
+          setTranslateValue(_this.props, _this.transitionRef);
+        }
+      }, 166); // Corresponds to 10 frames at 60 Hz.
+    }
+
+    return _this;
+  }
+
+  (0, _createClass2.default)(Slide, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.mounted = true; // state.mounted handle SSR, once the component is mounted, we need
+      // to properly hide it.
+
+      if (!this.props.in) {
+        // We need to set initial translate values of transition element
+        // otherwise component will be shown when in=false.
+        this.updatePosition();
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (prevProps.direction !== this.props.direction && !this.props.in) {
+        // We need to update the position of the drawer when the direction change and
+        // when it's hidden.
+        this.updatePosition();
+      }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.handleResize.clear();
+    }
+  }, {
+    key: "updatePosition",
+    value: function updatePosition() {
+      if (this.transitionRef) {
+        this.transitionRef.style.visibility = 'inherit';
+        setTranslateValue(this.props, this.transitionRef);
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var _this$props = this.props,
+          children = _this$props.children,
+          direction = _this$props.direction,
+          onEnter = _this$props.onEnter,
+          onEntering = _this$props.onEntering,
+          onExit = _this$props.onExit,
+          onExited = _this$props.onExited,
+          styleProp = _this$props.style,
+          theme = _this$props.theme,
+          other = (0, _objectWithoutProperties2.default)(_this$props, ["children", "direction", "onEnter", "onEntering", "onExit", "onExited", "style", "theme"]);
+      var style = {}; // We use this state to handle the server-side rendering.
+      // We don't know the width of the children ahead of time.
+      // We need to render it.
+
+      if (!this.props.in && !this.mounted) {
+        style.visibility = 'hidden';
+      }
+
+      style = (0, _extends2.default)({}, style, styleProp, _react.default.isValidElement(children) ? children.props.style : {});
+      return _react.default.createElement(_reactEventListener.default, {
+        target: "window",
+        onResize: this.handleResize
+      }, _react.default.createElement(_Transition.default, (0, _extends2.default)({
+        onEnter: this.handleEnter,
+        onEntering: this.handleEntering,
+        onExit: this.handleExit,
+        onExited: this.handleExited,
+        appear: true,
+        style: style,
+        ref: function ref(_ref) {
+          _this2.transitionRef = _reactDom.default.findDOMNode(_ref);
+        }
+      }, other), children));
+    }
+  }]);
+  return Slide;
+}(_react.default.Component);
+
+"development" !== "production" ? Slide.propTypes = {
+  /**
+   * A single child content element.
+   */
+  children: _propTypes.default.oneOfType([_propTypes.default.element, _propTypes.default.func]),
+
+  /**
+   * Direction the child node will enter from.
+   */
+  direction: _propTypes.default.oneOf(['left', 'right', 'up', 'down']),
+
+  /**
+   * If `true`, show the component; triggers the enter or exit animation.
+   */
+  in: _propTypes.default.bool,
+
+  /**
+   * @ignore
+   */
+  onEnter: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onEntering: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onExit: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onExited: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  style: _propTypes.default.object,
+
+  /**
+   * @ignore
+   */
+  theme: _propTypes.default.object.isRequired,
+
+  /**
+   * The duration for the transition, in milliseconds.
+   * You may specify a single timeout for all transitions, or individually with an object.
+   */
+  timeout: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.shape({
+    enter: _propTypes.default.number,
+    exit: _propTypes.default.number
+  })])
+} : void 0;
+Slide.defaultProps = {
+  direction: 'down',
+  timeout: {
+    enter: _transitions.duration.enteringScreen,
+    exit: _transitions.duration.leavingScreen
+  }
+};
+
+var _default = (0, _withTheme.default)()(Slide);
+
+exports.default = _default;
+},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/objectWithoutProperties":"../node_modules/@babel/runtime/helpers/objectWithoutProperties.js","@babel/runtime/helpers/extends":"../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/classCallCheck":"../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"../node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"../node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/inherits":"../node_modules/@babel/runtime/helpers/inherits.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-dom":"../node_modules/react-dom/index.js","react-event-listener":"../node_modules/react-event-listener/dist/react-event-listener.cjs.js","debounce":"../node_modules/debounce/index.js","react-transition-group/Transition":"../node_modules/react-transition-group/Transition.js","../utils/ownerWindow":"../node_modules/@material-ui/core/utils/ownerWindow.js","../styles/withTheme":"../node_modules/@material-ui/core/styles/withTheme.js","../styles/transitions":"../node_modules/@material-ui/core/styles/transitions.js","../transitions/utils":"../node_modules/@material-ui/core/transitions/utils.js"}],"node_modules/@material-ui/core/Slide/index.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _Slide.default;
+  }
+});
+
+var _Slide = _interopRequireDefault(require("./Slide"));
+},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","./Slide":"node_modules/@material-ui/core/Slide/Slide.js"}],"node_modules/@material-ui/core/SnackbarContent/SnackbarContent.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
+
+var _Paper = _interopRequireDefault(require("../Paper"));
+
+var _Typography = _interopRequireDefault(require("../Typography"));
+
+var _colorManipulator = require("../styles/colorManipulator"); // @inheritedComponent Paper
+
+
+var styles = function styles(theme) {
+  var _root;
+
+  var emphasis = theme.palette.type === 'light' ? 0.8 : 0.98;
+  var backgroundColor = (0, _colorManipulator.emphasize)(theme.palette.background.default, emphasis);
+  return {
+    /* Styles applied to the root element. */
+    root: (_root = {
+      color: theme.palette.getContrastText(backgroundColor),
+      backgroundColor: backgroundColor,
+      display: 'flex',
+      alignItems: 'center',
+      flexWrap: 'wrap',
+      padding: '6px 24px'
+    }, (0, _defineProperty2.default)(_root, theme.breakpoints.up('md'), {
+      minWidth: 288,
+      maxWidth: 568,
+      borderRadius: theme.shape.borderRadius
+    }), (0, _defineProperty2.default)(_root, theme.breakpoints.down('sm'), {
+      flexGrow: 1
+    }), _root),
+
+    /* Styles applied to the message wrapper element. */
+    message: {
+      padding: '8px 0'
+    },
+
+    /* Styles applied to the action wrapper element if `action` is provided. */
+    action: {
+      display: 'flex',
+      alignItems: 'center',
+      marginLeft: 'auto',
+      paddingLeft: 24,
+      marginRight: -8
+    }
+  };
+};
+
+exports.styles = styles;
+
+function SnackbarContent(props) {
+  var action = props.action,
+      classes = props.classes,
+      className = props.className,
+      message = props.message,
+      other = (0, _objectWithoutProperties2.default)(props, ["action", "classes", "className", "message"]);
+  return _react.default.createElement(_Paper.default, (0, _extends2.default)({
+    component: _Typography.default,
+    headlineMapping: {
+      body1: 'div',
+      body2: 'div'
+    },
+    role: "alertdialog",
+    square: true,
+    elevation: 6,
+    className: (0, _classnames.default)(classes.root, className)
+  }, other), _react.default.createElement("div", {
+    className: classes.message
+  }, message), action ? _react.default.createElement("div", {
+    className: classes.action
+  }, action) : null);
+}
+
+"development" !== "production" ? SnackbarContent.propTypes = {
+  /**
+   * The action to display.
+   */
+  action: _propTypes.default.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css-api) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * The message to display.
+   */
+  message: _propTypes.default.node
+} : void 0;
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiSnackbarContent'
+})(SnackbarContent);
+
+exports.default = _default;
+},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/extends":"../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutProperties":"../node_modules/@babel/runtime/helpers/objectWithoutProperties.js","@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","classnames":"../node_modules/classnames/index.js","../styles/withStyles":"../node_modules/@material-ui/core/styles/withStyles.js","../Paper":"../node_modules/@material-ui/core/Paper/index.js","../Typography":"../node_modules/@material-ui/core/Typography/index.js","../styles/colorManipulator":"../node_modules/@material-ui/core/styles/colorManipulator.js"}],"node_modules/@material-ui/core/SnackbarContent/index.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _SnackbarContent.default;
+  }
+});
+
+var _SnackbarContent = _interopRequireDefault(require("./SnackbarContent"));
+},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","./SnackbarContent":"node_modules/@material-ui/core/SnackbarContent/SnackbarContent.js"}],"node_modules/@material-ui/core/Snackbar/Snackbar.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf3 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+
+var _extends8 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _reactEventListener = _interopRequireDefault(require("react-event-listener"));
+
+var _utils = require("@material-ui/utils");
+
+var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
+
+var _transitions = require("../styles/transitions");
+
+var _ClickAwayListener = _interopRequireDefault(require("../ClickAwayListener"));
+
+var _helpers = require("../utils/helpers");
+
+var _Slide = _interopRequireDefault(require("../Slide"));
+
+var _SnackbarContent = _interopRequireDefault(require("../SnackbarContent"));
+
+var styles = function styles(theme) {
+  var gutter = 24;
+  var top = {
+    top: 0
+  };
+  var bottom = {
+    bottom: 0
+  };
+  var right = {
+    justifyContent: 'flex-end'
+  };
+  var left = {
+    justifyContent: 'flex-start'
+  };
+  var topSpace = {
+    top: gutter
+  };
+  var bottomSpace = {
+    bottom: gutter
+  };
+  var rightSpace = {
+    right: gutter
+  };
+  var leftSpace = {
+    left: gutter
+  };
+  var center = {
+    left: '50%',
+    right: 'auto',
+    transform: 'translateX(-50%)'
+  };
+  return {
+    /* Styles applied to the root element. */
+    root: {
+      zIndex: theme.zIndex.snackbar,
+      position: 'fixed',
+      display: 'flex',
+      left: 0,
+      right: 0,
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+
+    /* Styles applied to the root element if `anchorOrigin={{ 'top', 'center' }}`. */
+    anchorOriginTopCenter: (0, _extends8.default)({}, top, (0, _defineProperty2.default)({}, theme.breakpoints.up('md'), (0, _extends8.default)({}, center))),
+
+    /* Styles applied to the root element if `anchorOrigin={{ 'bottom', 'center' }}`. */
+    anchorOriginBottomCenter: (0, _extends8.default)({}, bottom, (0, _defineProperty2.default)({}, theme.breakpoints.up('md'), (0, _extends8.default)({}, center))),
+
+    /* Styles applied to the root element if `anchorOrigin={{ 'top', 'right' }}`. */
+    anchorOriginTopRight: (0, _extends8.default)({}, top, right, (0, _defineProperty2.default)({}, theme.breakpoints.up('md'), (0, _extends8.default)({
+      left: 'auto'
+    }, topSpace, rightSpace))),
+
+    /* Styles applied to the root element if `anchorOrigin={{ 'bottom', 'right' }}`. */
+    anchorOriginBottomRight: (0, _extends8.default)({}, bottom, right, (0, _defineProperty2.default)({}, theme.breakpoints.up('md'), (0, _extends8.default)({
+      left: 'auto'
+    }, bottomSpace, rightSpace))),
+
+    /* Styles applied to the root element if `anchorOrigin={{ 'top', 'left' }}`. */
+    anchorOriginTopLeft: (0, _extends8.default)({}, top, left, (0, _defineProperty2.default)({}, theme.breakpoints.up('md'), (0, _extends8.default)({
+      right: 'auto'
+    }, topSpace, leftSpace))),
+
+    /* Styles applied to the root element if `anchorOrigin={{ 'bottom', 'left' }}`. */
+    anchorOriginBottomLeft: (0, _extends8.default)({}, bottom, left, (0, _defineProperty2.default)({}, theme.breakpoints.up('md'), (0, _extends8.default)({
+      right: 'auto'
+    }, bottomSpace, leftSpace)))
+  };
+};
+/* istanbul ignore if */
+
+
+exports.styles = styles;
+
+if ("development" !== 'production' && !_react.default.createContext) {
+  throw new Error('Material-UI: react@16.3.0 or greater is required.');
+}
+
+var Snackbar =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inherits2.default)(Snackbar, _React$Component);
+
+  function Snackbar() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    (0, _classCallCheck2.default)(this, Snackbar);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(Snackbar)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _this.state = {};
+
+    _this.handleMouseEnter = function (event) {
+      if (_this.props.onMouseEnter) {
+        _this.props.onMouseEnter(event);
+      }
+
+      _this.handlePause();
+    };
+
+    _this.handleMouseLeave = function (event) {
+      if (_this.props.onMouseLeave) {
+        _this.props.onMouseLeave(event);
+      }
+
+      _this.handleResume();
+    };
+
+    _this.handleClickAway = function (event) {
+      if (_this.props.onClose) {
+        _this.props.onClose(event, 'clickaway');
+      }
+    };
+
+    _this.handlePause = function () {
+      clearTimeout(_this.timerAutoHide);
+    };
+
+    _this.handleResume = function () {
+      if (_this.props.autoHideDuration != null) {
+        if (_this.props.resumeHideDuration != null) {
+          _this.setAutoHideTimer(_this.props.resumeHideDuration);
+
+          return;
+        }
+
+        _this.setAutoHideTimer(_this.props.autoHideDuration * 0.5);
+      }
+    };
+
+    _this.handleExited = function () {
+      _this.setState({
+        exited: true
+      });
+    };
+
+    return _this;
+  }
+
+  (0, _createClass2.default)(Snackbar, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.props.open) {
+        this.setAutoHideTimer();
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (prevProps.open !== this.props.open) {
+        if (this.props.open) {
+          this.setAutoHideTimer();
+        } else {
+          clearTimeout(this.timerAutoHide);
+        }
+      }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      clearTimeout(this.timerAutoHide);
+    }
+  }, {
+    key: "setAutoHideTimer",
+    // Timer that controls delay before snackbar auto hides
+    value: function setAutoHideTimer(autoHideDuration) {
+      var _this2 = this;
+
+      var autoHideDurationBefore = autoHideDuration != null ? autoHideDuration : this.props.autoHideDuration;
+
+      if (!this.props.onClose || autoHideDurationBefore == null) {
+        return;
+      }
+
+      clearTimeout(this.timerAutoHide);
+      this.timerAutoHide = setTimeout(function () {
+        var autoHideDurationAfter = autoHideDuration != null ? autoHideDuration : _this2.props.autoHideDuration;
+
+        if (!_this2.props.onClose || autoHideDurationAfter == null) {
+          return;
+        }
+
+        _this2.props.onClose(null, 'timeout');
+      }, autoHideDurationBefore);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          action = _this$props.action,
+          _this$props$anchorOri = _this$props.anchorOrigin,
+          vertical = _this$props$anchorOri.vertical,
+          horizontal = _this$props$anchorOri.horizontal,
+          autoHideDuration = _this$props.autoHideDuration,
+          children = _this$props.children,
+          classes = _this$props.classes,
+          className = _this$props.className,
+          ClickAwayListenerProps = _this$props.ClickAwayListenerProps,
+          ContentProps = _this$props.ContentProps,
+          disableWindowBlurListener = _this$props.disableWindowBlurListener,
+          message = _this$props.message,
+          onClose = _this$props.onClose,
+          onEnter = _this$props.onEnter,
+          onEntered = _this$props.onEntered,
+          onEntering = _this$props.onEntering,
+          onExit = _this$props.onExit,
+          onExited = _this$props.onExited,
+          onExiting = _this$props.onExiting,
+          onMouseEnter = _this$props.onMouseEnter,
+          onMouseLeave = _this$props.onMouseLeave,
+          open = _this$props.open,
+          resumeHideDuration = _this$props.resumeHideDuration,
+          TransitionComponent = _this$props.TransitionComponent,
+          transitionDuration = _this$props.transitionDuration,
+          TransitionProps = _this$props.TransitionProps,
+          other = (0, _objectWithoutProperties2.default)(_this$props, ["action", "anchorOrigin", "autoHideDuration", "children", "classes", "className", "ClickAwayListenerProps", "ContentProps", "disableWindowBlurListener", "message", "onClose", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "onMouseEnter", "onMouseLeave", "open", "resumeHideDuration", "TransitionComponent", "transitionDuration", "TransitionProps"]); // So we only render active snackbars.
+
+      if (!open && this.state.exited) {
+        return null;
+      }
+
+      return _react.default.createElement(_ClickAwayListener.default, (0, _extends8.default)({
+        onClickAway: this.handleClickAway
+      }, ClickAwayListenerProps), _react.default.createElement("div", (0, _extends8.default)({
+        className: (0, _classnames.default)(classes.root, classes["anchorOrigin".concat((0, _helpers.capitalize)(vertical)).concat((0, _helpers.capitalize)(horizontal))], className),
+        onMouseEnter: this.handleMouseEnter,
+        onMouseLeave: this.handleMouseLeave
+      }, other), _react.default.createElement(_reactEventListener.default, {
+        target: "window",
+        onFocus: disableWindowBlurListener ? undefined : this.handleResume,
+        onBlur: disableWindowBlurListener ? undefined : this.handlePause
+      }), _react.default.createElement(TransitionComponent, (0, _extends8.default)({
+        appear: true,
+        in: open,
+        onEnter: onEnter,
+        onEntered: onEntered,
+        onEntering: onEntering,
+        onExit: onExit,
+        onExited: (0, _helpers.createChainedFunction)(this.handleExited, onExited),
+        onExiting: onExiting,
+        timeout: transitionDuration,
+        direction: vertical === 'top' ? 'down' : 'up'
+      }, TransitionProps), children || _react.default.createElement(_SnackbarContent.default, (0, _extends8.default)({
+        message: message,
+        action: action
+      }, ContentProps)))));
+    }
+  }], [{
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(nextProps, prevState) {
+      if (typeof prevState.exited === 'undefined') {
+        return {
+          exited: !nextProps.open
+        };
+      }
+
+      if (nextProps.open) {
+        return {
+          exited: false
+        };
+      }
+
+      return null;
+    }
+  }]);
+  return Snackbar;
+}(_react.default.Component);
+
+"development" !== "production" ? Snackbar.propTypes = {
+  /**
+   * The action to display.
+   */
+  action: _propTypes.default.node,
+
+  /**
+   * The anchor of the `Snackbar`.
+   */
+  anchorOrigin: _propTypes.default.shape({
+    horizontal: _propTypes.default.oneOf(['left', 'center', 'right']).isRequired,
+    vertical: _propTypes.default.oneOf(['top', 'bottom']).isRequired
+  }),
+
+  /**
+   * The number of milliseconds to wait before automatically calling the
+   * `onClose` function. `onClose` should then set the state of the `open`
+   * prop to hide the Snackbar. This behavior is disabled by default with
+   * the `null` value.
+   */
+  autoHideDuration: _propTypes.default.number,
+
+  /**
+   * Replace the `SnackbarContent` component.
+   */
+  children: _propTypes.default.element,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css-api) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * Properties applied to the `ClickAwayListener` element.
+   */
+  ClickAwayListenerProps: _propTypes.default.object,
+
+  /**
+   * Properties applied to the [`SnackbarContent`](/api/snackbar-content/) element.
+   */
+  ContentProps: _propTypes.default.object,
+
+  /**
+   * If `true`, the `autoHideDuration` timer will expire even if the window is not focused.
+   */
+  disableWindowBlurListener: _propTypes.default.bool,
+
+  /**
+   * When displaying multiple consecutive Snackbars from a parent rendering a single
+   * <Snackbar/>, add the key property to ensure independent treatment of each message.
+   * e.g. <Snackbar key={message} />, otherwise, the message may update-in-place and
+   * features such as autoHideDuration may be canceled.
+   */
+  key: _propTypes.default.any,
+
+  /**
+   * The message to display.
+   */
+  message: _propTypes.default.node,
+
+  /**
+   * Callback fired when the component requests to be closed.
+   * Typically `onClose` is used to set state in the parent component,
+   * which is used to control the `Snackbar` `open` prop.
+   * The `reason` parameter can optionally be used to control the response to `onClose`,
+   * for example ignoring `clickaway`.
+   *
+   * @param {object} event The event source of the callback
+   * @param {string} reason Can be:`"timeout"` (`autoHideDuration` expired) or: `"clickaway"`
+   */
+  onClose: _propTypes.default.func,
+
+  /**
+   * Callback fired before the transition is entering.
+   */
+  onEnter: _propTypes.default.func,
+
+  /**
+   * Callback fired when the transition has entered.
+   */
+  onEntered: _propTypes.default.func,
+
+  /**
+   * Callback fired when the transition is entering.
+   */
+  onEntering: _propTypes.default.func,
+
+  /**
+   * Callback fired before the transition is exiting.
+   */
+  onExit: _propTypes.default.func,
+
+  /**
+   * Callback fired when the transition has exited.
+   */
+  onExited: _propTypes.default.func,
+
+  /**
+   * Callback fired when the transition is exiting.
+   */
+  onExiting: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onMouseEnter: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onMouseLeave: _propTypes.default.func,
+
+  /**
+   * If true, `Snackbar` is open.
+   */
+  open: _propTypes.default.bool,
+
+  /**
+   * The number of milliseconds to wait before dismissing after user interaction.
+   * If `autoHideDuration` property isn't specified, it does nothing.
+   * If `autoHideDuration` property is specified but `resumeHideDuration` isn't,
+   * we default to `autoHideDuration / 2` ms.
+   */
+  resumeHideDuration: _propTypes.default.number,
+
+  /**
+   * The component used for the transition.
+   */
+  TransitionComponent: _utils.componentPropType,
+
+  /**
+   * The duration for the transition, in milliseconds.
+   * You may specify a single timeout for all transitions, or individually with an object.
+   */
+  transitionDuration: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.shape({
+    enter: _propTypes.default.number,
+    exit: _propTypes.default.number
+  })]),
+
+  /**
+   * Properties applied to the `Transition` element.
+   */
+  TransitionProps: _propTypes.default.object
+} : void 0;
+Snackbar.defaultProps = {
+  anchorOrigin: {
+    vertical: 'bottom',
+    horizontal: 'center'
+  },
+  disableWindowBlurListener: false,
+  TransitionComponent: _Slide.default,
+  transitionDuration: {
+    enter: _transitions.duration.enteringScreen,
+    exit: _transitions.duration.leavingScreen
+  }
+};
+
+var _default = (0, _withStyles.default)(styles, {
+  flip: false,
+  name: 'MuiSnackbar'
+})(Snackbar);
+
+exports.default = _default;
+},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/objectWithoutProperties":"../node_modules/@babel/runtime/helpers/objectWithoutProperties.js","@babel/runtime/helpers/classCallCheck":"../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"../node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"../node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/inherits":"../node_modules/@babel/runtime/helpers/inherits.js","@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","@babel/runtime/helpers/extends":"../node_modules/@babel/runtime/helpers/extends.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","classnames":"../node_modules/classnames/index.js","react-event-listener":"../node_modules/react-event-listener/dist/react-event-listener.cjs.js","@material-ui/utils":"../node_modules/@material-ui/utils/index.es.js","../styles/withStyles":"../node_modules/@material-ui/core/styles/withStyles.js","../styles/transitions":"../node_modules/@material-ui/core/styles/transitions.js","../ClickAwayListener":"node_modules/@material-ui/core/ClickAwayListener/index.js","../utils/helpers":"../node_modules/@material-ui/core/utils/helpers.js","../Slide":"node_modules/@material-ui/core/Slide/index.js","../SnackbarContent":"node_modules/@material-ui/core/SnackbarContent/index.js"}],"node_modules/@material-ui/core/Snackbar/index.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _Snackbar.default;
+  }
+});
+
+var _Snackbar = _interopRequireDefault(require("./Snackbar"));
+},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@babel/runtime/helpers/interopRequireDefault.js","./Snackbar":"node_modules/@material-ui/core/Snackbar/Snackbar.js"}],"node_modules/@material-ui/icons/Close.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _createSvgIcon = _interopRequireDefault(require("./utils/createSvgIcon"));
+
+var _default = (0, _createSvgIcon.default)(_react.default.createElement(_react.default.Fragment, null, _react.default.createElement("path", {
+  d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+}), _react.default.createElement("path", {
+  fill: "none",
+  d: "M0 0h24v24H0z"
+})), 'Close');
+
+exports.default = _default;
+},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@material-ui/icons/node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"../node_modules/react/index.js","./utils/createSvgIcon":"../node_modules/@material-ui/icons/utils/createSvgIcon.js"}],"node_modules/@material-ui/icons/Lock.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _createSvgIcon = _interopRequireDefault(require("./utils/createSvgIcon"));
+
+var _default = (0, _createSvgIcon.default)(_react.default.createElement(_react.default.Fragment, null, _react.default.createElement("path", {
+  fill: "none",
+  d: "M0 0h24v24H0z"
+}), _react.default.createElement("path", {
+  d: "M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"
+})), 'Lock');
+
+exports.default = _default;
+},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/@material-ui/icons/node_modules/@babel/runtime/helpers/interopRequireDefault.js","react":"../node_modules/react/index.js","./utils/createSvgIcon":"../node_modules/@material-ui/icons/utils/createSvgIcon.js"}],"admin/users/MyAccount.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _styles = require("@material-ui/core/styles");
+
+var _GlobalContext = require("../GlobalContext");
+
+var _Paper = _interopRequireDefault(require("@material-ui/core/Paper"));
+
+var _TextField = _interopRequireDefault(require("@material-ui/core/TextField"));
+
+var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
+
+var _Divider = _interopRequireDefault(require("@material-ui/core/Divider"));
+
+var _Button = _interopRequireDefault(require("@material-ui/core/Button"));
+
+var _MenuItem = _interopRequireDefault(require("@material-ui/core/MenuItem"));
+
+var _Update = _interopRequireDefault(require("@material-ui/icons/Update"));
+
+var _AccountCircle = _interopRequireDefault(require("@material-ui/icons/AccountCircle"));
+
+var _Snackbar = _interopRequireDefault(require("@material-ui/core/Snackbar"));
+
+var _IconButton = _interopRequireDefault(require("@material-ui/core/IconButton"));
+
+var _Close = _interopRequireDefault(require("@material-ui/icons/Close"));
+
+var _Lock = _interopRequireDefault(require("@material-ui/icons/Lock"));
+
+var _formik = require("formik");
+
+var Yup = _interopRequireWildcard(require("yup"));
+
+var _AdminContainer = _interopRequireDefault(require("../common/AdminContainer"));
+
+var _Heading = _interopRequireDefault(require("../common/Heading"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var MyAccount =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(MyAccount, _Component);
+
+  function MyAccount(props) {
+    var _this;
+
+    _classCallCheck(this, MyAccount);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(MyAccount).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "handleSuccessClose", function (event, reason) {
+      if (reason === "clickaway") {
+        return;
+      }
+
+      _this.setState({
+        successSnackOpen: false
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "handleFailureClose", function (event, reason) {
+      if (reason === "clickaway") {
+        return;
+      }
+
+      _this.setState({
+        failureSnackOpen: false
+      });
+    });
+
+    _this.state = {
+      successSnackOpen: false,
+      failureSnackOpen: false,
+      incorrectPassword: false
+    };
+    return _this;
+  }
+
+  _createClass(MyAccount, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var _this$props = this.props,
+          classes = _this$props.classes,
+          user = _this$props.user;
+      var _this$state = this.state,
+          successSnackOpen = _this$state.successSnackOpen,
+          failureSnackOpen = _this$state.failureSnackOpen,
+          incorrectPassword = _this$state.incorrectPassword;
+      return _react.default.createElement(_AdminContainer.default, null, _react.default.createElement(_Paper.default, {
+        className: classes.container
+      }, _react.default.createElement(_Heading.default, {
+        heading: "My Account",
+        Icon: _react.default.createElement(_AccountCircle.default, null)
+      }), _react.default.createElement(_Typography.default, {
+        className: classes.header,
+        variant: "h6"
+      }, "User Information"), _react.default.createElement(_Divider.default, {
+        className: classes.divider
+      }), _react.default.createElement(_formik.Formik, {
+        initialValues: {
+          id: user.id,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          email: user.email,
+          twitter_url: user.twitter_url,
+          facebook_url: user.facebook_url,
+          linkedin_url: user.linkedin_url,
+          instagram_url: user.instagram_url,
+          youtube_url: user.youtube_url
+        },
+        validationSchema: function validationSchema() {
+          return Yup.object().shape({
+            first_name: Yup.string().required("First Name is required"),
+            last_name: Yup.string().required("Last Name is required"),
+            email: Yup.string().email("Invalid Email").required("Email is required"),
+            twitter_url: Yup.string().url("Invalid URL, must include http:// or https://").nullable(),
+            facebook_url: Yup.string().url("Invalid URL, must include http:// or https://").nullable(),
+            linkedin_url: Yup.string().url("Invalid URL, must include http:// or https://").nullable(),
+            instagram_url: Yup.string().url("Invalid URL, must include http:// or https://").nullable(),
+            youtube_url: Yup.string().url("Invalid URL, must include http:// or https://").nullable()
+          });
+        },
+        onSubmit: function onSubmit(values, _ref) {
+          var setSubmitting = _ref.setSubmitting;
+          console.log(values);
+          return fetch("/mac-cms/api/users/update", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(values)
+          }).then(function (res) {
+            return res.text();
+          }).then(function (res) {
+            console.log(res);
+
+            if (res === "Accepted") {
+              _this2.setState({
+                successSnackOpen: true
+              });
+            } else {
+              _this2.setState({
+                failureSnackOpen: true
+              });
+            }
+
+            setSubmitting(false);
+          }).catch(function (err) {
+            console.error(err);
+
+            _this2.setState({
+              failureSnackOpen: true
+            });
+          });
+        },
+        render: function render(_ref2) {
+          var errors = _ref2.errors,
+              touched = _ref2.touched,
+              isSubmitting = _ref2.isSubmitting,
+              resetForm = _ref2.resetForm;
+          return _react.default.createElement(_formik.Form, {
+            noValidate: true,
+            id: "updateUser"
+          }, _react.default.createElement("div", {
+            className: classes.formContainer
+          }, _react.default.createElement(_formik.Field, {
+            id: "first_name",
+            name: "first_name",
+            render: function render(_ref3) {
+              var field = _ref3.field;
+              return _react.default.createElement(_TextField.default, _extends({}, field, {
+                label: "First Name",
+                className: classes.input,
+                inputProps: {
+                  "aria-label": "First Name"
+                },
+                required: true,
+                error: touched.first_name && errors.first_name ? true : false,
+                helperText: touched.first_name && errors.first_name
+              }));
+            }
+          }), _react.default.createElement(_formik.Field, {
+            id: "last_name",
+            name: "last_name",
+            render: function render(_ref4) {
+              var field = _ref4.field;
+              return _react.default.createElement(_TextField.default, _extends({}, field, {
+                label: "Last Name",
+                className: classes.input,
+                inputProps: {
+                  "aria-label": "Last Name"
+                },
+                error: touched.last_name && errors.last_name ? true : false,
+                helperText: touched.last_name && errors.last_name,
+                required: true
+              }));
+            }
+          }), _react.default.createElement(_formik.Field, {
+            id: "email",
+            name: "email",
+            render: function render(_ref5) {
+              var field = _ref5.field;
+              return _react.default.createElement(_TextField.default, _extends({}, field, {
+                label: "Email",
+                className: classes.input,
+                inputProps: {
+                  "aria-label": "Email"
+                },
+                type: "email",
+                required: true,
+                error: touched.email && errors.email ? true : false,
+                helperText: touched.email && errors.email
+              }));
+            }
+          }), _react.default.createElement(_formik.Field, {
+            id: "twitter_url",
+            name: "twitter_url",
+            type: "url",
+            render: function render(_ref6) {
+              var field = _ref6.field;
+              return _react.default.createElement(_TextField.default, _extends({}, field, {
+                label: "Twitter URL ",
+                className: classes.input,
+                inputProps: {
+                  "aria-label": "Twitter URL "
+                },
+                error: touched.twitter_url && errors.twitter_url ? true : false,
+                helperText: touched.twitter_url && errors.twitter_url
+              }));
+            }
+          }), _react.default.createElement(_formik.Field, {
+            id: "facebook_url",
+            name: "facebook_url",
+            render: function render(_ref7) {
+              var field = _ref7.field;
+              return _react.default.createElement(_TextField.default, _extends({}, field, {
+                label: "Facebook URL ",
+                className: classes.input,
+                inputProps: {
+                  "aria-label": "Facebook URL "
+                },
+                type: "url",
+                error: touched.facebook_url && errors.facebook_url ? true : false,
+                helperText: touched.facebook_url && errors.facebook_url
+              }));
+            }
+          }), _react.default.createElement(_formik.Field, {
+            id: "linkedin_url",
+            name: "linkedin_url",
+            render: function render(_ref8) {
+              var field = _ref8.field;
+              return _react.default.createElement(_TextField.default, _extends({}, field, {
+                label: "LinkedIn URL ",
+                className: classes.input,
+                inputProps: {
+                  "aria-label": "LinkedIn URL "
+                },
+                type: "url",
+                error: touched.linkedin_url && errors.linkedin_url ? true : false,
+                helperText: touched.linkedin_url && errors.linkedin_url
+              }));
+            }
+          }), _react.default.createElement(_formik.Field, {
+            id: "instagram_url",
+            name: "instagram_url",
+            render: function render(_ref9) {
+              var field = _ref9.field;
+              return _react.default.createElement(_TextField.default, _extends({}, field, {
+                label: "Instagram URL ",
+                className: classes.input,
+                inputProps: {
+                  "aria-label": "Instagram URL "
+                },
+                type: "url",
+                error: touched.instagram_url && errors.instagram_url ? true : false,
+                helperText: touched.instagram_url && errors.instagram_url
+              }));
+            }
+          }), _react.default.createElement(_formik.Field, {
+            id: "youtube_url",
+            name: "youtube_url",
+            render: function render(_ref10) {
+              var field = _ref10.field;
+              return _react.default.createElement(_TextField.default, _extends({}, field, {
+                label: "YouTube URL ",
+                className: classes.input,
+                inputProps: {
+                  "aria-label": "YouTube URL "
+                },
+                type: "url",
+                error: touched.youtube_url && errors.youtube_url ? true : false,
+                helperText: touched.youtube_url && errors.youtube_url
+              }));
+            }
+          })), _react.default.createElement(_Button.default, {
+            className: classes.button,
+            type: "submit",
+            variant: "contained",
+            color: "secondary",
+            disabled: isSubmitting
+          }, _react.default.createElement(_Update.default, {
+            className: classes.updateIcon
+          }), " Update User"));
+        }
+      }), _react.default.createElement(_Typography.default, {
+        className: classes.header,
+        variant: "h6"
+      }, "User Security"), _react.default.createElement(_Divider.default, {
+        className: classes.divider
+      }), _react.default.createElement(_Typography.default, {
+        className: classes.subHeading,
+        variant: "subtitle1"
+      }, "Change Password"), _react.default.createElement(_formik.Formik, {
+        initialValues: {
+          currentPassword: "",
+          newPassword: "",
+          id: user.id
+        },
+        validationSchema: function validationSchema() {
+          return Yup.object().shape({
+            currentPassword: Yup.string().min(9, "Must be at least 9 characters long").required("Current password is required"),
+            newPassword: Yup.string().min(9, "Must be at least 9 characters long").required("New password is required"),
+            id: Yup.string()
+          });
+        },
+        onSubmit: function onSubmit(values, _ref11) {
+          var setSubmitting = _ref11.setSubmitting,
+              resetForm = _ref11.resetForm;
+          console.log(values);
+          return fetch("/mac-cms/api/users/change-password", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(values)
+          }).then(function (res) {
+            return res.text();
+          }).then(function (res) {
+            console.log(res);
+
+            if (res === "Accepted") {
+              _this2.setState({
+                successSnackOpen: true
+              });
+            } else if (res === "Unauthorized") {
+              _this2.setState({
+                incorrectPassword: true,
+                failureSnackOpen: true
+              });
+            } else {
+              _this2.setState({
+                failureSnackOpen: true
+              });
+            }
+
+            setSubmitting(false);
+            resetForm();
+          }).catch(function (err) {
+            console.error(err);
+
+            _this2.setState({
+              failureSnackOpen: true
+            });
+          });
+        },
+        render: function render(_ref12) {
+          var errors = _ref12.errors,
+              touched = _ref12.touched,
+              isSubmitting = _ref12.isSubmitting;
+          return _react.default.createElement(_formik.Form, {
+            noValidate: true,
+            id: "changePassword"
+          }, _react.default.createElement("div", {
+            className: classes.formContainer
+          }, _react.default.createElement(_formik.Field, {
+            id: "currentPassword",
+            name: "currentPassword",
+            render: function render(_ref13) {
+              var field = _ref13.field,
+                  _ref13$form = _ref13.form,
+                  errors = _ref13$form.errors,
+                  touched = _ref13$form.touched;
+              return _react.default.createElement(_TextField.default, _extends({}, field, {
+                label: "Current Password",
+                className: classes.input,
+                inputProps: {
+                  "aria-label": "Current Password"
+                },
+                required: true,
+                type: "password",
+                error: touched.currentPassword && errors.currentPassword ? true : false,
+                helperText: touched.currentPassword && errors.currentPassword
+              }));
+            }
+          }), _react.default.createElement(_formik.Field, {
+            id: "newPassword",
+            name: "newPassword",
+            render: function render(_ref14) {
+              var field = _ref14.field,
+                  _ref14$form = _ref14.form,
+                  errors = _ref14$form.errors,
+                  touched = _ref14$form.touched;
+              return _react.default.createElement(_TextField.default, _extends({}, field, {
+                label: "New Password",
+                className: classes.input,
+                inputProps: {
+                  "aria-label": "New Password"
+                },
+                required: true,
+                type: "password",
+                error: touched.newPassword && errors.newPassword ? true : false,
+                helperText: touched.newPassword && errors.newPassword
+              }));
+            }
+          })), _react.default.createElement(_Button.default, {
+            className: classes.button,
+            color: "secondary",
+            variant: "contained",
+            type: "submit"
+          }, _react.default.createElement(_Lock.default, {
+            className: classes.updateIcon
+          }), "Update Password"));
+        }
+      })), _react.default.createElement(_Snackbar.default, {
+        anchorOrigin: {
+          vertical: "bottom",
+          horizontal: "left"
+        },
+        open: successSnackOpen,
+        autoHideDuration: 6000,
+        onClose: this.handleSuccessClose,
+        ContentProps: {
+          "aria-describedby": "user-updated"
+        },
+        message: _react.default.createElement("span", {
+          id: "user-updated"
+        }, "User Updated"),
+        action: [_react.default.createElement(_IconButton.default, {
+          key: "close",
+          "aria-label": "Close",
+          color: "inherit",
+          className: classes.close,
+          onClick: this.handleSuccessClose
+        }, _react.default.createElement(_Close.default, null))]
+      }), _react.default.createElement(_Snackbar.default, {
+        anchorOrigin: {
+          vertical: "bottom",
+          horizontal: "left"
+        },
+        open: failureSnackOpen,
+        autoHideDuration: 6000,
+        onClose: this.handleFailureClose,
+        ContentProps: {
+          "aria-describedby": "user-update-failed"
+        },
+        message: _react.default.createElement("span", {
+          id: "user-update-failed"
+        }, incorrectPassword ? "Current password incorrect" : "User update failed - please try again"),
+        action: [_react.default.createElement(_IconButton.default, {
+          key: "close",
+          "aria-label": "Close",
+          color: "inherit",
+          className: classes.close,
+          onClick: this.handleFailureClose
+        }, _react.default.createElement(_Close.default, null))]
+      }));
+    }
+  }]);
+
+  return MyAccount;
+}(_react.Component);
+
+var styles = function styles(theme) {
+  return {
+    container: _objectSpread({}, theme.mixins.gutters(), {
+      paddingTop: theme.spacing.unit * 2,
+      paddingBottom: theme.spacing.unit * 2,
+      width: "100%"
+    }),
+    header: {
+      margin: "26px ".concat(theme.spacing.unit, " 0")
+    },
+    subHeading: {
+      marginLeft: theme.spacing.unit
+    },
+    input: {
+      margin: theme.spacing.unit,
+      width: "100%"
+    },
+    divider: {
+      margin: "20px ".concat(theme.spacing.unit)
+    },
+    button: {
+      margin: "".concat(theme.spacing.unit * 4, " ").concat(theme.spacing.unit)
+    },
+    updateIcon: {
+      marginRight: theme.spacing.unit
+    },
+    formContainer: {
+      display: "grid",
+      gridTemplateColumns: "repeat(2, 1fr)",
+      gridColumnGap: "50px"
+    },
+    close: {
+      padding: theme.spacing.unit / 2
+    },
+    snack: {
+      bottom: 24
+    }
+  };
+};
+
+var _default = (0, _styles.withStyles)(styles)((0, _GlobalContext.withGlobalContext)(MyAccount));
+
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","@material-ui/core/styles":"../node_modules/@material-ui/core/styles/index.js","../GlobalContext":"../admin/GlobalContext.js","@material-ui/core/Paper":"../node_modules/@material-ui/core/Paper/index.js","@material-ui/core/TextField":"../node_modules/@material-ui/core/TextField/index.js","@material-ui/core/Typography":"../node_modules/@material-ui/core/Typography/index.js","@material-ui/core/Divider":"../node_modules/@material-ui/core/Divider/index.js","@material-ui/core/Button":"../node_modules/@material-ui/core/Button/index.js","@material-ui/core/MenuItem":"../node_modules/@material-ui/core/MenuItem/index.js","@material-ui/icons/Update":"node_modules/@material-ui/icons/Update.js","@material-ui/icons/AccountCircle":"../node_modules/@material-ui/icons/AccountCircle.js","@material-ui/core/Snackbar":"node_modules/@material-ui/core/Snackbar/index.js","@material-ui/core/IconButton":"../node_modules/@material-ui/core/IconButton/index.js","@material-ui/icons/Close":"node_modules/@material-ui/icons/Close.js","@material-ui/icons/Lock":"node_modules/@material-ui/icons/Lock.js","formik":"../node_modules/formik/dist/formik.esm.js","yup":"../node_modules/yup/lib/index.js","../common/AdminContainer":"common/AdminContainer.js","../common/Heading":"common/Heading.js"}],"admin/Admin.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -81461,6 +83257,8 @@ var _AllUsers = _interopRequireDefault(require("./users/AllUsers"));
 var _NewUser = _interopRequireDefault(require("./users/NewUser"));
 
 var _DeletedUsers = _interopRequireDefault(require("./users/DeletedUsers"));
+
+var _MyAccount = _interopRequireDefault(require("./users/MyAccount"));
 
 var _GlobalContext = require("./GlobalContext");
 
@@ -81562,6 +83360,12 @@ function (_Component) {
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
+        path: "/mac-cms/users/my-account",
+        render: function render() {
+          return _react.default.createElement(_MyAccount.default, null);
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
         render: function render() {
           return _react.default.createElement("div", null, "404!");
         }
@@ -81574,7 +83378,7 @@ function (_Component) {
 
 var _default = Admin;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/es/index.js","./Header":"Header.js","./Sidebar":"admin/Sidebar.js","./users/AllUsers":"admin/users/AllUsers.js","./users/NewUser":"admin/users/NewUser.js","./users/DeletedUsers":"admin/users/DeletedUsers.js","./GlobalContext":"../admin/GlobalContext.js"}],"index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/es/index.js","./Header":"admin/Header.js","./Sidebar":"admin/Sidebar.js","./users/AllUsers":"admin/users/AllUsers.js","./users/NewUser":"admin/users/NewUser.js","./users/DeletedUsers":"admin/users/DeletedUsers.js","./users/MyAccount":"admin/users/MyAccount.js","./GlobalContext":"../admin/GlobalContext.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -81613,7 +83417,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56082" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63883" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

@@ -115,3 +115,79 @@ exports.userLogin = async user => {
     .where("id", "=", user.id)
     .update({ last_login: db.knex.fn.now() });
 };
+
+// update a user record
+exports.userUpdate = async (req, res) => {
+  // const user = pickBy(req.body, identity);
+  const user = req.body;
+  const transformedUser = {};
+  const values = {};
+
+  const transformValues = new Promise((resolve, reject) => {
+    if (!user) {
+      reject("No user found to update");
+    }
+
+    Object.keys(user).map(key => {
+      if (user[key] === "") {
+        values[key] = null;
+      } else {
+        values[key] = user[key];
+      }
+    });
+
+    resolve(values);
+  });
+
+  transformValues
+    .then(values =>
+      db
+        .knex("users")
+        .where({ id: req.body.id })
+        .update(values)
+        .catch(err => res.sendStatus(500))
+    )
+    .then(() => res.sendStatus(202))
+    .catch(err => res.sendStatus(500));
+};
+
+// change user password
+exports.changePassword = async (req, res) => {
+  if (!req.body || !req.body.id) {
+    console.error(
+      "No body data found, or no current user ID to update password"
+    );
+    return res.sendStatus("500");
+  }
+
+  const currentPassword = req.body.currentPassword;
+  const newPassword = req.body.newPassword;
+  const currentHash = await db
+    .knex("users")
+    .where({ id: req.body.id })
+    .select("password")
+    .catch(err => {
+      console.error("Error getting current password");
+      return res.sendStatus(500);
+    });
+
+  const match = await bcrypt.compare(currentPassword, currentHash[0].password);
+
+  if (match) {
+    await bcrypt.hash(newPassword, 10, (err, hash) => {
+      if (err) {
+        console.error("Error hashing new password", err);
+      }
+      db.knex("users")
+        .where({ id: req.body.id })
+        .update({ password: hash })
+        .then(() => res.sendStatus(202))
+        .catch(err => {
+          console.error("Error saving new password to database", err);
+          return res.sendStatus(500);
+        });
+    });
+  } else {
+    return res.sendStatus(401);
+  }
+};

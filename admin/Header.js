@@ -12,6 +12,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import { Link } from "react-router-dom";
 
 type $Props = {
   classes: Object,
@@ -88,8 +89,12 @@ class Header extends Component<$Props, $State> {
                 open={open}
                 onClose={this.handleClose}
               >
-                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                <Link
+                  className={classes.linkStyle}
+                  to="/mac-cms/users/my-account"
+                >
+                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                </Link>
                 <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
               </Menu>
             </div>
@@ -100,7 +105,7 @@ class Header extends Component<$Props, $State> {
   }
 }
 
-const styles = () => ({
+const styles = theme => ({
   root: {
     position: "relative",
     flexGrow: 1,
@@ -112,6 +117,10 @@ const styles = () => ({
   menuButton: {
     marginLeft: -12,
     marginRight: 20
+  },
+  linkStyle: {
+    outline: "none",
+    textDecoration: "none"
   }
 });
 

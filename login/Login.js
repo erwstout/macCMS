@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { Formik, Form } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import theme from "../styles/theme";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
@@ -28,7 +28,7 @@ class Login extends Component<$Props> {
             <Formik
               initialValues={{ username: "", password: "" }}
               validationSchema={() =>
-                Yup.Object().shape({
+                Yup.object().shape({
                   username: Yup.string().required("Username is required"),
                   password: Yup.string().required("Password is required")
                 })
@@ -37,27 +37,46 @@ class Login extends Component<$Props> {
                 // manually submit the form
                 document.getElementById("login-form").submit();
               }}
-              render={({ isSubmitting }) => (
+              render={({ touched, errors, isSubmitting }) => (
                 <Form method="POST" action="/mac-cms/login" id="login-form">
                   <div className={classes.formContainer}>
-                    <TextField
+                    <Field
                       id="username"
                       name="username"
-                      label="Username"
-                      className={classes.input}
-                      inputProps={{
-                        "aria-label": "Username"
-                      }}
+                      render={({ field, form: { errors, touched } }) => (
+                        <TextField
+                          {...field}
+                          label="Username"
+                          className={classes.input}
+                          inputProps={{
+                            "aria-label": "Username"
+                          }}
+                          error={
+                            touched.username && errors.username ? true : false
+                          }
+                          helperText={touched.username && errors.username}
+                        />
+                      )}
                     />
-                    <TextField
+
+                    <Field
                       id="password"
                       name="password"
-                      type="password"
-                      label="Password"
-                      className={classes.input}
-                      inputProps={{
-                        "aria-label": "Password"
-                      }}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          label="Password"
+                          className={classes.input}
+                          inputProps={{
+                            "aria-label": "Password"
+                          }}
+                          type="password"
+                          error={
+                            touched.password && errors.password ? true : false
+                          }
+                          helperText={touched.password && errors.password}
+                        />
+                      )}
                     />
                   </div>
                   <Button variant="contained" color="primary" type="submit">

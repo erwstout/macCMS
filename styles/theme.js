@@ -1,11 +1,11 @@
 import { createMuiTheme } from "@material-ui/core/styles";
-import deepPurple from "@material-ui/core/colors/deepPurple";
-import deepOrange from "@material-ui/core/colors/deepOrange";
+import lightBlue from "@material-ui/core/colors/lightBlue";
+import amber from "@material-ui/core/colors/amber";
 
 const theme = createMuiTheme({
   palette: {
-    primary: deepPurple,
-    secondary: deepOrange
+    primary: lightBlue,
+    secondary: amber
   },
   typography: {
     useNextVariants: true

@@ -60956,57 +60956,57 @@ function addMethod(schemaType, name, fn) {
   if (typeof fn !== 'function') throw new TypeError('Method function must be provided');
   schemaType.prototype[name] = fn;
 }
-},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js","./mixed":"../node_modules/yup/lib/mixed.js","./boolean":"../node_modules/yup/lib/boolean.js","./string":"../node_modules/yup/lib/string.js","./number":"../node_modules/yup/lib/number.js","./date":"../node_modules/yup/lib/date.js","./object":"../node_modules/yup/lib/object.js","./array":"../node_modules/yup/lib/array.js","./Reference":"../node_modules/yup/lib/Reference.js","./Lazy":"../node_modules/yup/lib/Lazy.js","./ValidationError":"../node_modules/yup/lib/ValidationError.js","./util/reach":"../node_modules/yup/lib/util/reach.js","./util/isSchema":"../node_modules/yup/lib/util/isSchema.js","./setLocale":"../node_modules/yup/lib/setLocale.js"}],"../node_modules/@material-ui/core/colors/deepPurple.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"../node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js","./mixed":"../node_modules/yup/lib/mixed.js","./boolean":"../node_modules/yup/lib/boolean.js","./string":"../node_modules/yup/lib/string.js","./number":"../node_modules/yup/lib/number.js","./date":"../node_modules/yup/lib/date.js","./object":"../node_modules/yup/lib/object.js","./array":"../node_modules/yup/lib/array.js","./Reference":"../node_modules/yup/lib/Reference.js","./Lazy":"../node_modules/yup/lib/Lazy.js","./ValidationError":"../node_modules/yup/lib/ValidationError.js","./util/reach":"../node_modules/yup/lib/util/reach.js","./util/isSchema":"../node_modules/yup/lib/util/isSchema.js","./setLocale":"../node_modules/yup/lib/setLocale.js"}],"node_modules/@material-ui/core/colors/lightBlue.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var deepPurple = {
-  50: '#ede7f6',
-  100: '#d1c4e9',
-  200: '#b39ddb',
-  300: '#9575cd',
-  400: '#7e57c2',
-  500: '#673ab7',
-  600: '#5e35b1',
-  700: '#512da8',
-  800: '#4527a0',
-  900: '#311b92',
-  A100: '#b388ff',
-  A200: '#7c4dff',
-  A400: '#651fff',
-  A700: '#6200ea'
+var lightBlue = {
+  50: '#e1f5fe',
+  100: '#b3e5fc',
+  200: '#81d4fa',
+  300: '#4fc3f7',
+  400: '#29b6f6',
+  500: '#03a9f4',
+  600: '#039be5',
+  700: '#0288d1',
+  800: '#0277bd',
+  900: '#01579b',
+  A100: '#80d8ff',
+  A200: '#40c4ff',
+  A400: '#00b0ff',
+  A700: '#0091ea'
 };
-var _default = deepPurple;
+var _default = lightBlue;
 exports.default = _default;
-},{}],"../node_modules/@material-ui/core/colors/deepOrange.js":[function(require,module,exports) {
+},{}],"node_modules/@material-ui/core/colors/amber.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var deepOrange = {
-  50: '#fbe9e7',
-  100: '#ffccbc',
-  200: '#ffab91',
-  300: '#ff8a65',
-  400: '#ff7043',
-  500: '#ff5722',
-  600: '#f4511e',
-  700: '#e64a19',
-  800: '#d84315',
-  900: '#bf360c',
-  A100: '#ff9e80',
-  A200: '#ff6e40',
-  A400: '#ff3d00',
-  A700: '#dd2c00'
+var amber = {
+  50: '#fff8e1',
+  100: '#ffecb3',
+  200: '#ffe082',
+  300: '#ffd54f',
+  400: '#ffca28',
+  500: '#ffc107',
+  600: '#ffb300',
+  700: '#ffa000',
+  800: '#ff8f00',
+  900: '#ff6f00',
+  A100: '#ffe57f',
+  A200: '#ffd740',
+  A400: '#ffc400',
+  A700: '#ffab00'
 };
-var _default = deepOrange;
+var _default = amber;
 exports.default = _default;
-},{}],"../styles/theme.js":[function(require,module,exports) {
+},{}],"styles/theme.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -61016,16 +61016,16 @@ exports.default = void 0;
 
 var _styles = require("@material-ui/core/styles");
 
-var _deepPurple = _interopRequireDefault(require("@material-ui/core/colors/deepPurple"));
+var _lightBlue = _interopRequireDefault(require("@material-ui/core/colors/lightBlue"));
 
-var _deepOrange = _interopRequireDefault(require("@material-ui/core/colors/deepOrange"));
+var _amber = _interopRequireDefault(require("@material-ui/core/colors/amber"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var theme = (0, _styles.createMuiTheme)({
   palette: {
-    primary: _deepPurple.default,
-    secondary: _deepOrange.default
+    primary: _lightBlue.default,
+    secondary: _amber.default
   },
   typography: {
     useNextVariants: true
@@ -61033,7 +61033,7 @@ var theme = (0, _styles.createMuiTheme)({
 });
 var _default = theme;
 exports.default = _default;
-},{"@material-ui/core/styles":"../node_modules/@material-ui/core/styles/index.js","@material-ui/core/colors/deepPurple":"../node_modules/@material-ui/core/colors/deepPurple.js","@material-ui/core/colors/deepOrange":"../node_modules/@material-ui/core/colors/deepOrange.js"}],"Login.js":[function(require,module,exports) {
+},{"@material-ui/core/styles":"../node_modules/@material-ui/core/styles/index.js","@material-ui/core/colors/lightBlue":"node_modules/@material-ui/core/colors/lightBlue.js","@material-ui/core/colors/amber":"node_modules/@material-ui/core/colors/amber.js"}],"login/Login.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -61072,6 +61072,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -61119,7 +61121,7 @@ function (_Component) {
           password: ""
         },
         validationSchema: function validationSchema() {
-          return Yup.Object().shape({
+          return Yup.object().shape({
             username: Yup.string().required("Username is required"),
             password: Yup.string().required("Password is required")
           });
@@ -61130,29 +61132,48 @@ function (_Component) {
           document.getElementById("login-form").submit();
         },
         render: function render(_ref2) {
-          var isSubmitting = _ref2.isSubmitting;
+          var touched = _ref2.touched,
+              errors = _ref2.errors,
+              isSubmitting = _ref2.isSubmitting;
           return _react.default.createElement(_formik.Form, {
             method: "POST",
             action: "/mac-cms/login",
             id: "login-form"
           }, _react.default.createElement("div", {
             className: classes.formContainer
-          }, _react.default.createElement(_TextField.default, {
+          }, _react.default.createElement(_formik.Field, {
             id: "username",
             name: "username",
-            label: "Username",
-            className: classes.input,
-            inputProps: {
-              "aria-label": "Username"
+            render: function render(_ref3) {
+              var field = _ref3.field,
+                  _ref3$form = _ref3.form,
+                  errors = _ref3$form.errors,
+                  touched = _ref3$form.touched;
+              return _react.default.createElement(_TextField.default, _extends({}, field, {
+                label: "Username",
+                className: classes.input,
+                inputProps: {
+                  "aria-label": "Username"
+                },
+                error: touched.username && errors.username ? true : false,
+                helperText: touched.username && errors.username
+              }));
             }
-          }), _react.default.createElement(_TextField.default, {
+          }), _react.default.createElement(_formik.Field, {
             id: "password",
             name: "password",
-            type: "password",
-            label: "Password",
-            className: classes.input,
-            inputProps: {
-              "aria-label": "Password"
+            render: function render(_ref4) {
+              var field = _ref4.field;
+              return _react.default.createElement(_TextField.default, _extends({}, field, {
+                label: "Password",
+                className: classes.input,
+                inputProps: {
+                  "aria-label": "Password"
+                },
+                type: "password",
+                error: touched.password && errors.password ? true : false,
+                helperText: touched.password && errors.password
+              }));
             }
           })), _react.default.createElement(_Button.default, {
             variant: "contained",
@@ -61207,7 +61228,7 @@ var styles = function styles(theme) {
 var _default = (0, _styles.withStyles)(styles)(Login);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","@material-ui/core/styles":"../node_modules/@material-ui/core/styles/index.js","@material-ui/core/Paper":"../node_modules/@material-ui/core/Paper/index.js","@material-ui/core/Typography":"../node_modules/@material-ui/core/Typography/index.js","@material-ui/core/Divider":"../node_modules/@material-ui/core/Divider/index.js","@material-ui/core/TextField":"../node_modules/@material-ui/core/TextField/index.js","@material-ui/core/Button":"../node_modules/@material-ui/core/Button/index.js","formik":"../node_modules/formik/dist/formik.esm.js","yup":"../node_modules/yup/lib/index.js","../styles/theme":"../styles/theme.js","@material-ui/core/styles/MuiThemeProvider":"../node_modules/@material-ui/core/styles/MuiThemeProvider.js"}],"index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@material-ui/core/styles":"../node_modules/@material-ui/core/styles/index.js","@material-ui/core/Paper":"../node_modules/@material-ui/core/Paper/index.js","@material-ui/core/Typography":"../node_modules/@material-ui/core/Typography/index.js","@material-ui/core/Divider":"../node_modules/@material-ui/core/Divider/index.js","@material-ui/core/TextField":"../node_modules/@material-ui/core/TextField/index.js","@material-ui/core/Button":"../node_modules/@material-ui/core/Button/index.js","formik":"../node_modules/formik/dist/formik.esm.js","yup":"../node_modules/yup/lib/index.js","../styles/theme":"styles/theme.js","@material-ui/core/styles/MuiThemeProvider":"../node_modules/@material-ui/core/styles/MuiThemeProvider.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -61219,7 +61240,7 @@ var _Login = _interopRequireDefault(require("./Login"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _reactDom.default.render(_react.default.createElement(_Login.default, window.props), document.getElementById("root"));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./Login":"Login.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./Login":"login/Login.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -61246,7 +61267,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56082" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63883" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
