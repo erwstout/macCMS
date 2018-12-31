@@ -79324,7 +79324,7 @@ var styles = function styles(theme) {
 var _default = (0, _styles.withStyles)(styles)((0, _GlobalContext.withGlobalContext)(AdminContainer));
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","@material-ui/core/styles":"../node_modules/@material-ui/core/styles/index.js","../GlobalContext":"../admin/GlobalContext.js"}],"users/NewUser.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@material-ui/core/styles":"../node_modules/@material-ui/core/styles/index.js","../GlobalContext":"../admin/GlobalContext.js"}],"admin/users/NewUser.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -79467,6 +79467,7 @@ function (_Component) {
         heading: "Add User",
         Icon: _react.default.createElement(_Add.default, null)
       }), _react.default.createElement(_formik.Formik, {
+        enableReinitialize: true,
         initialValues: {
           username: "",
           password: "",
@@ -79482,17 +79483,17 @@ function (_Component) {
           created_by: this.props.user.id
         },
         validationSchema: function validationSchema() {
-          return Yup.Object().shape({
+          return Yup.object().shape({
             username: Yup.string().required("Username is required"),
-            password: Yup.string().required("Password is required"),
+            password: Yup.string().min(9, "Password must be at least 9 characters").required("Password is required"),
             first_name: Yup.string().required("First Name is required"),
             last_name: Yup.string().required("Last Name is required"),
-            email: Yup.email().required("Email is required"),
-            twitter_url: Yup.string(),
-            facebook_url: Yup.string(),
-            linkedin_url: Yup.string(),
-            instagram_url: Yup.string(),
-            youtube_url: Yup.string(),
+            email: Yup.string().email("Invalid Email").required("Email is required"),
+            twitter_url: Yup.string().url("Invalid URL, must include http:// or https://"),
+            facebook_url: Yup.string().url("Invalid URL, must include http:// or https://"),
+            linkedin_url: Yup.string().url("Invalid URL, must include http:// or https://"),
+            instagram_url: Yup.string().url("Invalid URL, must include http:// or https://"),
+            youtube_url: Yup.string().url("Invalid URL, must include http:// or https://"),
             user_type: Yup.string().required("User Type is required"),
             created_by: Yup.string()
           });
@@ -79530,7 +79531,9 @@ function (_Component) {
           return _this2.newUserForm = node;
         },
         render: function render(_ref2) {
-          var isSubmitting = _ref2.isSubmitting,
+          var errors = _ref2.errors,
+              touched = _ref2.touched,
+              isSubmitting = _ref2.isSubmitting,
               resetForm = _ref2.resetForm;
           return _react.default.createElement(_formik.Form, {
             noValidate: true,
@@ -79544,14 +79547,19 @@ function (_Component) {
             id: "username",
             name: "username",
             render: function render(_ref3) {
-              var field = _ref3.field;
+              var field = _ref3.field,
+                  _ref3$form = _ref3.form,
+                  errors = _ref3$form.errors,
+                  touched = _ref3$form.touched;
               return _react.default.createElement(_TextField.default, _extends({}, field, {
                 label: "Username",
                 className: classes.input,
                 inputProps: {
                   "aria-label": "Username"
                 },
-                required: true
+                required: true,
+                error: touched.username && errors.username ? true : false,
+                helperText: touched.username && errors.username
               }));
             }
           }), _react.default.createElement(_formik.Field, {
@@ -79566,7 +79574,9 @@ function (_Component) {
                   "aria-label": "Password"
                 },
                 required: true,
-                type: "password"
+                type: "password",
+                error: touched.password && errors.password ? true : false,
+                helperText: touched.password && errors.password
               }));
             }
           }), _react.default.createElement(_formik.Field, {
@@ -79580,7 +79590,9 @@ function (_Component) {
                 inputProps: {
                   "aria-label": "First Name"
                 },
-                required: true
+                required: true,
+                error: touched.first_name && errors.first_name ? true : false,
+                helperText: touched.first_name && errors.first_name
               }));
             }
           }), _react.default.createElement(_formik.Field, {
@@ -79594,6 +79606,8 @@ function (_Component) {
                 inputProps: {
                   "aria-label": "Last Name"
                 },
+                error: touched.last_name && errors.last_name ? true : false,
+                helperText: touched.last_name && errors.last_name,
                 required: true
               }));
             }
@@ -79609,7 +79623,9 @@ function (_Component) {
                   "aria-label": "Email"
                 },
                 type: "email",
-                required: true
+                required: true,
+                error: touched.email && errors.email ? true : false,
+                helperText: touched.email && errors.email
               }));
             }
           }), _react.default.createElement(_formik.Field, {
@@ -79623,7 +79639,9 @@ function (_Component) {
                 className: classes.input,
                 inputProps: {
                   "aria-label": "Twitter URL "
-                }
+                },
+                error: touched.twitter_url && errors.twitter_url ? true : false,
+                helperText: touched.twitter_url && errors.twitter_url
               }));
             }
           }), _react.default.createElement(_formik.Field, {
@@ -79637,7 +79655,9 @@ function (_Component) {
                 inputProps: {
                   "aria-label": "Facebook URL "
                 },
-                type: "url"
+                type: "url",
+                error: touched.facebook_url && errors.facebook_url ? true : false,
+                helperText: touched.facebook_url && errors.facebook_url
               }));
             }
           }), _react.default.createElement(_formik.Field, {
@@ -79651,7 +79671,9 @@ function (_Component) {
                 inputProps: {
                   "aria-label": "LinkedIn URL "
                 },
-                type: "url"
+                type: "url",
+                error: touched.linkedin_url && errors.linkedin_url ? true : false,
+                helperText: touched.linkedin_url && errors.linkedin_url
               }));
             }
           }), _react.default.createElement(_formik.Field, {
@@ -79665,7 +79687,9 @@ function (_Component) {
                 inputProps: {
                   "aria-label": "Instagram URL "
                 },
-                type: "url"
+                type: "url",
+                error: touched.instagram_url && errors.instagram_url ? true : false,
+                helperText: touched.instagram_url && errors.instagram_url
               }));
             }
           }), _react.default.createElement(_formik.Field, {
@@ -79679,7 +79703,9 @@ function (_Component) {
                 inputProps: {
                   "aria-label": "YouTube URL "
                 },
-                type: "url"
+                type: "url",
+                error: touched.youtube_url && errors.youtube_url ? true : false,
+                helperText: touched.youtube_url && errors.youtube_url
               }));
             }
           })), _react.default.createElement("div", null, _react.default.createElement(_Typography.default, {
@@ -79701,6 +79727,7 @@ function (_Component) {
                     className: classes.menu
                   }
                 },
+                error: touched.user_type && errors.user_type ? true : false,
                 helperText: "Please select a user type. Super Admins have full access (including creating users). Standard users can edit, create, and delete posts and pages. Limited users can only create, edit, and delete posts.",
                 margin: "normal"
               }), _react.default.createElement(_MenuItem.default, {
@@ -79720,7 +79747,8 @@ function (_Component) {
             className: classes.button,
             type: "submit",
             variant: "contained",
-            color: "secondary"
+            color: "secondary",
+            disabled: isSubmitting
           }, _react.default.createElement(_Add.default, null), " Add User"));
         }
       })));
@@ -81546,7 +81574,7 @@ function (_Component) {
 
 var _default = Admin;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/es/index.js","./Header":"Header.js","./Sidebar":"admin/Sidebar.js","./users/AllUsers":"admin/users/AllUsers.js","./users/NewUser":"users/NewUser.js","./users/DeletedUsers":"admin/users/DeletedUsers.js","./GlobalContext":"../admin/GlobalContext.js"}],"index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/es/index.js","./Header":"Header.js","./Sidebar":"admin/Sidebar.js","./users/AllUsers":"admin/users/AllUsers.js","./users/NewUser":"admin/users/NewUser.js","./users/DeletedUsers":"admin/users/DeletedUsers.js","./GlobalContext":"../admin/GlobalContext.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -81585,7 +81613,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63455" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56082" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

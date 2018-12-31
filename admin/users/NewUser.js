@@ -85,6 +85,7 @@ class NewUser extends Component<$Props, $State> {
         <Paper className={classes.container}>
           <Heading heading="Add User" Icon={<Add />} />
           <Formik
+            enableReinitialize
             initialValues={{
               username: "",
               password: "",
@@ -100,17 +101,31 @@ class NewUser extends Component<$Props, $State> {
               created_by: this.props.user.id
             }}
             validationSchema={() =>
-              Yup.Object().shape({
+              Yup.object().shape({
                 username: Yup.string().required("Username is required"),
-                password: Yup.string().required("Password is required"),
+                password: Yup.string()
+                  .min(9, "Password must be at least 9 characters")
+                  .required("Password is required"),
                 first_name: Yup.string().required("First Name is required"),
                 last_name: Yup.string().required("Last Name is required"),
-                email: Yup.email().required("Email is required"),
-                twitter_url: Yup.string(),
-                facebook_url: Yup.string(),
-                linkedin_url: Yup.string(),
-                instagram_url: Yup.string(),
-                youtube_url: Yup.string(),
+                email: Yup.string()
+                  .email("Invalid Email")
+                  .required("Email is required"),
+                twitter_url: Yup.string().url(
+                  "Invalid URL, must include http:// or https://"
+                ),
+                facebook_url: Yup.string().url(
+                  "Invalid URL, must include http:// or https://"
+                ),
+                linkedin_url: Yup.string().url(
+                  "Invalid URL, must include http:// or https://"
+                ),
+                instagram_url: Yup.string().url(
+                  "Invalid URL, must include http:// or https://"
+                ),
+                youtube_url: Yup.string().url(
+                  "Invalid URL, must include http:// or https://"
+                ),
                 user_type: Yup.string().required("User Type is required"),
                 created_by: Yup.string()
               })
@@ -138,7 +153,7 @@ class NewUser extends Component<$Props, $State> {
                 });
             }}
             ref={node => (this.newUserForm = node)}
-            render={({ isSubmitting, resetForm }) => (
+            render={({ errors, touched, isSubmitting, resetForm }) => (
               <Form noValidate id="newUser">
                 <Typography className={classes.sectionHeadline} variant="h6">
                   User Information
@@ -147,7 +162,7 @@ class NewUser extends Component<$Props, $State> {
                   <Field
                     id="username"
                     name="username"
-                    render={({ field }) => (
+                    render={({ field, form: { errors, touched } }) => (
                       <TextField
                         {...field}
                         label="Username"
@@ -156,6 +171,10 @@ class NewUser extends Component<$Props, $State> {
                           "aria-label": "Username"
                         }}
                         required
+                        error={
+                          touched.username && errors.username ? true : false
+                        }
+                        helperText={touched.username && errors.username}
                       />
                     )}
                   />
@@ -172,6 +191,10 @@ class NewUser extends Component<$Props, $State> {
                         }}
                         required
                         type="password"
+                        error={
+                          touched.password && errors.password ? true : false
+                        }
+                        helperText={touched.password && errors.password}
                       />
                     )}
                   />
@@ -187,6 +210,10 @@ class NewUser extends Component<$Props, $State> {
                           "aria-label": "First Name"
                         }}
                         required
+                        error={
+                          touched.first_name && errors.first_name ? true : false
+                        }
+                        helperText={touched.first_name && errors.first_name}
                       />
                     )}
                   />
@@ -201,6 +228,10 @@ class NewUser extends Component<$Props, $State> {
                         inputProps={{
                           "aria-label": "Last Name"
                         }}
+                        error={
+                          touched.last_name && errors.last_name ? true : false
+                        }
+                        helperText={touched.last_name && errors.last_name}
                         required
                       />
                     )}
@@ -218,6 +249,8 @@ class NewUser extends Component<$Props, $State> {
                         }}
                         type="email"
                         required
+                        error={touched.email && errors.email ? true : false}
+                        helperText={touched.email && errors.email}
                       />
                     )}
                   />
@@ -233,6 +266,12 @@ class NewUser extends Component<$Props, $State> {
                         inputProps={{
                           "aria-label": "Twitter URL "
                         }}
+                        error={
+                          touched.twitter_url && errors.twitter_url
+                            ? true
+                            : false
+                        }
+                        helperText={touched.twitter_url && errors.twitter_url}
                       />
                     )}
                   />
@@ -248,6 +287,12 @@ class NewUser extends Component<$Props, $State> {
                           "aria-label": "Facebook URL "
                         }}
                         type="url"
+                        error={
+                          touched.facebook_url && errors.facebook_url
+                            ? true
+                            : false
+                        }
+                        helperText={touched.facebook_url && errors.facebook_url}
                       />
                     )}
                   />
@@ -263,6 +308,12 @@ class NewUser extends Component<$Props, $State> {
                           "aria-label": "LinkedIn URL "
                         }}
                         type="url"
+                        error={
+                          touched.linkedin_url && errors.linkedin_url
+                            ? true
+                            : false
+                        }
+                        helperText={touched.linkedin_url && errors.linkedin_url}
                       />
                     )}
                   />
@@ -278,6 +329,14 @@ class NewUser extends Component<$Props, $State> {
                           "aria-label": "Instagram URL "
                         }}
                         type="url"
+                        error={
+                          touched.instagram_url && errors.instagram_url
+                            ? true
+                            : false
+                        }
+                        helperText={
+                          touched.instagram_url && errors.instagram_url
+                        }
                       />
                     )}
                   />
@@ -293,6 +352,12 @@ class NewUser extends Component<$Props, $State> {
                           "aria-label": "YouTube URL "
                         }}
                         type="url"
+                        error={
+                          touched.youtube_url && errors.youtube_url
+                            ? true
+                            : false
+                        }
+                        helperText={touched.youtube_url && errors.youtube_url}
                       />
                     )}
                   />
@@ -318,6 +383,9 @@ class NewUser extends Component<$Props, $State> {
                               className: classes.menu
                             }
                           }}
+                          error={
+                            touched.user_type && errors.user_type ? true : false
+                          }
                           helperText="Please select a user type. Super Admins have full access (including creating users). Standard users can edit, create, and delete posts and pages. Limited users can only create, edit, and delete posts."
                           margin="normal"
                         >
@@ -341,6 +409,7 @@ class NewUser extends Component<$Props, $State> {
                   type="submit"
                   variant="contained"
                   color="secondary"
+                  disabled={isSubmitting}
                 >
                   <Add /> Add User
                 </Button>
