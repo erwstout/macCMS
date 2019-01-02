@@ -44,8 +44,13 @@ passport.use(
   new LocalStrategy(async function(username, password, done) {
     await db
       .knex("users")
-      .where({ username: username })
       .select("*")
+      .whereIn("username", [username])
+      // .then(response => {
+      //   if(response.length === 0) {
+      //     retur
+      //   }
+      // })
       .then(response => {
         bcrypt.compare(password, response[0].password, (err, result) => {
           if (result) {
@@ -55,7 +60,10 @@ passport.use(
           }
         });
       })
-      .catch(err => done(err));
+      .catch(err => {
+        console.log("Catch Hit!");
+        return done(null, false, { message: "Incorrect Username or Password" });
+      });
   })
 );
 
@@ -78,7 +86,7 @@ app.post(
   "/mac-cms/login",
   passport.authenticate("local", {
     failureRedirect: "/mac-cms/login",
-    failureFlash: "Error logging in!"
+    failureFlash: true
   }),
   function(req, res) {
     api.userLogin(req.user);
@@ -87,7 +95,10 @@ app.post(
 );
 
 app.get("/mac-cms/login", (req, res) =>
-  res.render("login", { title: "Login | MacCMS Admin" })
+  res.render("login", {
+    title: "Login | MacCMS Admin",
+    messages: req.flash("info")
+  })
 );
 
 /**
