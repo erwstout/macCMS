@@ -1,6 +1,7 @@
 // @flow
 const session = require("express-session");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
@@ -27,10 +28,13 @@ const adminBundler = new Bundler(adminFile, adminOptions);
 /**
  * Express Configs
  */
+
+app.use(cookieParser("123423"));
+
 app.use(adminBundler.middleware());
 app.use(express.static("public"));
 app.set("view engine", "pug");
-app.use(session({ secret: "macCMS" }));
+app.use(session({ cookie: { maxAge: 60000 }, secret: "123423" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
@@ -46,22 +50,18 @@ passport.use(
       .knex("users")
       .select("*")
       .whereIn("username", [username])
-      // .then(response => {
-      //   if(response.length === 0) {
-      //     retur
-      //   }
-      // })
       .then(response => {
         bcrypt.compare(password, response[0].password, (err, result) => {
           if (result) {
             return done(null, response[0]);
           } else {
-            return done(null, false, { message: "Incorrect Password" });
+            return done(null, false, {
+              message: "Incorrect Username or Password"
+            });
           }
         });
       })
       .catch(err => {
-        console.log("Catch Hit!");
         return done(null, false, { message: "Incorrect Username or Password" });
       });
   })
@@ -94,12 +94,13 @@ app.post(
   }
 );
 
-app.get("/mac-cms/login", (req, res) =>
-  res.render("login", {
+app.get("/mac-cms/login", (req, res) => {
+  console.log(req.session);
+  return res.render("login", {
     title: "Login | MacCMS Admin",
-    messages: req.flash("info")
-  })
-);
+    props: { messages: req.session.flash }
+  });
+});
 
 /**
  * Admin Route
@@ -109,8 +110,10 @@ app.get("/mac-cms", (req, res) => {
   if (!req.user) {
     return res.redirect("/mac-cms/login");
   }
+  console.log(req.session);
   const reactProps = {
-    user: req.user[0]
+    user: req.user[0],
+    messages: req.session.flash
   };
   return res.render("admin", { title: "MacCMS Admin", props: reactProps });
 });
@@ -192,7 +195,8 @@ app.get("/mac-cms/*", (req, res) => {
     return res.redirect("/mac-cms/login");
   }
   const reactProps = {
-    user: req.user[0]
+    user: req.user[0],
+    messages: req.session.flash
   };
   return res.render("admin", { title: "MacCMS Admin", props: reactProps });
 });

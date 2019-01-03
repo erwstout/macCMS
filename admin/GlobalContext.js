@@ -9,7 +9,6 @@ const GlobalContext = React.createContext({
 export class GlobalProvider extends Component {
   render() {
     const { user } = this.props;
-    console.log("GlobalContext ==>", user); // this works
 
     return (
       <MuiThemeProvider theme={theme}>

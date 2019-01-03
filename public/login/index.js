@@ -61033,7 +61033,2116 @@ var theme = (0, _styles.createMuiTheme)({
 });
 var _default = theme;
 exports.default = _default;
-},{"@material-ui/core/styles":"node_modules/@material-ui/core/styles/index.js","@material-ui/core/colors/lightBlue":"node_modules/@material-ui/core/colors/lightBlue.js","@material-ui/core/colors/amber":"node_modules/@material-ui/core/colors/amber.js"}],"login/Login.js":[function(require,module,exports) {
+},{"@material-ui/core/styles":"node_modules/@material-ui/core/styles/index.js","@material-ui/core/colors/lightBlue":"node_modules/@material-ui/core/colors/lightBlue.js","@material-ui/core/colors/amber":"node_modules/@material-ui/core/colors/amber.js"}],"node_modules/notistack/build/SnackbarContext.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.SnackbarContextNext = exports.SnackbarContext = undefined;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SnackbarContext = _react2.default.createContext();
+var SnackbarContextNext = _react2.default.createContext();
+
+exports.SnackbarContext = SnackbarContext;
+exports.SnackbarContextNext = SnackbarContextNext;
+},{"react":"node_modules/react/index.js"}],"node_modules/notistack/build/utils/constants.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var TRANSITION_DELAY = 150;
+var TRANSITION_DOWN_DURATION = 200;
+
+exports.TRANSITION_DELAY = TRANSITION_DELAY;
+exports.TRANSITION_DOWN_DURATION = TRANSITION_DOWN_DURATION;
+},{}],"node_modules/@material-ui/core/ClickAwayListener/ClickAwayListener.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf3 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactDom = _interopRequireDefault(require("react-dom"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _reactEventListener = _interopRequireDefault(require("react-event-listener"));
+
+var _ownerDocument = _interopRequireDefault(require("../utils/ownerDocument")); // @inheritedComponent EventListener
+
+/**
+ * Listen for click events that occur somewhere in the document, outside of the element itself.
+ * For instance, if you need to hide a menu when people click anywhere else on your page.
+ */
+
+
+var ClickAwayListener =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inherits2.default)(ClickAwayListener, _React$Component);
+
+  function ClickAwayListener() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    (0, _classCallCheck2.default)(this, ClickAwayListener);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(ClickAwayListener)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _this.mounted = false;
+    _this.moved = false;
+
+    _this.handleClickAway = function (event) {
+      // Ignore events that have been `event.preventDefault()` marked.
+      if (event.defaultPrevented) {
+        return;
+      } // IE 11 support, which trigger the handleClickAway even after the unbind
+
+
+      if (!_this.mounted) {
+        return;
+      } // Do not act if user performed touchmove
+
+
+      if (_this.moved) {
+        _this.moved = false;
+        return;
+      } // The child might render null.
+
+
+      if (!_this.node) {
+        return;
+      }
+
+      var doc = (0, _ownerDocument.default)(_this.node);
+
+      if (doc.documentElement && doc.documentElement.contains(event.target) && !_this.node.contains(event.target)) {
+        _this.props.onClickAway(event);
+      }
+    };
+
+    _this.handleTouchMove = function () {
+      _this.moved = true;
+    };
+
+    return _this;
+  }
+
+  (0, _createClass2.default)(ClickAwayListener, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      // Finds the first child when a component returns a fragment.
+      // https://github.com/facebook/react/blob/036ae3c6e2f056adffc31dfb78d1b6f0c63272f0/packages/react-dom/src/__tests__/ReactDOMFiber-test.js#L105
+      this.node = _reactDom.default.findDOMNode(this);
+      this.mounted = true;
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.mounted = false;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          children = _this$props.children,
+          mouseEvent = _this$props.mouseEvent,
+          touchEvent = _this$props.touchEvent,
+          onClickAway = _this$props.onClickAway,
+          other = (0, _objectWithoutProperties2.default)(_this$props, ["children", "mouseEvent", "touchEvent", "onClickAway"]);
+      var listenerProps = {};
+
+      if (mouseEvent !== false) {
+        listenerProps[mouseEvent] = this.handleClickAway;
+      }
+
+      if (touchEvent !== false) {
+        listenerProps[touchEvent] = this.handleClickAway;
+        listenerProps.onTouchMove = this.handleTouchMove;
+      }
+
+      return _react.default.createElement(_react.default.Fragment, null, children, _react.default.createElement(_reactEventListener.default, (0, _extends2.default)({
+        target: "document"
+      }, listenerProps, other)));
+    }
+  }]);
+  return ClickAwayListener;
+}(_react.default.Component);
+
+"development" !== "production" ? ClickAwayListener.propTypes = {
+  /**
+   * The wrapped element.
+   */
+  children: _propTypes.default.element.isRequired,
+
+  /**
+   * The mouse event to listen to. You can disable the listener by providing `false`.
+   */
+  mouseEvent: _propTypes.default.oneOf(['onClick', 'onMouseDown', 'onMouseUp', false]),
+
+  /**
+   * Callback fired when a "click away" event is detected.
+   */
+  onClickAway: _propTypes.default.func.isRequired,
+
+  /**
+   * The touch event to listen to. You can disable the listener by providing `false`.
+   */
+  touchEvent: _propTypes.default.oneOf(['onTouchStart', 'onTouchEnd', false])
+} : void 0;
+ClickAwayListener.defaultProps = {
+  mouseEvent: 'onMouseUp',
+  touchEvent: 'onTouchEnd'
+};
+var _default = ClickAwayListener;
+exports.default = _default;
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/extends":"node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutProperties":"node_modules/@babel/runtime/helpers/objectWithoutProperties.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/inherits":"node_modules/@babel/runtime/helpers/inherits.js","react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","prop-types":"node_modules/prop-types/index.js","react-event-listener":"node_modules/react-event-listener/dist/react-event-listener.cjs.js","../utils/ownerDocument":"node_modules/@material-ui/core/utils/ownerDocument.js"}],"node_modules/@material-ui/core/ClickAwayListener/index.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _ClickAwayListener.default;
+  }
+});
+
+var _ClickAwayListener = _interopRequireDefault(require("./ClickAwayListener"));
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","./ClickAwayListener":"node_modules/@material-ui/core/ClickAwayListener/ClickAwayListener.js"}],"node_modules/@material-ui/core/Slide/Slide.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.setTranslateValue = setTranslateValue;
+exports.default = void 0;
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _reactDom = _interopRequireDefault(require("react-dom"));
+
+var _reactEventListener = _interopRequireDefault(require("react-event-listener"));
+
+var _debounce = _interopRequireDefault(require("debounce"));
+
+var _Transition = _interopRequireDefault(require("react-transition-group/Transition"));
+
+var _ownerWindow = _interopRequireDefault(require("../utils/ownerWindow"));
+
+var _withTheme = _interopRequireDefault(require("../styles/withTheme"));
+
+var _transitions = require("../styles/transitions");
+
+var _utils = require("../transitions/utils"); // @inheritedComponent Transition
+// < 1kb payload overhead when lodash/debounce is > 3kb.
+
+
+var GUTTER = 24; // Translate the node so he can't be seen on the screen.
+// Later, we gonna translate back the node to his original location
+// with `translate3d(0, 0, 0)`.`
+
+function getTranslateValue(props, node) {
+  var direction = props.direction;
+  var rect = node.getBoundingClientRect();
+  var transform;
+
+  if (node.fakeTransform) {
+    transform = node.fakeTransform;
+  } else {
+    var computedStyle = (0, _ownerWindow.default)(node).getComputedStyle(node);
+    transform = computedStyle.getPropertyValue('-webkit-transform') || computedStyle.getPropertyValue('transform');
+  }
+
+  var offsetX = 0;
+  var offsetY = 0;
+
+  if (transform && transform !== 'none' && typeof transform === 'string') {
+    var transformValues = transform.split('(')[1].split(')')[0].split(',');
+    offsetX = parseInt(transformValues[4], 10);
+    offsetY = parseInt(transformValues[5], 10);
+  }
+
+  if (direction === 'left') {
+    return "translateX(100vw) translateX(-".concat(rect.left - offsetX, "px)");
+  }
+
+  if (direction === 'right') {
+    return "translateX(-".concat(rect.left + rect.width + GUTTER - offsetX, "px)");
+  }
+
+  if (direction === 'up') {
+    return "translateY(100vh) translateY(-".concat(rect.top - offsetY, "px)");
+  } // direction === 'down'
+
+
+  return "translateY(-".concat(rect.top + rect.height + GUTTER - offsetY, "px)");
+}
+
+function setTranslateValue(props, node) {
+  var transform = getTranslateValue(props, node);
+
+  if (transform) {
+    node.style.webkitTransform = transform;
+    node.style.transform = transform;
+  }
+}
+/**
+ * The Slide transition is used by the [Snackbar](/demos/snackbars/) component.
+ * It uses [react-transition-group](https://github.com/reactjs/react-transition-group) internally.
+ */
+
+
+var Slide =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inherits2.default)(Slide, _React$Component);
+
+  function Slide() {
+    var _this;
+
+    (0, _classCallCheck2.default)(this, Slide);
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(Slide).call(this));
+    _this.mounted = false;
+
+    _this.handleEnter = function (node) {
+      setTranslateValue(_this.props, node);
+      (0, _utils.reflow)(node);
+
+      if (_this.props.onEnter) {
+        _this.props.onEnter(node);
+      }
+    };
+
+    _this.handleEntering = function (node) {
+      var theme = _this.props.theme;
+      var transitionProps = (0, _utils.getTransitionProps)(_this.props, {
+        mode: 'enter'
+      });
+      node.style.webkitTransition = theme.transitions.create('-webkit-transform', (0, _extends2.default)({}, transitionProps, {
+        easing: theme.transitions.easing.easeOut
+      }));
+      node.style.transition = theme.transitions.create('transform', (0, _extends2.default)({}, transitionProps, {
+        easing: theme.transitions.easing.easeOut
+      }));
+      node.style.webkitTransform = 'translate(0, 0)';
+      node.style.transform = 'translate(0, 0)';
+
+      if (_this.props.onEntering) {
+        _this.props.onEntering(node);
+      }
+    };
+
+    _this.handleExit = function (node) {
+      var theme = _this.props.theme;
+      var transitionProps = (0, _utils.getTransitionProps)(_this.props, {
+        mode: 'exit'
+      });
+      node.style.webkitTransition = theme.transitions.create('-webkit-transform', (0, _extends2.default)({}, transitionProps, {
+        easing: theme.transitions.easing.sharp
+      }));
+      node.style.transition = theme.transitions.create('transform', (0, _extends2.default)({}, transitionProps, {
+        easing: theme.transitions.easing.sharp
+      }));
+      setTranslateValue(_this.props, node);
+
+      if (_this.props.onExit) {
+        _this.props.onExit(node);
+      }
+    };
+
+    _this.handleExited = function (node) {
+      // No need for transitions when the component is hidden
+      node.style.webkitTransition = '';
+      node.style.transition = '';
+
+      if (_this.props.onExited) {
+        _this.props.onExited(node);
+      }
+    };
+
+    if (typeof window !== 'undefined') {
+      _this.handleResize = (0, _debounce.default)(function () {
+        // Skip configuration where the position is screen size invariant.
+        if (_this.props.in || _this.props.direction === 'down' || _this.props.direction === 'right') {
+          return;
+        }
+
+        if (_this.transitionRef) {
+          setTranslateValue(_this.props, _this.transitionRef);
+        }
+      }, 166); // Corresponds to 10 frames at 60 Hz.
+    }
+
+    return _this;
+  }
+
+  (0, _createClass2.default)(Slide, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.mounted = true; // state.mounted handle SSR, once the component is mounted, we need
+      // to properly hide it.
+
+      if (!this.props.in) {
+        // We need to set initial translate values of transition element
+        // otherwise component will be shown when in=false.
+        this.updatePosition();
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (prevProps.direction !== this.props.direction && !this.props.in) {
+        // We need to update the position of the drawer when the direction change and
+        // when it's hidden.
+        this.updatePosition();
+      }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.handleResize.clear();
+    }
+  }, {
+    key: "updatePosition",
+    value: function updatePosition() {
+      if (this.transitionRef) {
+        this.transitionRef.style.visibility = 'inherit';
+        setTranslateValue(this.props, this.transitionRef);
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var _this$props = this.props,
+          children = _this$props.children,
+          direction = _this$props.direction,
+          onEnter = _this$props.onEnter,
+          onEntering = _this$props.onEntering,
+          onExit = _this$props.onExit,
+          onExited = _this$props.onExited,
+          styleProp = _this$props.style,
+          theme = _this$props.theme,
+          other = (0, _objectWithoutProperties2.default)(_this$props, ["children", "direction", "onEnter", "onEntering", "onExit", "onExited", "style", "theme"]);
+      var style = {}; // We use this state to handle the server-side rendering.
+      // We don't know the width of the children ahead of time.
+      // We need to render it.
+
+      if (!this.props.in && !this.mounted) {
+        style.visibility = 'hidden';
+      }
+
+      style = (0, _extends2.default)({}, style, styleProp, _react.default.isValidElement(children) ? children.props.style : {});
+      return _react.default.createElement(_reactEventListener.default, {
+        target: "window",
+        onResize: this.handleResize
+      }, _react.default.createElement(_Transition.default, (0, _extends2.default)({
+        onEnter: this.handleEnter,
+        onEntering: this.handleEntering,
+        onExit: this.handleExit,
+        onExited: this.handleExited,
+        appear: true,
+        style: style,
+        ref: function ref(_ref) {
+          _this2.transitionRef = _reactDom.default.findDOMNode(_ref);
+        }
+      }, other), children));
+    }
+  }]);
+  return Slide;
+}(_react.default.Component);
+
+"development" !== "production" ? Slide.propTypes = {
+  /**
+   * A single child content element.
+   */
+  children: _propTypes.default.oneOfType([_propTypes.default.element, _propTypes.default.func]),
+
+  /**
+   * Direction the child node will enter from.
+   */
+  direction: _propTypes.default.oneOf(['left', 'right', 'up', 'down']),
+
+  /**
+   * If `true`, show the component; triggers the enter or exit animation.
+   */
+  in: _propTypes.default.bool,
+
+  /**
+   * @ignore
+   */
+  onEnter: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onEntering: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onExit: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onExited: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  style: _propTypes.default.object,
+
+  /**
+   * @ignore
+   */
+  theme: _propTypes.default.object.isRequired,
+
+  /**
+   * The duration for the transition, in milliseconds.
+   * You may specify a single timeout for all transitions, or individually with an object.
+   */
+  timeout: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.shape({
+    enter: _propTypes.default.number,
+    exit: _propTypes.default.number
+  })])
+} : void 0;
+Slide.defaultProps = {
+  direction: 'down',
+  timeout: {
+    enter: _transitions.duration.enteringScreen,
+    exit: _transitions.duration.leavingScreen
+  }
+};
+
+var _default = (0, _withTheme.default)()(Slide);
+
+exports.default = _default;
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/objectWithoutProperties":"node_modules/@babel/runtime/helpers/objectWithoutProperties.js","@babel/runtime/helpers/extends":"node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/inherits":"node_modules/@babel/runtime/helpers/inherits.js","react":"node_modules/react/index.js","prop-types":"node_modules/prop-types/index.js","react-dom":"node_modules/react-dom/index.js","react-event-listener":"node_modules/react-event-listener/dist/react-event-listener.cjs.js","debounce":"node_modules/debounce/index.js","react-transition-group/Transition":"node_modules/react-transition-group/Transition.js","../utils/ownerWindow":"node_modules/@material-ui/core/utils/ownerWindow.js","../styles/withTheme":"node_modules/@material-ui/core/styles/withTheme.js","../styles/transitions":"node_modules/@material-ui/core/styles/transitions.js","../transitions/utils":"node_modules/@material-ui/core/transitions/utils.js"}],"node_modules/@material-ui/core/Slide/index.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _Slide.default;
+  }
+});
+
+var _Slide = _interopRequireDefault(require("./Slide"));
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","./Slide":"node_modules/@material-ui/core/Slide/Slide.js"}],"node_modules/@material-ui/core/SnackbarContent/SnackbarContent.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
+
+var _Paper = _interopRequireDefault(require("../Paper"));
+
+var _Typography = _interopRequireDefault(require("../Typography"));
+
+var _colorManipulator = require("../styles/colorManipulator"); // @inheritedComponent Paper
+
+
+var styles = function styles(theme) {
+  var _root;
+
+  var emphasis = theme.palette.type === 'light' ? 0.8 : 0.98;
+  var backgroundColor = (0, _colorManipulator.emphasize)(theme.palette.background.default, emphasis);
+  return {
+    /* Styles applied to the root element. */
+    root: (_root = {
+      color: theme.palette.getContrastText(backgroundColor),
+      backgroundColor: backgroundColor,
+      display: 'flex',
+      alignItems: 'center',
+      flexWrap: 'wrap',
+      padding: '6px 24px'
+    }, (0, _defineProperty2.default)(_root, theme.breakpoints.up('md'), {
+      minWidth: 288,
+      maxWidth: 568,
+      borderRadius: theme.shape.borderRadius
+    }), (0, _defineProperty2.default)(_root, theme.breakpoints.down('sm'), {
+      flexGrow: 1
+    }), _root),
+
+    /* Styles applied to the message wrapper element. */
+    message: {
+      padding: '8px 0'
+    },
+
+    /* Styles applied to the action wrapper element if `action` is provided. */
+    action: {
+      display: 'flex',
+      alignItems: 'center',
+      marginLeft: 'auto',
+      paddingLeft: 24,
+      marginRight: -8
+    }
+  };
+};
+
+exports.styles = styles;
+
+function SnackbarContent(props) {
+  var action = props.action,
+      classes = props.classes,
+      className = props.className,
+      message = props.message,
+      other = (0, _objectWithoutProperties2.default)(props, ["action", "classes", "className", "message"]);
+  return _react.default.createElement(_Paper.default, (0, _extends2.default)({
+    component: _Typography.default,
+    headlineMapping: {
+      body1: 'div',
+      body2: 'div'
+    },
+    role: "alertdialog",
+    square: true,
+    elevation: 6,
+    className: (0, _classnames.default)(classes.root, className)
+  }, other), _react.default.createElement("div", {
+    className: classes.message
+  }, message), action ? _react.default.createElement("div", {
+    className: classes.action
+  }, action) : null);
+}
+
+"development" !== "production" ? SnackbarContent.propTypes = {
+  /**
+   * The action to display.
+   */
+  action: _propTypes.default.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css-api) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * The message to display.
+   */
+  message: _propTypes.default.node
+} : void 0;
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiSnackbarContent'
+})(SnackbarContent);
+
+exports.default = _default;
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/extends":"node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutProperties":"node_modules/@babel/runtime/helpers/objectWithoutProperties.js","@babel/runtime/helpers/defineProperty":"node_modules/@babel/runtime/helpers/defineProperty.js","react":"node_modules/react/index.js","prop-types":"node_modules/prop-types/index.js","classnames":"node_modules/classnames/index.js","../styles/withStyles":"node_modules/@material-ui/core/styles/withStyles.js","../Paper":"node_modules/@material-ui/core/Paper/index.js","../Typography":"node_modules/@material-ui/core/Typography/index.js","../styles/colorManipulator":"node_modules/@material-ui/core/styles/colorManipulator.js"}],"node_modules/@material-ui/core/SnackbarContent/index.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _SnackbarContent.default;
+  }
+});
+
+var _SnackbarContent = _interopRequireDefault(require("./SnackbarContent"));
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","./SnackbarContent":"node_modules/@material-ui/core/SnackbarContent/SnackbarContent.js"}],"node_modules/@material-ui/core/Snackbar/Snackbar.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf3 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+
+var _extends8 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _reactEventListener = _interopRequireDefault(require("react-event-listener"));
+
+var _utils = require("@material-ui/utils");
+
+var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
+
+var _transitions = require("../styles/transitions");
+
+var _ClickAwayListener = _interopRequireDefault(require("../ClickAwayListener"));
+
+var _helpers = require("../utils/helpers");
+
+var _Slide = _interopRequireDefault(require("../Slide"));
+
+var _SnackbarContent = _interopRequireDefault(require("../SnackbarContent"));
+
+var styles = function styles(theme) {
+  var gutter = 24;
+  var top = {
+    top: 0
+  };
+  var bottom = {
+    bottom: 0
+  };
+  var right = {
+    justifyContent: 'flex-end'
+  };
+  var left = {
+    justifyContent: 'flex-start'
+  };
+  var topSpace = {
+    top: gutter
+  };
+  var bottomSpace = {
+    bottom: gutter
+  };
+  var rightSpace = {
+    right: gutter
+  };
+  var leftSpace = {
+    left: gutter
+  };
+  var center = {
+    left: '50%',
+    right: 'auto',
+    transform: 'translateX(-50%)'
+  };
+  return {
+    /* Styles applied to the root element. */
+    root: {
+      zIndex: theme.zIndex.snackbar,
+      position: 'fixed',
+      display: 'flex',
+      left: 0,
+      right: 0,
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+
+    /* Styles applied to the root element if `anchorOrigin={{ 'top', 'center' }}`. */
+    anchorOriginTopCenter: (0, _extends8.default)({}, top, (0, _defineProperty2.default)({}, theme.breakpoints.up('md'), (0, _extends8.default)({}, center))),
+
+    /* Styles applied to the root element if `anchorOrigin={{ 'bottom', 'center' }}`. */
+    anchorOriginBottomCenter: (0, _extends8.default)({}, bottom, (0, _defineProperty2.default)({}, theme.breakpoints.up('md'), (0, _extends8.default)({}, center))),
+
+    /* Styles applied to the root element if `anchorOrigin={{ 'top', 'right' }}`. */
+    anchorOriginTopRight: (0, _extends8.default)({}, top, right, (0, _defineProperty2.default)({}, theme.breakpoints.up('md'), (0, _extends8.default)({
+      left: 'auto'
+    }, topSpace, rightSpace))),
+
+    /* Styles applied to the root element if `anchorOrigin={{ 'bottom', 'right' }}`. */
+    anchorOriginBottomRight: (0, _extends8.default)({}, bottom, right, (0, _defineProperty2.default)({}, theme.breakpoints.up('md'), (0, _extends8.default)({
+      left: 'auto'
+    }, bottomSpace, rightSpace))),
+
+    /* Styles applied to the root element if `anchorOrigin={{ 'top', 'left' }}`. */
+    anchorOriginTopLeft: (0, _extends8.default)({}, top, left, (0, _defineProperty2.default)({}, theme.breakpoints.up('md'), (0, _extends8.default)({
+      right: 'auto'
+    }, topSpace, leftSpace))),
+
+    /* Styles applied to the root element if `anchorOrigin={{ 'bottom', 'left' }}`. */
+    anchorOriginBottomLeft: (0, _extends8.default)({}, bottom, left, (0, _defineProperty2.default)({}, theme.breakpoints.up('md'), (0, _extends8.default)({
+      right: 'auto'
+    }, bottomSpace, leftSpace)))
+  };
+};
+/* istanbul ignore if */
+
+
+exports.styles = styles;
+
+if ("development" !== 'production' && !_react.default.createContext) {
+  throw new Error('Material-UI: react@16.3.0 or greater is required.');
+}
+
+var Snackbar =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inherits2.default)(Snackbar, _React$Component);
+
+  function Snackbar() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    (0, _classCallCheck2.default)(this, Snackbar);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(Snackbar)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _this.state = {};
+
+    _this.handleMouseEnter = function (event) {
+      if (_this.props.onMouseEnter) {
+        _this.props.onMouseEnter(event);
+      }
+
+      _this.handlePause();
+    };
+
+    _this.handleMouseLeave = function (event) {
+      if (_this.props.onMouseLeave) {
+        _this.props.onMouseLeave(event);
+      }
+
+      _this.handleResume();
+    };
+
+    _this.handleClickAway = function (event) {
+      if (_this.props.onClose) {
+        _this.props.onClose(event, 'clickaway');
+      }
+    };
+
+    _this.handlePause = function () {
+      clearTimeout(_this.timerAutoHide);
+    };
+
+    _this.handleResume = function () {
+      if (_this.props.autoHideDuration != null) {
+        if (_this.props.resumeHideDuration != null) {
+          _this.setAutoHideTimer(_this.props.resumeHideDuration);
+
+          return;
+        }
+
+        _this.setAutoHideTimer(_this.props.autoHideDuration * 0.5);
+      }
+    };
+
+    _this.handleExited = function () {
+      _this.setState({
+        exited: true
+      });
+    };
+
+    return _this;
+  }
+
+  (0, _createClass2.default)(Snackbar, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.props.open) {
+        this.setAutoHideTimer();
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (prevProps.open !== this.props.open) {
+        if (this.props.open) {
+          this.setAutoHideTimer();
+        } else {
+          clearTimeout(this.timerAutoHide);
+        }
+      }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      clearTimeout(this.timerAutoHide);
+    }
+  }, {
+    key: "setAutoHideTimer",
+    // Timer that controls delay before snackbar auto hides
+    value: function setAutoHideTimer(autoHideDuration) {
+      var _this2 = this;
+
+      var autoHideDurationBefore = autoHideDuration != null ? autoHideDuration : this.props.autoHideDuration;
+
+      if (!this.props.onClose || autoHideDurationBefore == null) {
+        return;
+      }
+
+      clearTimeout(this.timerAutoHide);
+      this.timerAutoHide = setTimeout(function () {
+        var autoHideDurationAfter = autoHideDuration != null ? autoHideDuration : _this2.props.autoHideDuration;
+
+        if (!_this2.props.onClose || autoHideDurationAfter == null) {
+          return;
+        }
+
+        _this2.props.onClose(null, 'timeout');
+      }, autoHideDurationBefore);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          action = _this$props.action,
+          _this$props$anchorOri = _this$props.anchorOrigin,
+          vertical = _this$props$anchorOri.vertical,
+          horizontal = _this$props$anchorOri.horizontal,
+          autoHideDuration = _this$props.autoHideDuration,
+          children = _this$props.children,
+          classes = _this$props.classes,
+          className = _this$props.className,
+          ClickAwayListenerProps = _this$props.ClickAwayListenerProps,
+          ContentProps = _this$props.ContentProps,
+          disableWindowBlurListener = _this$props.disableWindowBlurListener,
+          message = _this$props.message,
+          onClose = _this$props.onClose,
+          onEnter = _this$props.onEnter,
+          onEntered = _this$props.onEntered,
+          onEntering = _this$props.onEntering,
+          onExit = _this$props.onExit,
+          onExited = _this$props.onExited,
+          onExiting = _this$props.onExiting,
+          onMouseEnter = _this$props.onMouseEnter,
+          onMouseLeave = _this$props.onMouseLeave,
+          open = _this$props.open,
+          resumeHideDuration = _this$props.resumeHideDuration,
+          TransitionComponent = _this$props.TransitionComponent,
+          transitionDuration = _this$props.transitionDuration,
+          TransitionProps = _this$props.TransitionProps,
+          other = (0, _objectWithoutProperties2.default)(_this$props, ["action", "anchorOrigin", "autoHideDuration", "children", "classes", "className", "ClickAwayListenerProps", "ContentProps", "disableWindowBlurListener", "message", "onClose", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "onMouseEnter", "onMouseLeave", "open", "resumeHideDuration", "TransitionComponent", "transitionDuration", "TransitionProps"]); // So we only render active snackbars.
+
+      if (!open && this.state.exited) {
+        return null;
+      }
+
+      return _react.default.createElement(_ClickAwayListener.default, (0, _extends8.default)({
+        onClickAway: this.handleClickAway
+      }, ClickAwayListenerProps), _react.default.createElement("div", (0, _extends8.default)({
+        className: (0, _classnames.default)(classes.root, classes["anchorOrigin".concat((0, _helpers.capitalize)(vertical)).concat((0, _helpers.capitalize)(horizontal))], className),
+        onMouseEnter: this.handleMouseEnter,
+        onMouseLeave: this.handleMouseLeave
+      }, other), _react.default.createElement(_reactEventListener.default, {
+        target: "window",
+        onFocus: disableWindowBlurListener ? undefined : this.handleResume,
+        onBlur: disableWindowBlurListener ? undefined : this.handlePause
+      }), _react.default.createElement(TransitionComponent, (0, _extends8.default)({
+        appear: true,
+        in: open,
+        onEnter: onEnter,
+        onEntered: onEntered,
+        onEntering: onEntering,
+        onExit: onExit,
+        onExited: (0, _helpers.createChainedFunction)(this.handleExited, onExited),
+        onExiting: onExiting,
+        timeout: transitionDuration,
+        direction: vertical === 'top' ? 'down' : 'up'
+      }, TransitionProps), children || _react.default.createElement(_SnackbarContent.default, (0, _extends8.default)({
+        message: message,
+        action: action
+      }, ContentProps)))));
+    }
+  }], [{
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(nextProps, prevState) {
+      if (typeof prevState.exited === 'undefined') {
+        return {
+          exited: !nextProps.open
+        };
+      }
+
+      if (nextProps.open) {
+        return {
+          exited: false
+        };
+      }
+
+      return null;
+    }
+  }]);
+  return Snackbar;
+}(_react.default.Component);
+
+"development" !== "production" ? Snackbar.propTypes = {
+  /**
+   * The action to display.
+   */
+  action: _propTypes.default.node,
+
+  /**
+   * The anchor of the `Snackbar`.
+   */
+  anchorOrigin: _propTypes.default.shape({
+    horizontal: _propTypes.default.oneOf(['left', 'center', 'right']).isRequired,
+    vertical: _propTypes.default.oneOf(['top', 'bottom']).isRequired
+  }),
+
+  /**
+   * The number of milliseconds to wait before automatically calling the
+   * `onClose` function. `onClose` should then set the state of the `open`
+   * prop to hide the Snackbar. This behavior is disabled by default with
+   * the `null` value.
+   */
+  autoHideDuration: _propTypes.default.number,
+
+  /**
+   * Replace the `SnackbarContent` component.
+   */
+  children: _propTypes.default.element,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css-api) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * Properties applied to the `ClickAwayListener` element.
+   */
+  ClickAwayListenerProps: _propTypes.default.object,
+
+  /**
+   * Properties applied to the [`SnackbarContent`](/api/snackbar-content/) element.
+   */
+  ContentProps: _propTypes.default.object,
+
+  /**
+   * If `true`, the `autoHideDuration` timer will expire even if the window is not focused.
+   */
+  disableWindowBlurListener: _propTypes.default.bool,
+
+  /**
+   * When displaying multiple consecutive Snackbars from a parent rendering a single
+   * <Snackbar/>, add the key property to ensure independent treatment of each message.
+   * e.g. <Snackbar key={message} />, otherwise, the message may update-in-place and
+   * features such as autoHideDuration may be canceled.
+   */
+  key: _propTypes.default.any,
+
+  /**
+   * The message to display.
+   */
+  message: _propTypes.default.node,
+
+  /**
+   * Callback fired when the component requests to be closed.
+   * Typically `onClose` is used to set state in the parent component,
+   * which is used to control the `Snackbar` `open` prop.
+   * The `reason` parameter can optionally be used to control the response to `onClose`,
+   * for example ignoring `clickaway`.
+   *
+   * @param {object} event The event source of the callback
+   * @param {string} reason Can be:`"timeout"` (`autoHideDuration` expired) or: `"clickaway"`
+   */
+  onClose: _propTypes.default.func,
+
+  /**
+   * Callback fired before the transition is entering.
+   */
+  onEnter: _propTypes.default.func,
+
+  /**
+   * Callback fired when the transition has entered.
+   */
+  onEntered: _propTypes.default.func,
+
+  /**
+   * Callback fired when the transition is entering.
+   */
+  onEntering: _propTypes.default.func,
+
+  /**
+   * Callback fired before the transition is exiting.
+   */
+  onExit: _propTypes.default.func,
+
+  /**
+   * Callback fired when the transition has exited.
+   */
+  onExited: _propTypes.default.func,
+
+  /**
+   * Callback fired when the transition is exiting.
+   */
+  onExiting: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onMouseEnter: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onMouseLeave: _propTypes.default.func,
+
+  /**
+   * If true, `Snackbar` is open.
+   */
+  open: _propTypes.default.bool,
+
+  /**
+   * The number of milliseconds to wait before dismissing after user interaction.
+   * If `autoHideDuration` property isn't specified, it does nothing.
+   * If `autoHideDuration` property is specified but `resumeHideDuration` isn't,
+   * we default to `autoHideDuration / 2` ms.
+   */
+  resumeHideDuration: _propTypes.default.number,
+
+  /**
+   * The component used for the transition.
+   */
+  TransitionComponent: _utils.componentPropType,
+
+  /**
+   * The duration for the transition, in milliseconds.
+   * You may specify a single timeout for all transitions, or individually with an object.
+   */
+  transitionDuration: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.shape({
+    enter: _propTypes.default.number,
+    exit: _propTypes.default.number
+  })]),
+
+  /**
+   * Properties applied to the `Transition` element.
+   */
+  TransitionProps: _propTypes.default.object
+} : void 0;
+Snackbar.defaultProps = {
+  anchorOrigin: {
+    vertical: 'bottom',
+    horizontal: 'center'
+  },
+  disableWindowBlurListener: false,
+  TransitionComponent: _Slide.default,
+  transitionDuration: {
+    enter: _transitions.duration.enteringScreen,
+    exit: _transitions.duration.leavingScreen
+  }
+};
+
+var _default = (0, _withStyles.default)(styles, {
+  flip: false,
+  name: 'MuiSnackbar'
+})(Snackbar);
+
+exports.default = _default;
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/objectWithoutProperties":"node_modules/@babel/runtime/helpers/objectWithoutProperties.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/possibleConstructorReturn":"node_modules/@babel/runtime/helpers/possibleConstructorReturn.js","@babel/runtime/helpers/getPrototypeOf":"node_modules/@babel/runtime/helpers/getPrototypeOf.js","@babel/runtime/helpers/inherits":"node_modules/@babel/runtime/helpers/inherits.js","@babel/runtime/helpers/defineProperty":"node_modules/@babel/runtime/helpers/defineProperty.js","@babel/runtime/helpers/extends":"node_modules/@babel/runtime/helpers/extends.js","react":"node_modules/react/index.js","prop-types":"node_modules/prop-types/index.js","classnames":"node_modules/classnames/index.js","react-event-listener":"node_modules/react-event-listener/dist/react-event-listener.cjs.js","@material-ui/utils":"node_modules/@material-ui/utils/index.es.js","../styles/withStyles":"node_modules/@material-ui/core/styles/withStyles.js","../styles/transitions":"node_modules/@material-ui/core/styles/transitions.js","../ClickAwayListener":"node_modules/@material-ui/core/ClickAwayListener/index.js","../utils/helpers":"node_modules/@material-ui/core/utils/helpers.js","../Slide":"node_modules/@material-ui/core/Slide/index.js","../SnackbarContent":"node_modules/@material-ui/core/SnackbarContent/index.js"}],"node_modules/@material-ui/core/Snackbar/index.js":[function(require,module,exports) {
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _Snackbar.default;
+  }
+});
+
+var _Snackbar = _interopRequireDefault(require("./Snackbar"));
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","./Snackbar":"node_modules/@material-ui/core/Snackbar/Snackbar.js"}],"node_modules/@material-ui/core/colors/green.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var green = {
+  50: '#e8f5e9',
+  100: '#c8e6c9',
+  200: '#a5d6a7',
+  300: '#81c784',
+  400: '#66bb6a',
+  500: '#4caf50',
+  600: '#43a047',
+  700: '#388e3c',
+  800: '#2e7d32',
+  900: '#1b5e20',
+  A100: '#b9f6ca',
+  A200: '#69f0ae',
+  A400: '#00e676',
+  A700: '#00c853'
+};
+var _default = green;
+exports.default = _default;
+},{}],"node_modules/notistack/build/SnackbarItem/SnackbarItem.util.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.variantIcon = exports.TransitionComponent = exports.muiClasses = exports.getMuiClasses = exports.getTransitionDirection = exports.defaultAnchorOrigin = exports.capitalise = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Slide = require('@material-ui/core/Slide');
+
+var _Slide2 = _interopRequireDefault(_Slide);
+
+var _SvgIcon = require('@material-ui/core/SvgIcon');
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var CheckIcon = function CheckIcon(props) {
+    return _react2.default.createElement(
+        _SvgIcon2.default,
+        props,
+        _react2.default.createElement('path', { d: 'M20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4C12.76,4 13.5,4.11 14.2, 4.31L15.77,2.74C14.61,2.26 13.34,2 12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0, 0 22,12M7.91,10.08L6.5,11.5L11,16L21,6L19.59,4.58L11,13.17L7.91,10.08Z'
+        })
+    );
+};
+
+var WarningIcon = function WarningIcon(props) {
+    return _react2.default.createElement(
+        _SvgIcon2.default,
+        props,
+        _react2.default.createElement('path', { d: 'M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z' })
+    );
+};
+
+var ErrorIcon = function ErrorIcon(props) {
+    return _react2.default.createElement(
+        _SvgIcon2.default,
+        props,
+        _react2.default.createElement('path', { d: 'M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41, 20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53, 2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16, 14.59L13.41,12L16,9.41L14.59,8Z'
+        })
+    );
+};
+
+var InfoIcon = function InfoIcon(props) {
+    return _react2.default.createElement(
+        _SvgIcon2.default,
+        props,
+        _react2.default.createElement('path', { d: 'M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20, 12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10, 10 0 0,0 12,2M11,17H13V11H11V17Z'
+        })
+    );
+};
+
+var TransitionComponent = function TransitionComponent(props) {
+    return _react2.default.createElement(_Slide2.default, props);
+};
+
+var iconStyles = {
+    opacity: 0.9,
+    fontSize: 20,
+    marginRight: 8
+};
+
+var variantIcon = {
+    success: _react2.default.createElement(CheckIcon, { style: iconStyles }),
+    warning: _react2.default.createElement(WarningIcon, { style: iconStyles }),
+    error: _react2.default.createElement(ErrorIcon, { style: iconStyles }),
+    info: _react2.default.createElement(InfoIcon, { style: iconStyles })
+};
+
+var DIRECTION = {
+    right: 'left',
+    left: 'right',
+    bottom: 'up',
+    top: 'down'
+};
+
+var defaultAnchorOrigin = {
+    vertical: 'bottom',
+    horizontal: 'left'
+};
+
+var muiClasses = {
+    root: {},
+    anchorOriginTopCenter: {},
+    anchorOriginBottomCenter: {},
+    anchorOriginTopRight: {},
+    anchorOriginBottomRight: {},
+    anchorOriginTopLeft: {},
+    anchorOriginBottomLeft: {}
+};
+
+/**
+ * returns transition direction according the the given anchor origin
+ * @param {object} anchorOrigin
+ */
+var getTransitionDirection = function getTransitionDirection() {
+    var anchorOrigin = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultAnchorOrigin;
+
+    if (anchorOrigin.horizontal !== 'center') {
+        return DIRECTION[anchorOrigin.horizontal];
+    }
+    return DIRECTION[anchorOrigin.vertical];
+};
+
+/**
+ * Capitalises a piece of string
+ * @param {string} text
+ */
+var capitalise = function capitalise(text) {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+};
+
+/**
+ * Filteres classes object and returns the keys that are allowed
+ * in material-ui snackbar classes prop
+ * @param {object} classes
+ */
+var getMuiClasses = function getMuiClasses(classes) {
+    return Object.keys(classes).filter(function (key) {
+        return muiClasses[key] !== undefined;
+    }).reduce(function (obj, key) {
+        return _extends({}, obj, _defineProperty({}, key, classes[key]));
+    }, {});
+};
+
+exports.capitalise = capitalise;
+exports.defaultAnchorOrigin = defaultAnchorOrigin;
+exports.getTransitionDirection = getTransitionDirection;
+exports.getMuiClasses = getMuiClasses;
+exports.muiClasses = muiClasses;
+exports.TransitionComponent = TransitionComponent;
+exports.variantIcon = variantIcon;
+},{"react":"node_modules/react/index.js","@material-ui/core/Slide":"node_modules/@material-ui/core/Slide/index.js","@material-ui/core/SvgIcon":"node_modules/@material-ui/core/SvgIcon/index.js"}],"node_modules/notistack/build/SnackbarItem/SnackbarItem.styles.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.getTransitionStyles = exports.styles = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _green = require('@material-ui/core/colors/green');
+
+var _green2 = _interopRequireDefault(_green);
+
+var _amber = require('@material-ui/core/colors/amber');
+
+var _amber2 = _interopRequireDefault(_amber);
+
+var _SnackbarItem = require('./SnackbarItem.util');
+
+var _constants = require('../utils/constants');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var styles = exports.styles = function styles(theme) {
+    return _extends({}, _SnackbarItem.muiClasses, {
+        base: {
+            fontSize: '0.875rem',
+            lineHeight: '1.46429em',
+            fontWeight: theme.typography.fontWeightRegular,
+            fontFamily: theme.typography.fontFamily
+        },
+        lessPadding: {
+            paddingLeft: theme.spacing.unit * 2.5
+        },
+        variantSuccess: {
+            backgroundColor: _green2.default[600]
+        },
+        variantError: {
+            backgroundColor: theme.palette.error.dark
+        },
+        variantInfo: {
+            backgroundColor: '#2979ff' // nice blue
+        },
+        variantWarning: {
+            backgroundColor: _amber2.default[700]
+        },
+        message: {
+            display: 'flex',
+            alignItems: 'center'
+        }
+    });
+};
+
+/**
+ * @param {object} anchorOrigin - how snack is postioned. e.g.
+ * { vertical: 'bottom', horizontal: 'left' }
+ * @param {number} level - Level on which snakcbar should be displayed
+ * (when snackbars are stacked on top of eachother)
+ * @returns {object}
+ */
+var getTransitionStyles = exports.getTransitionStyles = function getTransitionStyles(offset, anchorOrigin) {
+    return Object.assign(_defineProperty({}, anchorOrigin.vertical, offset), {
+        WebKitTransition: 'all ' + _constants.TRANSITION_DOWN_DURATION + 'ms',
+        MozTransition: 'all ' + _constants.TRANSITION_DOWN_DURATION + 'ms',
+        msTransition: 'all ' + _constants.TRANSITION_DOWN_DURATION + 'ms',
+        OTransition: 'all ' + _constants.TRANSITION_DOWN_DURATION + 'ms',
+        transition: 'all ' + _constants.TRANSITION_DOWN_DURATION + 'ms',
+        transitionDelay: _constants.TRANSITION_DELAY + 'ms'
+    });
+};
+},{"@material-ui/core/colors/green":"node_modules/@material-ui/core/colors/green.js","@material-ui/core/colors/amber":"node_modules/@material-ui/core/colors/amber.js","./SnackbarItem.util":"node_modules/notistack/build/SnackbarItem/SnackbarItem.util.js","../utils/constants":"node_modules/notistack/build/utils/constants.js"}],"node_modules/notistack/build/SnackbarItem/SnackbarItem.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _styles = require('@material-ui/core/styles');
+
+var _RootRef = require('@material-ui/core/RootRef');
+
+var _RootRef2 = _interopRequireDefault(_RootRef);
+
+var _Snackbar = require('@material-ui/core/Snackbar');
+
+var _Snackbar2 = _interopRequireDefault(_Snackbar);
+
+var _SnackbarContent = require('@material-ui/core/SnackbarContent');
+
+var _SnackbarContent2 = _interopRequireDefault(_SnackbarContent);
+
+var _SnackbarItem = require('./SnackbarItem.styles');
+
+var _SnackbarItem2 = require('./SnackbarItem.util');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SnackbarItem = function (_Component) {
+    _inherits(SnackbarItem, _Component);
+
+    function SnackbarItem(props) {
+        _classCallCheck(this, SnackbarItem);
+
+        var _this = _possibleConstructorReturn(this, (SnackbarItem.__proto__ || Object.getPrototypeOf(SnackbarItem)).call(this, props));
+
+        _this.handleClose = function (key) {
+            return function (event, reason) {
+                var _this$props = _this.props,
+                    onClose = _this$props.onClose,
+                    singleOnClose = _this$props.snack.onClose;
+
+                if (reason === 'clickaway') return;
+                if (singleOnClose) singleOnClose(key);
+                onClose(key);
+            };
+        };
+
+        _this.handleExited = function (key) {
+            return function () {
+                var _this$props2 = _this.props,
+                    onExited = _this$props2.onExited,
+                    singleOnExited = _this$props2.snack.onExited;
+
+                if (singleOnExited) singleOnExited(key);
+                onExited(key);
+            };
+        };
+
+        _this.componentDidMount = function () {
+            var _this$props3 = _this.props,
+                onSetHeight = _this$props3.onSetHeight,
+                snack = _this$props3.snack;
+
+            var height = _this.ref.current.clientHeight;
+            onSetHeight(snack.key, height);
+        };
+
+        _this.ref = _react2.default.createRef();
+        return _this;
+    }
+
+    _createClass(SnackbarItem, [{
+        key: 'render',
+        value: function render() {
+            var _props = this.props,
+                classes = _props.classes,
+                action = _props.action,
+                _props$anchorOrigin = _props.anchorOrigin,
+                anchorOrigin = _props$anchorOrigin === undefined ? _SnackbarItem2.defaultAnchorOrigin : _props$anchorOrigin,
+                _props$ContentProps = _props.ContentProps,
+                ContentProps = _props$ContentProps === undefined ? {} : _props$ContentProps,
+                hideIconVariant = _props.hideIconVariant,
+                iconVariant = _props.iconVariant,
+                offset = _props.offset,
+                snack = _props.snack,
+                style = _props.style,
+                onClickAction = _props.onClickAction,
+                onSetHeight = _props.onSetHeight,
+                other = _objectWithoutProperties(_props, ['classes', 'action', 'anchorOrigin', 'ContentProps', 'hideIconVariant', 'iconVariant', 'offset', 'snack', 'style', 'onClickAction', 'onSetHeight']);
+
+            var contentAction = ContentProps.action,
+                className = ContentProps.className,
+                otherContentProps = _objectWithoutProperties(ContentProps, ['action', 'className']);
+
+            var key = snack.key,
+                _snack$variant = snack.variant,
+                variant = _snack$variant === undefined ? 'default' : _snack$variant,
+                singleSnackProps = _objectWithoutProperties(snack, ['key', 'variant']);
+
+            var icon = iconVariant[variant];
+
+            var contentProps = _extends({}, otherContentProps, singleSnackProps.ContentProps, {
+                action: snack.action || contentAction || action
+            });
+
+            var onClickHandler = snack.action ? snack.onClickAction : onClickAction;
+            onClickHandler = onClickHandler || this.handleClose(key);
+
+            var anchOrigin = singleSnackProps.anchorOrigin || anchorOrigin;
+
+            return _react2.default.createElement(
+                _RootRef2.default,
+                { rootRef: this.ref },
+                _react2.default.createElement(
+                    _Snackbar2.default,
+                    _extends({
+                        autoHideDuration: 5000,
+                        anchorOrigin: anchOrigin,
+                        TransitionComponent: _SnackbarItem2.TransitionComponent,
+                        TransitionProps: {
+                            direction: (0, _SnackbarItem2.getTransitionDirection)(anchOrigin)
+                        },
+                        style: _extends({}, style, (0, _SnackbarItem.getTransitionStyles)(offset, anchOrigin))
+                    }, other, singleSnackProps, {
+                        open: snack.open,
+                        classes: (0, _SnackbarItem2.getMuiClasses)(classes),
+                        onClose: this.handleClose(key),
+                        onExited: this.handleExited(key)
+                    }),
+                    snack.children || _react2.default.createElement(_SnackbarContent2.default, _extends({
+                        className: (0, _classnames2.default)(classes.base, classes['variant' + (0, _SnackbarItem2.capitalise)(variant)], !hideIconVariant && icon ? classes.lessPadding : null, className)
+                    }, contentProps, {
+                        'aria-describedby': 'client-snackbar',
+                        message: _react2.default.createElement(
+                            'span',
+                            { id: 'client-snackbar', className: classes.message },
+                            !hideIconVariant ? icon : null,
+                            snack.message
+                        ),
+                        action: contentProps.action && _react2.default.createElement(
+                            'span',
+                            { onClick: onClickHandler },
+                            contentProps.action
+                        )
+                    }))
+                )
+            );
+        }
+    }]);
+
+    return SnackbarItem;
+}(_react.Component);
+
+SnackbarItem.propTypes = {
+    classes: _propTypes2.default.object.isRequired,
+    /**
+     * offset from top/bottom of the screen where a snakcbar should be displayed
+     * (when snackbars are stacked on top of eachother)
+     */
+    offset: _propTypes2.default.number.isRequired,
+    snack: _propTypes2.default.shape({
+        /**
+         * Text of the snackbar/notification.
+         */
+        message: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.node]).isRequired,
+        /**
+         * Type of snackbar. defaulted to 'default'.
+         */
+        variant: _propTypes2.default.oneOf(['default', 'error', 'success', 'warning', 'info']),
+        /**
+         * Event fired when clicked on action button of
+         * a snackbar. defaulted to dismiss the snackbar.
+         */
+        onClickAction: _propTypes2.default.func,
+        /**
+         * Identifier of a given snakcbar.
+         */
+        key: _propTypes2.default.number.isRequired,
+        /**
+         * Whether or not a snackbar is visible or hidden.
+         */
+        open: _propTypes2.default.bool.isRequired
+    }).isRequired,
+    /**
+     * Little icon that is displayed at left corner of a snackbar.
+     */
+    iconVariant: _propTypes2.default.shape({
+        /**
+         * Icon displayed when variant of a snackbar is set to `success`.
+         */
+        success: _propTypes2.default.any.isRequired,
+        /**
+         * Icon displayed when variant of a snackbar is set to `warning`.
+         */
+        warning: _propTypes2.default.any.isRequired,
+        /**
+         * Icon displayed when variant of a snackbar is set to `error`.
+         */
+        error: _propTypes2.default.any.isRequired,
+        /**
+         * Icon displayed when variant of a snackbar is set to `info`.
+         */
+        info: _propTypes2.default.any.isRequired
+    }),
+    /**
+     * iconVariant will not be rendered if set to `true`.
+     */
+    hideIconVariant: _propTypes2.default.bool,
+    /**
+     * Event fired when clicked on action button of
+     * a snackbar. defaulted to dismiss the snackbar.
+     */
+    onClickAction: _propTypes2.default.func,
+    onClose: _propTypes2.default.func.isRequired,
+    onExited: _propTypes2.default.func.isRequired,
+    onSetHeight: _propTypes2.default.func.isRequired
+};
+
+SnackbarItem.defaultProps = {
+    iconVariant: _SnackbarItem2.variantIcon,
+    hideIconVariant: false,
+    onClickAction: undefined
+};
+
+exports.default = (0, _styles.withStyles)(_SnackbarItem.styles)(SnackbarItem);
+},{"react":"node_modules/react/index.js","classnames":"node_modules/classnames/index.js","prop-types":"node_modules/prop-types/index.js","@material-ui/core/styles":"node_modules/@material-ui/core/styles/index.js","@material-ui/core/RootRef":"node_modules/@material-ui/core/RootRef/index.js","@material-ui/core/Snackbar":"node_modules/@material-ui/core/Snackbar/index.js","@material-ui/core/SnackbarContent":"node_modules/@material-ui/core/SnackbarContent/index.js","./SnackbarItem.styles":"node_modules/notistack/build/SnackbarItem/SnackbarItem.styles.js","./SnackbarItem.util":"node_modules/notistack/build/SnackbarItem/SnackbarItem.util.js"}],"node_modules/notistack/build/SnackbarItem/index.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _SnackbarItem = require('./SnackbarItem');
+
+var _SnackbarItem2 = _interopRequireDefault(_SnackbarItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _SnackbarItem2.default;
+},{"./SnackbarItem":"node_modules/notistack/build/SnackbarItem/SnackbarItem.js"}],"node_modules/notistack/build/SnackbarProvider.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _SnackbarContext = require('./SnackbarContext');
+
+var _constants = require('./utils/constants');
+
+var _SnackbarItem = require('./SnackbarItem');
+
+var _SnackbarItem2 = _interopRequireDefault(_SnackbarItem);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    default: obj
+  };
+}
+
+function _objectWithoutProperties(obj, keys) {
+  var target = {};
+
+  for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;
+    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+    target[i] = obj[i];
+  }
+
+  return target;
+}
+
+function _toConsumableArray(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }
+
+    return arr2;
+  } else {
+    return Array.from(arr);
+  }
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      enumerable: false,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var SnackbarProvider = function (_Component) {
+  _inherits(SnackbarProvider, _Component);
+
+  function SnackbarProvider() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, SnackbarProvider);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = SnackbarProvider.__proto__ || Object.getPrototypeOf(SnackbarProvider)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      snacks: []
+    }, _this.queue = [], _this.handlePresentSnackbar = function (variant, message) {
+      if ("development" !== 'production') {
+        /* eslint-disable no-console */
+        console.warn('DEPRECATED - notistack: method \'onPresentSnackbar\' has  been  deprecated and will be removed in future versions of notistack. Please use \'enqueueSnackbar\' method instead. see https://github.com/iamhosseindhv/notistack#withsnackbar for more info.');
+      }
+
+      _this.queue.push({
+        message: message,
+        variant: variant,
+        open: true,
+        key: new Date().getTime() + Math.random()
+      });
+
+      _this.handleDisplaySnack();
+    }, _this.handleEnqueueSnackbar = function (message, options) {
+      _this.queue.push(_extends({
+        message: message
+      }, options, {
+        open: true,
+        key: new Date().getTime() + Math.random()
+      }));
+
+      _this.handleDisplaySnack();
+    }, _this.handleDisplaySnack = function () {
+      var maxSnack = _this.props.maxSnack;
+      var snacks = _this.state.snacks;
+
+      if (snacks.length >= maxSnack) {
+        return _this.handleDismissOldest();
+      }
+
+      return _this.processQueue();
+    }, _this.processQueue = function () {
+      if (_this.queue.length > 0) {
+        var newOne = _this.queue.shift();
+
+        _this.setState(function (_ref2) {
+          var snacks = _ref2.snacks;
+          return {
+            snacks: [].concat(_toConsumableArray(snacks), [newOne])
+          };
+        });
+      }
+    }, _this.handleDismissOldest = function () {
+      _this.setState(function (_ref3) {
+        var snacks = _ref3.snacks;
+        return {
+          snacks: snacks.filter(function (item) {
+            return item.open === true;
+          }).map(function (item, i) {
+            return i === 0 ? _extends({}, item, {
+              open: false
+            }) : _extends({}, item);
+          })
+        };
+      });
+    }, _this.handleCloseSnack = function (key) {
+      _this.setState(function (_ref4) {
+        var snacks = _ref4.snacks;
+        return {
+          snacks: snacks.map(function (item) {
+            return item.key === key ? _extends({}, item, {
+              open: false
+            }) : _extends({}, item);
+          })
+        };
+      });
+
+      if (_this.props.onClose) _this.props.onClose(key);
+    }, _this.handleExitedSnack = function (key) {
+      var enterDelay = _constants.TRANSITION_DELAY + _constants.TRANSITION_DOWN_DURATION + 40;
+
+      _this.setState(function (_ref5) {
+        var snacks = _ref5.snacks;
+        return {
+          snacks: snacks.filter(function (item) {
+            return item.key !== key;
+          })
+        };
+      }, function () {
+        return setTimeout(_this.handleDisplaySnack, enterDelay);
+      });
+
+      if (_this.props.onExited) _this.props.onExited(key);
+    }, _this.handleSetHeight = function (key, height) {
+      _this.setState(function (_ref6) {
+        var snacks = _ref6.snacks;
+        return {
+          snacks: snacks.map(function (item) {
+            return item.key === key ? _extends({}, item, {
+              height: height
+            }) : _extends({}, item);
+          })
+        };
+      });
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(SnackbarProvider, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var _props = this.props,
+          children = _props.children,
+          maxSnack = _props.maxSnack,
+          props = _objectWithoutProperties(_props, ['children', 'maxSnack']);
+
+      var snacks = this.state.snacks;
+      return _react2.default.createElement(_SnackbarContext.SnackbarContext.Provider, {
+        value: this.handlePresentSnackbar
+      }, _react2.default.createElement(_SnackbarContext.SnackbarContextNext.Provider, {
+        value: this.handleEnqueueSnackbar
+      }, _react2.default.createElement(_react.Fragment, null, children, snacks.map(function (snack, index) {
+        return _react2.default.createElement(_SnackbarItem2.default, _extends({}, props, {
+          key: snack.key,
+          snack: snack,
+          offset: _this2.offsets[index],
+          onClose: _this2.handleCloseSnack,
+          onExited: _this2.handleExitedSnack,
+          onSetHeight: _this2.handleSetHeight
+        }));
+      }))));
+    }
+  }, {
+    key: 'offsets',
+    get: function get() {
+      var snacks = this.state.snacks;
+      return snacks.map(function (item, i) {
+        var index = i;
+        var offset = 20;
+
+        while (snacks[index - 1]) {
+          offset += snacks[index - 1].height + 16;
+          index -= 1;
+        }
+
+        return offset;
+      });
+    }
+    /**
+     * Adds a new snackbar to the queue to be presented.
+     * @param {string} variant - type of the snackbar. can be:
+     * (success, error, warning, info)
+     * @param {string} message - text of the notification
+     * @deprecated
+     */
+
+    /**
+     * Adds a new snackbar to the queue to be presented.
+     * @param {string} message - text of the notification
+     * @param {object} options - additional options for the snackbar we want to enqueue.
+     * We can pass Material-ui Snackbar props for individual customisation.
+     * @param {string} options.variant - type of the snackbar. default value is 'default'.
+     * can be: (default, success, error, warning, info)
+     */
+
+    /**
+     * Display snack if there's space for it. Otherwise, immediately begin dismissing the
+     * oldest message to start showing the new one.
+     */
+
+    /**
+     * Display items (notifications) in the queue if there's space for them.
+     */
+
+    /**
+     * Hide oldest snackbar on the screen because there exists a new one which we have to display.
+     */
+
+    /**
+     * Hide a snackbar after its timeout.
+     * @param {number} key - id of the snackbar we want to hide
+     */
+
+    /**
+     * When we set open attribute of a snackbar to false (i.e. after we hide a snackbar),
+     * it leaves the screen and immediately after leaving animation is done, this method
+     * gets called. We remove the hidden snackbar from state and then display notifications
+     * waiting in the queue (if any).
+     * @param {number} key - id of the snackbar we want to remove
+     */
+
+    /**
+     * Sets height for a given snackbar
+     * @param {number} height - height of snackbar after it's been rendered
+     * @param {number} key - id of the snackbar we want to remove
+     */
+
+  }]);
+
+  return SnackbarProvider;
+}(_react.Component);
+
+SnackbarProvider.propTypes = {
+  children: _propTypes2.default.element.isRequired,
+
+  /**
+   * Maximum snackbars that can be stacked
+   * on top of one another
+   */
+  maxSnack: _propTypes2.default.number,
+  onClose: _propTypes2.default.func,
+  onExited: _propTypes2.default.func
+};
+SnackbarProvider.defaultProps = {
+  maxSnack: 3,
+  onClose: undefined,
+  onExited: undefined
+};
+exports.default = SnackbarProvider;
+},{"react":"node_modules/react/index.js","prop-types":"node_modules/prop-types/index.js","./SnackbarContext":"node_modules/notistack/build/SnackbarContext.js","./utils/constants":"node_modules/notistack/build/utils/constants.js","./SnackbarItem":"node_modules/notistack/build/SnackbarItem/index.js"}],"node_modules/notistack/build/withSnackbar.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _SnackbarContext = require('./SnackbarContext');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var withSnackbar = function withSnackbar(Component) {
+    return function (props) {
+        return _react2.default.createElement(
+            _SnackbarContext.SnackbarContext.Consumer,
+            null,
+            function (handlePresentSnackbar) {
+                return _react2.default.createElement(
+                    _SnackbarContext.SnackbarContextNext.Consumer,
+                    null,
+                    function (handleEnqueueSnackbar) {
+                        return _react2.default.createElement(Component, _extends({}, props, {
+                            onPresentSnackbar: handlePresentSnackbar,
+                            enqueueSnackbar: handleEnqueueSnackbar
+                        }));
+                    }
+                );
+            }
+        );
+    };
+};
+
+exports.default = withSnackbar;
+},{"react":"node_modules/react/index.js","./SnackbarContext":"node_modules/notistack/build/SnackbarContext.js"}],"node_modules/notistack/build/index.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _SnackbarProvider = require('./SnackbarProvider');
+
+Object.defineProperty(exports, 'SnackbarProvider', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_SnackbarProvider).default;
+  }
+});
+
+var _withSnackbar = require('./withSnackbar');
+
+Object.defineProperty(exports, 'withSnackbar', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_withSnackbar).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./SnackbarProvider":"node_modules/notistack/build/SnackbarProvider.js","./withSnackbar":"node_modules/notistack/build/withSnackbar.js"}],"login/LoginForm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -61060,6 +63169,8 @@ var _formik = require("formik");
 var Yup = _interopRequireWildcard(require("yup"));
 
 var _theme = _interopRequireDefault(require("../styles/theme"));
+
+var _notistack = require("notistack");
 
 var _MuiThemeProvider = _interopRequireDefault(require("@material-ui/core/styles/MuiThemeProvider"));
 
@@ -61091,18 +63202,30 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var Login =
+var LoginForm =
 /*#__PURE__*/
 function (_Component) {
-  _inherits(Login, _Component);
+  _inherits(LoginForm, _Component);
 
-  function Login() {
-    _classCallCheck(this, Login);
+  function LoginForm() {
+    _classCallCheck(this, LoginForm);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Login).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(LoginForm).apply(this, arguments));
   }
 
-  _createClass(Login, [{
+  _createClass(LoginForm, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this$props = this.props,
+          messages = _this$props.messages,
+          enqueueSnackbar = _this$props.enqueueSnackbar;
+      messages && Object.keys(messages).forEach(function (key) {
+        return enqueueSnackbar(messages[key], {
+          variant: key
+        });
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var classes = this.props.classes;
@@ -61185,7 +63308,7 @@ function (_Component) {
     }
   }]);
 
-  return Login;
+  return LoginForm;
 }(_react.Component);
 
 var styles = function styles(theme) {
@@ -61207,7 +63330,7 @@ var styles = function styles(theme) {
       alignItems: "center",
       minHeight: "100vh",
       width: "100%",
-      backgroundColor: "#ff3d00"
+      backgroundColor: "#03a9f4"
     },
     loginContainer: _objectSpread({}, theme.mixins.gutters(), {
       paddingTop: theme.spacing.unit * 2,
@@ -61225,10 +63348,128 @@ var styles = function styles(theme) {
   };
 };
 
-var _default = (0, _styles.withStyles)(styles)(Login);
+var _default = (0, _styles.withStyles)(styles)((0, _notistack.withSnackbar)(LoginForm));
 
 exports.default = _default;
-},{"react":"node_modules/react/index.js","@material-ui/core/styles":"node_modules/@material-ui/core/styles/index.js","@material-ui/core/Paper":"node_modules/@material-ui/core/Paper/index.js","@material-ui/core/Typography":"node_modules/@material-ui/core/Typography/index.js","@material-ui/core/Divider":"node_modules/@material-ui/core/Divider/index.js","@material-ui/core/TextField":"node_modules/@material-ui/core/TextField/index.js","@material-ui/core/Button":"node_modules/@material-ui/core/Button/index.js","formik":"node_modules/formik/dist/formik.esm.js","yup":"node_modules/yup/lib/index.js","../styles/theme":"styles/theme.js","@material-ui/core/styles/MuiThemeProvider":"node_modules/@material-ui/core/styles/MuiThemeProvider.js"}],"login/index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","@material-ui/core/styles":"node_modules/@material-ui/core/styles/index.js","@material-ui/core/Paper":"node_modules/@material-ui/core/Paper/index.js","@material-ui/core/Typography":"node_modules/@material-ui/core/Typography/index.js","@material-ui/core/Divider":"node_modules/@material-ui/core/Divider/index.js","@material-ui/core/TextField":"node_modules/@material-ui/core/TextField/index.js","@material-ui/core/Button":"node_modules/@material-ui/core/Button/index.js","formik":"node_modules/formik/dist/formik.esm.js","yup":"node_modules/yup/lib/index.js","../styles/theme":"styles/theme.js","notistack":"node_modules/notistack/build/index.js","@material-ui/core/styles/MuiThemeProvider":"node_modules/@material-ui/core/styles/MuiThemeProvider.js"}],"admin/common/GlobalAlertsProvider.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _notistack = require("notistack");
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var GlobalAlertsProvider =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(GlobalAlertsProvider, _Component);
+
+  function GlobalAlertsProvider() {
+    _classCallCheck(this, GlobalAlertsProvider);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(GlobalAlertsProvider).apply(this, arguments));
+  }
+
+  _createClass(GlobalAlertsProvider, [{
+    key: "render",
+    value: function render() {
+      return _react.default.createElement(_notistack.SnackbarProvider, {
+        maxSnack: 3
+      }, this.props.children);
+    }
+  }]);
+
+  return GlobalAlertsProvider;
+}(_react.Component);
+
+var _default = GlobalAlertsProvider;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","notistack":"node_modules/notistack/build/index.js"}],"login/Login.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _LoginForm = _interopRequireDefault(require("./LoginForm"));
+
+var _GlobalAlertsProvider = _interopRequireDefault(require("../admin/common/GlobalAlertsProvider"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Login =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Login, _Component);
+
+  function Login() {
+    _classCallCheck(this, Login);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Login).apply(this, arguments));
+  }
+
+  _createClass(Login, [{
+    key: "render",
+    value: function render() {
+      return _react.default.createElement(_GlobalAlertsProvider.default, null, _react.default.createElement(_LoginForm.default, {
+        messages: this.props.messages
+      }));
+    }
+  }]);
+
+  return Login;
+}(_react.Component);
+
+var _default = Login;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","./LoginForm":"login/LoginForm.js","../admin/common/GlobalAlertsProvider":"admin/common/GlobalAlertsProvider.js"}],"login/index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -61267,7 +63508,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61159" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50001" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
