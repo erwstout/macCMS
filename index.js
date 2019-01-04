@@ -34,7 +34,7 @@ app.use(cookieParser("123423"));
 app.use(adminBundler.middleware());
 app.use(express.static("public"));
 app.set("view engine", "pug");
-app.use(session({ cookie: { maxAge: 60000 }, secret: "123423" }));
+app.use(session({ cookie: { maxAge: 60000 * 60 * 24 }, secret: "123423" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
@@ -90,12 +90,12 @@ app.post(
   }),
   function(req, res) {
     api.userLogin(req.user);
+    req.session.flash = {}; // on success clear any messages
     return res.redirect("/mac-cms");
   }
 );
 
 app.get("/mac-cms/login", (req, res) => {
-  console.log(req.session);
   return res.render("login", {
     title: "Login | MacCMS Admin",
     props: { messages: req.session.flash }

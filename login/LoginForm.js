@@ -11,6 +11,7 @@ import * as Yup from "yup";
 import theme from "../styles/theme";
 import { withSnackbar } from "notistack";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import uniq from 'lodash/uniq';
 
 type $Props = {
   classes: Object,
@@ -23,7 +24,9 @@ class LoginForm extends Component<$Props> {
     const { messages, enqueueSnackbar } = this.props;
     messages &&
       Object.keys(messages).forEach(key => {
-        return enqueueSnackbar(messages[key], { variant: key });
+        uniq(messages[key]).forEach(snack => {
+          return enqueueSnackbar(snack, { variant: key });
+        })
       });
   }
   render() {

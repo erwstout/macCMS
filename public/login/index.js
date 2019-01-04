@@ -63142,7 +63142,278 @@ Object.defineProperty(exports, 'withSnackbar', {
 });
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./SnackbarProvider":"node_modules/notistack/build/SnackbarProvider.js","./withSnackbar":"node_modules/notistack/build/withSnackbar.js"}],"login/LoginForm.js":[function(require,module,exports) {
+},{"./SnackbarProvider":"node_modules/notistack/build/SnackbarProvider.js","./withSnackbar":"node_modules/notistack/build/withSnackbar.js"}],"node_modules/lodash/_baseFindIndex.js":[function(require,module,exports) {
+/**
+ * The base implementation of `_.findIndex` and `_.findLastIndex` without
+ * support for iteratee shorthands.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {Function} predicate The function invoked per iteration.
+ * @param {number} fromIndex The index to search from.
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */
+function baseFindIndex(array, predicate, fromIndex, fromRight) {
+  var length = array.length,
+      index = fromIndex + (fromRight ? 1 : -1);
+
+  while ((fromRight ? index-- : ++index < length)) {
+    if (predicate(array[index], index, array)) {
+      return index;
+    }
+  }
+  return -1;
+}
+
+module.exports = baseFindIndex;
+
+},{}],"node_modules/lodash/_baseIsNaN.js":[function(require,module,exports) {
+/**
+ * The base implementation of `_.isNaN` without support for number objects.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is `NaN`, else `false`.
+ */
+function baseIsNaN(value) {
+  return value !== value;
+}
+
+module.exports = baseIsNaN;
+
+},{}],"node_modules/lodash/_strictIndexOf.js":[function(require,module,exports) {
+/**
+ * A specialized version of `_.indexOf` which performs strict equality
+ * comparisons of values, i.e. `===`.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} value The value to search for.
+ * @param {number} fromIndex The index to search from.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */
+function strictIndexOf(array, value, fromIndex) {
+  var index = fromIndex - 1,
+      length = array.length;
+
+  while (++index < length) {
+    if (array[index] === value) {
+      return index;
+    }
+  }
+  return -1;
+}
+
+module.exports = strictIndexOf;
+
+},{}],"node_modules/lodash/_baseIndexOf.js":[function(require,module,exports) {
+var baseFindIndex = require('./_baseFindIndex'),
+    baseIsNaN = require('./_baseIsNaN'),
+    strictIndexOf = require('./_strictIndexOf');
+
+/**
+ * The base implementation of `_.indexOf` without `fromIndex` bounds checks.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} value The value to search for.
+ * @param {number} fromIndex The index to search from.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */
+function baseIndexOf(array, value, fromIndex) {
+  return value === value
+    ? strictIndexOf(array, value, fromIndex)
+    : baseFindIndex(array, baseIsNaN, fromIndex);
+}
+
+module.exports = baseIndexOf;
+
+},{"./_baseFindIndex":"node_modules/lodash/_baseFindIndex.js","./_baseIsNaN":"node_modules/lodash/_baseIsNaN.js","./_strictIndexOf":"node_modules/lodash/_strictIndexOf.js"}],"node_modules/lodash/_arrayIncludes.js":[function(require,module,exports) {
+var baseIndexOf = require('./_baseIndexOf');
+
+/**
+ * A specialized version of `_.includes` for arrays without support for
+ * specifying an index to search from.
+ *
+ * @private
+ * @param {Array} [array] The array to inspect.
+ * @param {*} target The value to search for.
+ * @returns {boolean} Returns `true` if `target` is found, else `false`.
+ */
+function arrayIncludes(array, value) {
+  var length = array == null ? 0 : array.length;
+  return !!length && baseIndexOf(array, value, 0) > -1;
+}
+
+module.exports = arrayIncludes;
+
+},{"./_baseIndexOf":"node_modules/lodash/_baseIndexOf.js"}],"node_modules/lodash/_arrayIncludesWith.js":[function(require,module,exports) {
+/**
+ * This function is like `arrayIncludes` except that it accepts a comparator.
+ *
+ * @private
+ * @param {Array} [array] The array to inspect.
+ * @param {*} target The value to search for.
+ * @param {Function} comparator The comparator invoked per element.
+ * @returns {boolean} Returns `true` if `target` is found, else `false`.
+ */
+function arrayIncludesWith(array, value, comparator) {
+  var index = -1,
+      length = array == null ? 0 : array.length;
+
+  while (++index < length) {
+    if (comparator(value, array[index])) {
+      return true;
+    }
+  }
+  return false;
+}
+
+module.exports = arrayIncludesWith;
+
+},{}],"node_modules/lodash/noop.js":[function(require,module,exports) {
+/**
+ * This method returns `undefined`.
+ *
+ * @static
+ * @memberOf _
+ * @since 2.3.0
+ * @category Util
+ * @example
+ *
+ * _.times(2, _.noop);
+ * // => [undefined, undefined]
+ */
+function noop() {
+  // No operation performed.
+}
+
+module.exports = noop;
+
+},{}],"node_modules/lodash/_createSet.js":[function(require,module,exports) {
+var Set = require('./_Set'),
+    noop = require('./noop'),
+    setToArray = require('./_setToArray');
+
+/** Used as references for various `Number` constants. */
+var INFINITY = 1 / 0;
+
+/**
+ * Creates a set object of `values`.
+ *
+ * @private
+ * @param {Array} values The values to add to the set.
+ * @returns {Object} Returns the new set.
+ */
+var createSet = !(Set && (1 / setToArray(new Set([,-0]))[1]) == INFINITY) ? noop : function(values) {
+  return new Set(values);
+};
+
+module.exports = createSet;
+
+},{"./_Set":"node_modules/lodash/_Set.js","./noop":"node_modules/lodash/noop.js","./_setToArray":"node_modules/lodash/_setToArray.js"}],"node_modules/lodash/_baseUniq.js":[function(require,module,exports) {
+var SetCache = require('./_SetCache'),
+    arrayIncludes = require('./_arrayIncludes'),
+    arrayIncludesWith = require('./_arrayIncludesWith'),
+    cacheHas = require('./_cacheHas'),
+    createSet = require('./_createSet'),
+    setToArray = require('./_setToArray');
+
+/** Used as the size to enable large array optimizations. */
+var LARGE_ARRAY_SIZE = 200;
+
+/**
+ * The base implementation of `_.uniqBy` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {Function} [iteratee] The iteratee invoked per element.
+ * @param {Function} [comparator] The comparator invoked per element.
+ * @returns {Array} Returns the new duplicate free array.
+ */
+function baseUniq(array, iteratee, comparator) {
+  var index = -1,
+      includes = arrayIncludes,
+      length = array.length,
+      isCommon = true,
+      result = [],
+      seen = result;
+
+  if (comparator) {
+    isCommon = false;
+    includes = arrayIncludesWith;
+  }
+  else if (length >= LARGE_ARRAY_SIZE) {
+    var set = iteratee ? null : createSet(array);
+    if (set) {
+      return setToArray(set);
+    }
+    isCommon = false;
+    includes = cacheHas;
+    seen = new SetCache;
+  }
+  else {
+    seen = iteratee ? [] : result;
+  }
+  outer:
+  while (++index < length) {
+    var value = array[index],
+        computed = iteratee ? iteratee(value) : value;
+
+    value = (comparator || value !== 0) ? value : 0;
+    if (isCommon && computed === computed) {
+      var seenIndex = seen.length;
+      while (seenIndex--) {
+        if (seen[seenIndex] === computed) {
+          continue outer;
+        }
+      }
+      if (iteratee) {
+        seen.push(computed);
+      }
+      result.push(value);
+    }
+    else if (!includes(seen, computed, comparator)) {
+      if (seen !== result) {
+        seen.push(computed);
+      }
+      result.push(value);
+    }
+  }
+  return result;
+}
+
+module.exports = baseUniq;
+
+},{"./_SetCache":"node_modules/lodash/_SetCache.js","./_arrayIncludes":"node_modules/lodash/_arrayIncludes.js","./_arrayIncludesWith":"node_modules/lodash/_arrayIncludesWith.js","./_cacheHas":"node_modules/lodash/_cacheHas.js","./_createSet":"node_modules/lodash/_createSet.js","./_setToArray":"node_modules/lodash/_setToArray.js"}],"node_modules/lodash/uniq.js":[function(require,module,exports) {
+var baseUniq = require('./_baseUniq');
+
+/**
+ * Creates a duplicate-free version of an array, using
+ * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * for equality comparisons, in which only the first occurrence of each element
+ * is kept. The order of result values is determined by the order they occur
+ * in the array.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Array
+ * @param {Array} array The array to inspect.
+ * @returns {Array} Returns the new duplicate free array.
+ * @example
+ *
+ * _.uniq([2, 1, 2]);
+ * // => [2, 1]
+ */
+function uniq(array) {
+  return (array && array.length) ? baseUniq(array) : [];
+}
+
+module.exports = uniq;
+
+},{"./_baseUniq":"node_modules/lodash/_baseUniq.js"}],"login/LoginForm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -63173,6 +63444,8 @@ var _theme = _interopRequireDefault(require("../styles/theme"));
 var _notistack = require("notistack");
 
 var _MuiThemeProvider = _interopRequireDefault(require("@material-ui/core/styles/MuiThemeProvider"));
+
+var _uniq = _interopRequireDefault(require("lodash/uniq"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -63220,8 +63493,10 @@ function (_Component) {
           messages = _this$props.messages,
           enqueueSnackbar = _this$props.enqueueSnackbar;
       messages && Object.keys(messages).forEach(function (key) {
-        return enqueueSnackbar(messages[key], {
-          variant: key
+        (0, _uniq.default)(messages[key]).forEach(function (snack) {
+          return enqueueSnackbar(snack, {
+            variant: key
+          });
         });
       });
     }
@@ -63351,7 +63626,7 @@ var styles = function styles(theme) {
 var _default = (0, _styles.withStyles)(styles)((0, _notistack.withSnackbar)(LoginForm));
 
 exports.default = _default;
-},{"react":"node_modules/react/index.js","@material-ui/core/styles":"node_modules/@material-ui/core/styles/index.js","@material-ui/core/Paper":"node_modules/@material-ui/core/Paper/index.js","@material-ui/core/Typography":"node_modules/@material-ui/core/Typography/index.js","@material-ui/core/Divider":"node_modules/@material-ui/core/Divider/index.js","@material-ui/core/TextField":"node_modules/@material-ui/core/TextField/index.js","@material-ui/core/Button":"node_modules/@material-ui/core/Button/index.js","formik":"node_modules/formik/dist/formik.esm.js","yup":"node_modules/yup/lib/index.js","../styles/theme":"styles/theme.js","notistack":"node_modules/notistack/build/index.js","@material-ui/core/styles/MuiThemeProvider":"node_modules/@material-ui/core/styles/MuiThemeProvider.js"}],"admin/common/GlobalAlertsProvider.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","@material-ui/core/styles":"node_modules/@material-ui/core/styles/index.js","@material-ui/core/Paper":"node_modules/@material-ui/core/Paper/index.js","@material-ui/core/Typography":"node_modules/@material-ui/core/Typography/index.js","@material-ui/core/Divider":"node_modules/@material-ui/core/Divider/index.js","@material-ui/core/TextField":"node_modules/@material-ui/core/TextField/index.js","@material-ui/core/Button":"node_modules/@material-ui/core/Button/index.js","formik":"node_modules/formik/dist/formik.esm.js","yup":"node_modules/yup/lib/index.js","../styles/theme":"styles/theme.js","notistack":"node_modules/notistack/build/index.js","@material-ui/core/styles/MuiThemeProvider":"node_modules/@material-ui/core/styles/MuiThemeProvider.js","lodash/uniq":"node_modules/lodash/uniq.js"}],"admin/common/GlobalAlertsProvider.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -63508,7 +63783,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50001" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63445" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
