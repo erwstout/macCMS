@@ -18,6 +18,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
 import moment from "moment";
+import { withSnackbar } from "notistack";
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -260,8 +261,19 @@ class UserTable extends React.Component {
       })
         .then(res => res.text())
         .then(() => this.props.getAllUsers())
-        .then(() => this.setState({ selected: [] }))
-        .catch(err => console.error(err));
+        .then(() =>
+          this.setState({ selected: [] }, () =>
+            this.props.enqueueSnackbar("Successfully deleted user", {
+              variant: "success"
+            })
+          )
+        )
+        .catch(err => {
+          console.error(err);
+          this.props.enqueueSnackbar("User deletion failed, please try again", {
+            variant: "error"
+          });
+        });
     });
   };
 
@@ -407,4 +419,4 @@ UserTable.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(UserTable);
+export default withStyles(styles)(withSnackbar(UserTable));

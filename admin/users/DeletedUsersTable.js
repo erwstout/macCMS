@@ -20,6 +20,7 @@ import RestoreIcon from "@material-ui/icons/Restore";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
 import moment from "moment";
 import ConfirmDelete from "./ConfirmDelete";
+import { withSnackbar } from "notistack";
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -297,8 +298,19 @@ class DeletedUsersTable extends React.Component {
       })
         .then(res => res.text())
         .then(() => this.props.getDeletedUsers())
-        .then(() => this.setState({ selected: [] }))
-        .catch(err => console.error(err));
+        .then(() =>
+          this.setState({ selected: [] }, () =>
+            this.props.enqueueSnackbar("User restored", {
+              variant: "success"
+            })
+          )
+        )
+        .catch(err => {
+          console.error(err);
+          this.props.enqueueSnackbar("User not restored", {
+            variant: "error"
+          });
+        });
     });
   };
 
@@ -314,9 +326,20 @@ class DeletedUsersTable extends React.Component {
       })
         .then(res => res.text())
         .then(() => this.props.getDeletedUsers())
-        .then(() => this.setState({ selected: [] }))
+        .then(() =>
+          this.setState({ selected: [] }, () =>
+            this.props.enqueueSnackbar("Successfully deleted user", {
+              variant: "success"
+            })
+          )
+        )
         .then(() => this.handleConfirmClose())
-        .catch(err => console.error(err));
+        .catch(err => {
+          console.error(err);
+          this.props.enqueueSnackbar("Failed to delete user", {
+            variant: "error"
+          });
+        });
     });
   };
 
@@ -467,4 +490,4 @@ class DeletedUsersTable extends React.Component {
   }
 }
 
-export default withStyles(styles)(DeletedUsersTable);
+export default withStyles(styles)(withSnackbar(DeletedUsersTable));

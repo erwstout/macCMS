@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import { withSnackbar } from "notistack";
 
 import { withGlobalContext } from "../GlobalContext";
 import AdminContainer from "../Common/AdminContainer";
@@ -18,7 +19,8 @@ import Heading from "../common/Heading";
 
 type $Props = {
   classes: Object,
-  user: Object
+  user: Object,
+  enqueueSnackbar: function,
 };
 
 type $State = {
@@ -40,46 +42,11 @@ class NewUser extends Component<$Props, $State> {
   newUserForm: any;
 
   handleReset = () => {
-    this.setState({ success: false, error: false }, () =>
-      this.newUserForm.resetForm()
-    );
+    this.newUserForm.resetForm();
   };
 
   render() {
     const { classes } = this.props;
-    const { success, error } = this.state;
-    if (success) {
-      return (
-        <AdminContainer>
-          <Paper className={classes.container}>
-            <Heading heading="Add User" Icon={<Add />} />
-            <Typography className={classes.informationText} variant="body1">
-              User created successfully!
-            </Typography>
-            <Button
-              onClick={() => this.handleReset()}
-              variant="outlined"
-              color="secondary"
-            >
-              Create Another User
-            </Button>
-          </Paper>
-        </AdminContainer>
-      );
-    }
-
-    if (error) {
-      return (
-        <AdminContainer>
-          <Paper className={classes.container}>
-            <Heading heading="Add User" Icon={<Add />} />
-            <Typography className={classes.informationText} variant="body1">
-              There was an error creating your user. Please try again.
-            </Typography>
-          </Paper>
-        </AdminContainer>
-      );
-    }
     return (
       <AdminContainer>
         <Paper className={classes.container}>
@@ -142,14 +109,22 @@ class NewUser extends Component<$Props, $State> {
                 .then(res => res.text())
                 .then(res => {
                   if (res === "Created") {
-                    this.setState({ success: true });
+                    this.handleReset();
+                    return this.props.enqueueSnackbar(
+                      "User created successfully",
+                      { variant: "success" }
+                    );
                   } else {
-                    this.setState({ error: true });
+                    return this.props.enqueueSnackbar("Error creating user", {
+                      variant: "error"
+                    });
                   }
                 })
                 .catch(err => {
                   console.error(err);
-                  this.setState({ error: true });
+                  return this.props.enqueueSnackbar("Error creating user", {
+                    variant: "error"
+                  });
                 });
             }}
             ref={node => (this.newUserForm = node)}
@@ -455,4 +430,4 @@ const styles = theme => ({
   }
 });
 
-export default withStyles(styles)(withGlobalContext(NewUser));
+export default withStyles(styles)(withGlobalContext(withSnackbar(NewUser)));

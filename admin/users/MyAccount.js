@@ -10,19 +10,18 @@ import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
 import UpdateIcon from "@material-ui/icons/Update";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import Snackbar from "@material-ui/core/Snackbar";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
 import LockIcon from "@material-ui/icons/Lock";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { withSnackbar } from "notistack";
 
 import AdminContainer from "../common/AdminContainer";
 import Heading from "../common/Heading";
 
 type $Props = {
   classes: Object,
-  user: Object
+  user: Object,
+  enqueueSnackbar: Function
 };
 
 type $State = {
@@ -122,15 +121,23 @@ class MyAccount extends Component<$Props, $State> {
                 .then(res => {
                   console.log(res);
                   if (res === "Accepted") {
-                    this.setState({ successSnackOpen: true });
+                    this.props.enqueueSnackbar("Account information updated", {
+                      variant: "success"
+                    });
                   } else {
-                    this.setState({ failureSnackOpen: true });
+                    this.props.enqueueSnackbar(
+                      "Failed to update account information",
+                      { variant: "error" }
+                    );
                   }
                   setSubmitting(false);
                 })
                 .catch(err => {
                   console.error(err);
-                  this.setState({ failureSnackOpen: true });
+                  this.props.enqueueSnackbar(
+                    "Failed to update account information",
+                    { variant: "error" }
+                  );
                 });
             }}
             render={({ errors, touched, isSubmitting, resetForm }) => (
@@ -349,11 +356,12 @@ class MyAccount extends Component<$Props, $State> {
                 .then(res => {
                   console.log(res);
                   if (res === "Accepted") {
-                    this.setState({ successSnackOpen: true });
+                    this.props.enqueueSnackbar("Password updated", {
+                      variant: "success"
+                    });
                   } else if (res === "Unauthorized") {
-                    this.setState({
-                      incorrectPassword: true,
-                      failureSnackOpen: true
+                    this.props.enqueueSnackbar("Failed to update password", {
+                      variant: "error"
                     });
                   } else {
                     this.setState({ failureSnackOpen: true });
@@ -363,7 +371,9 @@ class MyAccount extends Component<$Props, $State> {
                 })
                 .catch(err => {
                   console.error(err);
-                  this.setState({ failureSnackOpen: true });
+                  this.props.enqueueSnackbar("Failed to update password", {
+                    variant: "error"
+                  });
                 });
             }}
             render={({ errors, touched, isSubmitting }) => (
@@ -429,60 +439,6 @@ class MyAccount extends Component<$Props, $State> {
             )}
           />
         </Paper>
-        <Snackbar
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left"
-          }}
-          open={successSnackOpen}
-          autoHideDuration={6000}
-          onClose={this.handleSuccessClose}
-          ContentProps={{
-            "aria-describedby": "user-updated"
-          }}
-          message={<span id="user-updated">User Updated</span>}
-          action={[
-            <IconButton
-              key="close"
-              aria-label="Close"
-              color="inherit"
-              className={classes.close}
-              onClick={this.handleSuccessClose}
-            >
-              <CloseIcon />
-            </IconButton>
-          ]}
-        />
-        <Snackbar
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left"
-          }}
-          open={failureSnackOpen}
-          autoHideDuration={6000}
-          onClose={this.handleFailureClose}
-          ContentProps={{
-            "aria-describedby": "user-update-failed"
-          }}
-          message={
-            <span id="user-update-failed">
-              {incorrectPassword
-                ? "Current password incorrect"
-                : "User update failed - please try again"}
-            </span>
-          }
-          action={[
-            <IconButton
-              key="close"
-              aria-label="Close"
-              color="inherit"
-              className={classes.close}
-              onClick={this.handleFailureClose}
-            >
-              <CloseIcon />
-            </IconButton>
-          ]}
-        />
       </AdminContainer>
     );
   }
@@ -527,4 +483,4 @@ const styles = theme => ({
   }
 });
 
-export default withStyles(styles)(withGlobalContext(MyAccount));
+export default withStyles(styles)(withGlobalContext(withSnackbar(MyAccount)));
