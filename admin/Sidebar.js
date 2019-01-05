@@ -23,7 +23,8 @@ type $Props = {
 };
 
 type $State = {
-  usersOpen: boolean
+  usersOpen: boolean,
+  postsOpen: boolean
 };
 
 class Sidebar extends Component<$Props, $State> {
@@ -31,27 +32,53 @@ class Sidebar extends Component<$Props, $State> {
     super(props);
 
     this.state = {
-      usersOpen: false
+      usersOpen: false,
+      postsOpen: false
     };
   }
 
-  handleListExpand = () =>
-    this.setState(state => ({ usersOpen: !state.usersOpen }));
+  handleListExpand = list => this.setState(state => ({ [list]: !state[list] }));
 
   render() {
     const { classes } = this.props;
-    const { usersOpen } = this.state;
+    const { usersOpen, postsOpen } = this.state;
     return (
       <div className={classes.root}>
         <List component="nav">
-          <ListItemWIcon
-            to="/mac-cms/posts"
-            primary="Posts"
-            icon={<Create />}
-          />
+          <Fragment>
+            <ListItem button onClick={() => this.handleListExpand("postsOpen")}>
+              <ListItemIcon>
+                <Create />
+              </ListItemIcon>
+              <ListItemText inset primary="Posts" />
+              {postsOpen ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={postsOpen} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItemWIcon
+                  to="/mac-cms/posts/new"
+                  primary="New Post"
+                  icon={<Add />}
+                />
+                <ListItemWIcon
+                  to="/mac-cms/posts/all"
+                  primary="View All Posts"
+                  icon={<ListIcon />}
+                />
+                <ListItemWIcon
+                  to="/mac-cms/posts/deleted"
+                  primary="View Deleted Posts"
+                  icon={<Delete />}
+                />
+              </List>
+            </Collapse>
+          </Fragment>
           {this.props.user && this.props.user.user_type === "super" ? (
             <Fragment>
-              <ListItem button onClick={this.handleListExpand}>
+              <ListItem
+                button
+                onClick={() => this.handleListExpand("usersOpen")}
+              >
                 <ListItemIcon>
                   <AccountCircle />
                 </ListItemIcon>

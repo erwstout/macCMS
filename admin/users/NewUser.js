@@ -142,7 +142,7 @@ class NewUser extends Component<$Props, $State> {
                         {...field}
                         label="Username"
                         className={classes.input}
-                        inputProps={{
+                        InputProps={{
                           "aria-label": "Username"
                         }}
                         required
@@ -161,7 +161,7 @@ class NewUser extends Component<$Props, $State> {
                         {...field}
                         label="Password"
                         className={classes.input}
-                        inputProps={{
+                        InputProps={{
                           "aria-label": "Password"
                         }}
                         required
@@ -181,7 +181,7 @@ class NewUser extends Component<$Props, $State> {
                         {...field}
                         label="First Name"
                         className={classes.input}
-                        inputProps={{
+                        InputProps={{
                           "aria-label": "First Name"
                         }}
                         required
@@ -200,7 +200,7 @@ class NewUser extends Component<$Props, $State> {
                         {...field}
                         label="Last Name"
                         className={classes.input}
-                        inputProps={{
+                        InputProps={{
                           "aria-label": "Last Name"
                         }}
                         error={
@@ -219,7 +219,7 @@ class NewUser extends Component<$Props, $State> {
                         {...field}
                         label="Email"
                         className={classes.input}
-                        inputProps={{
+                        InputProps={{
                           "aria-label": "Email"
                         }}
                         type="email"
@@ -238,7 +238,7 @@ class NewUser extends Component<$Props, $State> {
                         {...field}
                         label="Twitter URL "
                         className={classes.input}
-                        inputProps={{
+                        InputProps={{
                           "aria-label": "Twitter URL "
                         }}
                         error={
@@ -258,7 +258,7 @@ class NewUser extends Component<$Props, $State> {
                         {...field}
                         label="Facebook URL "
                         className={classes.input}
-                        inputProps={{
+                        InputProps={{
                           "aria-label": "Facebook URL "
                         }}
                         type="url"
@@ -279,7 +279,7 @@ class NewUser extends Component<$Props, $State> {
                         {...field}
                         label="LinkedIn URL "
                         className={classes.input}
-                        inputProps={{
+                        InputProps={{
                           "aria-label": "LinkedIn URL "
                         }}
                         type="url"
@@ -300,7 +300,7 @@ class NewUser extends Component<$Props, $State> {
                         {...field}
                         label="Instagram URL "
                         className={classes.input}
-                        inputProps={{
+                        InputProps={{
                           "aria-label": "Instagram URL "
                         }}
                         type="url"
@@ -323,7 +323,7 @@ class NewUser extends Component<$Props, $State> {
                         {...field}
                         label="YouTube URL "
                         className={classes.input}
-                        inputProps={{
+                        InputProps={{
                           "aria-label": "YouTube URL "
                         }}
                         type="url"

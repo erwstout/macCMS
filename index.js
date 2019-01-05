@@ -8,6 +8,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const Bundler = require("parcel-bundler");
 const bcrypt = require("bcrypt");
 const users = require("./api/users");
+const posts = require("./api/posts");
 const db = require("./util/db");
 const express = require("express");
 const api = require("./api/users");
@@ -183,6 +184,17 @@ app.post("/mac-cms/api/users/change-password", (req, res) => {
     return res.sendStatus(401);
   }
   return users.changePassword(req, res);
+});
+
+/**
+ * Posts route handling
+ */
+// create a post
+app.get("/mac-cms/api/posts/create", (req, res) => {
+  if (!req.user) {
+    return res.sendStatus(401);
+  }
+  return posts.createPost(req, res);
 });
 
 /**
