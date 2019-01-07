@@ -21,7 +21,8 @@ import Wysiwyg from "./Editor";
 
 type $Props = {
   classes: Object,
-  user: Object
+  user: Object,
+  enqueueSnackbar: function,
 };
 type $State = {
   publishDate: string
@@ -44,6 +45,10 @@ class NewPost extends Component<$Props, $State> {
     this.setState({ publishDate: formattedDate }, () =>
       this.postForm.setFieldValue("published_at", formattedDate)
     );
+  };
+
+  handleReset = () => {
+    this.postForm.resetForm();
   };
 
   render() {
@@ -75,6 +80,34 @@ class NewPost extends Component<$Props, $State> {
               }
               onSubmit={(values, { setSubmitting }) => {
                 console.log(values);
+                return fetch("/mac-cms/api/posts/create", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify(values)
+                })
+                  .then(res => res.text())
+                  .then(res => {
+                    if (res === "Created") {
+                      this.handleReset();
+                      return this.props.enqueueSnackbar(
+                        "Post saved successfully",
+                        { variant: "success" }
+                      );
+                    } else {
+                      console.error(res);
+                      return this.props.enqueueSnackbar("Error creating post", {
+                        variant: "error"
+                      });
+                    }
+                  })
+                  .catch(err => {
+                    console.error(err);
+                    return this.props.enqueueSnackbar("Error creating post", {
+                      variant: "error"
+                    });
+                  });
               }}
               render={({ errors, touched, isSubmitting }) => (
                 <Form noValidate id="newPost">
@@ -99,8 +132,8 @@ class NewPost extends Component<$Props, $State> {
                         <Field
                           id="content"
                           name="content"
-                          render={({ form: { setFieldValue } }) => (
-                            <Wysiwyg setFieldValue={setFieldValue} />
+                          render={({field: {value}, form: { setFieldValue } }) => (
+                            <Wysiwyg value={value} setFieldValue={setFieldValue} />
                           )}
                         />
                       </div>

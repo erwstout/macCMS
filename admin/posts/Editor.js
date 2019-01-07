@@ -7,6 +7,7 @@ import htmlToDraft from "html-to-draftjs";
 
 type $Props = {
   setFieldValue: function,
+  value: string
 };
 type $State = { editorState: Function };
 
@@ -30,10 +31,11 @@ class Wysiwyg extends Component<$Props, $State> {
 
   render() {
     const { editorState } = this.state;
+    const {value} = this.props
     return (
       <div>
         <Editor
-          editorState={editorState}
+          editorState={value === '' || value === '<p></p>' ? EditorState.createEmpty() : editorState}
           onEditorStateChange={this.onEditorStateChange}
         />
       </div>

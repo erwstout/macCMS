@@ -11,8 +11,6 @@ const identity = require("lodash/identity");
  * Create a post
  */
 exports.createPost = async (req, res) => {
-  // const post = pickBy(req.body, indentity);
-  // const posts = await db
-  // .knex('posts')
-  console.log(req.body);
+  await db.knex("posts").insert(req.body);
+  return res.sendStatus(201);
 };

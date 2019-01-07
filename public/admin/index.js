@@ -112208,8 +112208,9 @@ function (_Component) {
     key: "render",
     value: function render() {
       var editorState = this.state.editorState;
+      var value = this.props.value;
       return _react.default.createElement("div", null, _react.default.createElement(_reactDraftWysiwyg.Editor, {
-        editorState: editorState,
+        editorState: value === '' || value === '<p></p>' ? _draftJs.EditorState.createEmpty() : editorState,
         onEditorStateChange: this.onEditorStateChange
       }));
     }
@@ -112314,6 +112315,10 @@ function (_Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "handleReset", function () {
+      _this.postForm.resetForm();
+    });
+
     _this.state = {
       publishDate: (0, _moment2.default)().format()
     };
@@ -112361,6 +112366,33 @@ function (_Component) {
         onSubmit: function onSubmit(values, _ref) {
           var setSubmitting = _ref.setSubmitting;
           console.log(values);
+          return fetch("/mac-cms/api/posts/create", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(values)
+          }).then(function (res) {
+            return res.text();
+          }).then(function (res) {
+            if (res === "Created") {
+              _this2.handleReset();
+
+              return _this2.props.enqueueSnackbar("Post saved successfully", {
+                variant: "success"
+              });
+            } else {
+              console.error(res);
+              return _this2.props.enqueueSnackbar("Error creating post", {
+                variant: "error"
+              });
+            }
+          }).catch(function (err) {
+            console.error(err);
+            return _this2.props.enqueueSnackbar("Error creating post", {
+              variant: "error"
+            });
+          });
         },
         render: function render(_ref2) {
           var errors = _ref2.errors,
@@ -112398,8 +112430,10 @@ function (_Component) {
             id: "content",
             name: "content",
             render: function render(_ref4) {
-              var setFieldValue = _ref4.form.setFieldValue;
+              var value = _ref4.field.value,
+                  setFieldValue = _ref4.form.setFieldValue;
               return _react.default.createElement(_Editor.default, {
+                value: value,
                 setFieldValue: setFieldValue
               });
             }
@@ -112697,7 +112731,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60637" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57432" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

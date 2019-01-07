@@ -190,7 +190,7 @@ app.post("/mac-cms/api/users/change-password", (req, res) => {
  * Posts route handling
  */
 // create a post
-app.get("/mac-cms/api/posts/create", (req, res) => {
+app.post("/mac-cms/api/posts/create", (req, res) => {
   if (!req.user) {
     return res.sendStatus(401);
   }
