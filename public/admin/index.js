@@ -112238,6 +112238,8 @@ var _materialUiPickers = require("material-ui-pickers");
 
 var _moment = _interopRequireDefault(require("@date-io/moment"));
 
+var _moment2 = _interopRequireDefault(require("moment"));
+
 var _formik = require("formik");
 
 var Yup = _interopRequireWildcard(require("yup"));
@@ -112253,6 +112255,8 @@ var _Paper = _interopRequireDefault(require("@material-ui/core/Paper"));
 var _Add = _interopRequireDefault(require("@material-ui/icons/Add"));
 
 var _TextField = _interopRequireDefault(require("@material-ui/core/TextField"));
+
+var _MenuItem = _interopRequireDefault(require("@material-ui/core/MenuItem"));
 
 var _Button = _interopRequireDefault(require("@material-ui/core/Button"));
 
@@ -112298,17 +112302,24 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(NewPost).call(this, props));
 
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "postForm", void 0);
+
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "handleDateChange", function (date) {
+      var formattedDate = (0, _moment2.default)(date).format();
+
       _this.setState({
-        publishDate: date
+        publishDate: formattedDate
+      }, function () {
+        return _this.postForm.setFieldValue("published_at", formattedDate);
       });
     });
 
     _this.state = {
-      publishDate: new Date()
+      publishDate: (0, _moment2.default)().format()
     };
     return _this;
-  }
+  } // make flow happy for ref
+
 
   _createClass(NewPost, [{
     key: "render",
@@ -112327,12 +112338,16 @@ function (_Component) {
         heading: "New Post",
         Icon: _react.default.createElement(_Add.default, null)
       }), _react.default.createElement(_formik.Formik, {
+        ref: function ref(node) {
+          return _this2.postForm = node;
+        },
         initialValues: {
           title: "",
           content: "",
           author: user.id,
           status: "draft",
-          published_at: ""
+          published_at: (0, _moment2.default)().format(),
+          updated_at: (0, _moment2.default)().format()
         },
         validationSchema: function validationSchema() {
           return Yup.object.shape({
@@ -112390,20 +112405,51 @@ function (_Component) {
             }
           })), _react.default.createElement("div", {
             className: classes.postSidebar
-          }, _react.default.createElement(_materialUiPickers.DateTimePicker, {
-            value: publishDate,
-            onChange: _this2.handleDateChange,
-            label: "Publish Date",
-            showTodayButton: true
-          }), _react.default.createElement(_Button.default, {
-            className: classes.saveButton,
-            type: "submit",
-            color: "primary"
-          }, "Save"), _react.default.createElement(_Button.default, {
+          }, _react.default.createElement(_formik.Field, {
+            id: "published_at",
+            name: "published_at",
+            render: function render() {
+              return _react.default.createElement(_materialUiPickers.DateTimePicker, {
+                value: publishDate,
+                onChange: _this2.handleDateChange,
+                label: "Publish Date",
+                showTodayButton: true,
+                className: classes.selectInput
+              });
+            }
+          }), _react.default.createElement(_formik.Field, {
+            id: "status",
+            name: "status",
+            render: function render(_ref5) {
+              var field = _ref5.field;
+              return _react.default.createElement(_TextField.default, _extends({}, field, {
+                select: true,
+                label: "Post Status",
+                className: classes.selectInput,
+                SelectProps: {
+                  MenuProps: {
+                    className: classes.menu
+                  }
+                },
+                helperText: "Select the status of the post",
+                margin: "normal",
+                error: touched.status && errors.status ? true : false
+              }), _react.default.createElement(_MenuItem.default, {
+                key: "draft",
+                value: "draft"
+              }, "Draft"), _react.default.createElement(_MenuItem.default, {
+                key: "published",
+                value: "published"
+              }, "Published"));
+            }
+          }), _react.default.createElement("div", {
+            className: classes.buttonContainer
+          }, _react.default.createElement(_Button.default, {
             type: "submit",
             color: "secondary",
-            variant: "outlined"
-          }, "Publish")))));
+            variant: "outlined",
+            className: classes.saveButton
+          }, "Save"))))));
         }
       }))));
     }
@@ -112445,8 +112491,16 @@ var styles = function styles(theme) {
       flex: "0 0 25%",
       paddingLeft: theme.spacing.unit * 2
     },
+    selectInput: {
+      marginBottom: "12px",
+      width: "100%"
+    },
+    buttonContainer: {
+      marginTop: "22px",
+      width: "100%"
+    },
     saveButton: {
-      marginRight: theme.spacing.unit
+      width: "100%"
     }
   };
 };
@@ -112454,7 +112508,7 @@ var styles = function styles(theme) {
 var _default = (0, _styles.withStyles)(styles)((0, _GlobalContext.withGlobalContext)((0, _notistack.withSnackbar)(NewPost)));
 
 exports.default = _default;
-},{"react":"node_modules/react/index.js","@material-ui/core/styles":"node_modules/@material-ui/core/styles/index.js","notistack":"node_modules/notistack/build/index.js","material-ui-pickers":"node_modules/material-ui-pickers/dist/material-ui-pickers.esm.js","@date-io/moment":"node_modules/@date-io/moment/build/index.esm.js","formik":"node_modules/formik/dist/formik.esm.js","yup":"node_modules/yup/lib/index.js","../GlobalContext":"admin/GlobalContext.js","../Common/AdminContainer":"admin/Common/AdminContainer.js","../common/Heading":"admin/common/Heading.js","@material-ui/core/Paper":"node_modules/@material-ui/core/Paper/index.js","@material-ui/icons/Add":"node_modules/@material-ui/icons/Add.js","@material-ui/core/TextField":"node_modules/@material-ui/core/TextField/index.js","@material-ui/core/Button":"node_modules/@material-ui/core/Button/index.js","./Editor":"admin/posts/Editor.js"}],"admin/Admin.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","@material-ui/core/styles":"node_modules/@material-ui/core/styles/index.js","notistack":"node_modules/notistack/build/index.js","material-ui-pickers":"node_modules/material-ui-pickers/dist/material-ui-pickers.esm.js","@date-io/moment":"node_modules/@date-io/moment/build/index.esm.js","moment":"node_modules/moment/moment.js","formik":"node_modules/formik/dist/formik.esm.js","yup":"node_modules/yup/lib/index.js","../GlobalContext":"admin/GlobalContext.js","../Common/AdminContainer":"admin/Common/AdminContainer.js","../common/Heading":"admin/common/Heading.js","@material-ui/core/Paper":"node_modules/@material-ui/core/Paper/index.js","@material-ui/icons/Add":"node_modules/@material-ui/icons/Add.js","@material-ui/core/TextField":"node_modules/@material-ui/core/TextField/index.js","@material-ui/core/MenuItem":"node_modules/@material-ui/core/MenuItem/index.js","@material-ui/core/Button":"node_modules/@material-ui/core/Button/index.js","./Editor":"admin/posts/Editor.js"}],"admin/Admin.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -112643,7 +112697,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60941" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60637" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
