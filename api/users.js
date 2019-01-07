@@ -29,7 +29,7 @@ exports.getAllUsers = async (req, res) => {
     .columns(defaultColumns)
     .whereNull("deleted_at")
     .select();
-  return res.json(users);
+  return res.status(200).json(users);
 };
 
 // get all deleted users
@@ -39,7 +39,7 @@ exports.getDeletedUsers = async (req, res) => {
     .columns(defaultColumns)
     .whereNotNull("deleted_at")
     .select();
-  return res.json(users);
+  return res.status(200).json(users);
 };
 
 // delete a user
@@ -50,7 +50,7 @@ exports.deleteUser = async (req, res) => {
     .update({ deleted_at: db.knex.fn.now() })
     .catch(err => {
       console.error("Error deleting user", err);
-      return res.send("Error deleting user");
+      return res.status(500).send("Error deleting user"); //TODO: Handle this error better
     });
   return res.sendStatus(200);
 };

@@ -197,6 +197,14 @@ app.post("/mac-cms/api/posts/create", (req, res) => {
   return posts.createPost(req, res);
 });
 
+// get all posts regardless of status
+app.get("/mac-cms/api/posts/all", (req, res) => posts.getAllPosts(req, res));
+
+// delete a post
+app.post("/mac-cms/api/posts/delete/:id", (req, res) =>
+  posts.deletePost(req, res)
+);
+
 /**
  * All other Admin Routes handled by React
  */

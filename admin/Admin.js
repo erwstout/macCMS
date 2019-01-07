@@ -8,6 +8,7 @@ import NewUser from "./users/NewUser";
 import DeletedUsers from "./users/DeletedUsers";
 import MyAccount from "./users/MyAccount";
 import NewPost from "./posts/NewPost";
+import AllPosts from "./posts/AllPosts";
 import { GlobalProvider } from "./GlobalContext";
 
 type $Props = {
@@ -84,6 +85,11 @@ class Admin extends Component<$Props, $State> {
                   exact
                   path="/mac-cms/posts/new"
                   render={() => <NewPost />}
+                />
+                <Route
+                  exact
+                  path="/mac-cms/posts/all"
+                  render={() => <AllPosts />}
                 />
                 <Route exact render={() => <div>404!</div>} />
               </Switch>
