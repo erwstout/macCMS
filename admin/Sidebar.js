@@ -116,7 +116,7 @@ const styles = () => ({
   root: {
     flex: "0 0 250px",
     height: "100vh",
-    borderRight: "1px solid #ececec"
+    borderRight: "1px solid #1f1f1f"
   }
 });
 

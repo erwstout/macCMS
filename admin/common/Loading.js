@@ -20,7 +20,7 @@ const style = () => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f9f7f7",
+    backgroundColor: "#353535",
     width: "100%"
   }
 });

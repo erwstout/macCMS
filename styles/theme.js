@@ -4,8 +4,9 @@ import amber from "@material-ui/core/colors/amber";
 
 const theme = createMuiTheme({
   palette: {
-    primary: lightBlue,
-    secondary: amber
+    type: "dark"
+    // primary: lightBlue,
+    // secondary: amber
   },
   typography: {
     useNextVariants: true

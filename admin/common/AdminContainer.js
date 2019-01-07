@@ -16,7 +16,7 @@ const styles = theme => ({
     justifyContent: "flex-start",
     alignItems: "center",
     padding: "20px 14px",
-    backgroundColor: "#f9f7f7",
+    backgroundColor: "#353535",
     overflow: "hidden"
   }
 });
