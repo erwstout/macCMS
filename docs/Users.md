@@ -1,6 +1,6 @@
 # Users API
 
-Collection of user endpoints.
+Collection of user endpoints. All user endpoints must be requested from inside the admin with a valid logged in user. These endpoints are not public and cannot be accessed outside of the admin as of now.
 
 ## Get All Users `/mac-cms/api/users`
 
