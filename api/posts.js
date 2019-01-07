@@ -42,3 +42,32 @@ exports.deletePost = async (req, res) => {
     });
   return res.sendStatus(200);
 };
+
+/**
+ * Permanently Delete a Post from the DB
+ */
+exports.removePost = async (req, res) => {
+  await db
+    .knex("posts")
+    .where("id", "=", req.params.id)
+    .del()
+    .catch(err => {
+      console.error("Error permanently deleting post", err);
+      return res.status(500).send("Error permanently deleting post");
+    });
+  return res.sendStatus(200);
+};
+
+/**
+ * Get Deleted Posts
+ */
+exports.deletedPosts = async (req, res) => {
+  if (!req.user) {
+    return res.sendStatus(401);
+  }
+  const posts = await db
+    .knex("posts")
+    .whereNotNull("deleted_at")
+    .select("*");
+  return res.status(200).json(posts);
+};
