@@ -200,6 +200,9 @@ app.post("/mac-cms/api/posts/create", (req, res) => {
 // get all posts regardless of status
 app.get("/mac-cms/api/posts/all", (req, res) => posts.getAllPosts(req, res));
 
+// get all published posts
+app.get("/mac-cms/api/posts", (req, res) => posts.getPublishedPosts(req, res));
+
 // delete a post
 app.post("/mac-cms/api/posts/delete/:id", (req, res) =>
   posts.deletePost(req, res)

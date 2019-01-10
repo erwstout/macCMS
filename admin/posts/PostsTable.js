@@ -387,7 +387,7 @@ class PostsTable extends React.Component {
                 })}
               {emptyRows > 0 && (
                 <TableRow>
-                  <TableCell colSpan={5} />
+                  <TableCell colSpan={7} />
                 </TableRow>
               )}
             </TableBody>

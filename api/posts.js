@@ -18,6 +18,16 @@ exports.getAllPosts = async (req, res) => {
 };
 
 /**
+ * Get Published Posts {@public}
+ */
+exports.getPublishedPosts = async (req, res) => {
+  const posts = await db
+    .knex("posts")
+    .where({ status: "published", deleted_at: null });
+  return res.status(200).json(posts);
+};
+
+/**
  * Create a post {@private}
  */
 exports.createPost = async (req, res) => {
