@@ -123,7 +123,7 @@ const styles = theme => ({
     alignItems: "center",
     minHeight: "100vh",
     width: "100%",
-    backgroundColor: "#03a9f4"
+    backgroundColor: "#353535"
   },
   loginContainer: {
     ...theme.mixins.gutters(),

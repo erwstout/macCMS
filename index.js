@@ -201,6 +201,11 @@ app.post("/mac-cms/api/posts/create", (req, res) => {
 app.get("/mac-cms/api/posts/all", (req, res) => posts.getAllPosts(req, res));
 
 // delete a post
+app.post("/mac-cms/api/posts/delete/:id", (req, res) =>
+  posts.deletePost(req, res)
+);
+
+// permanently remove a post from the DB
 app.post("/mac-cms/api/posts/remove/:id", (req, res) =>
   posts.removePost(req, res)
 );

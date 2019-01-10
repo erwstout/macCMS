@@ -63654,7 +63654,7 @@ var styles = function styles(theme) {
       alignItems: "center",
       minHeight: "100vh",
       width: "100%",
-      backgroundColor: "#03a9f4"
+      backgroundColor: "#353535"
     },
     loginContainer: _objectSpread({}, theme.mixins.gutters(), {
       paddingTop: theme.spacing.unit * 2,
@@ -63832,7 +63832,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51575" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58165" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

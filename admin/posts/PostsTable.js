@@ -252,6 +252,7 @@ class PostsTable extends React.Component {
           if (res.status >= 200 && res.status < 300) {
             return res;
           } else {
+            console.log(res);
             console.error("Error deleting post(s)", res.text());
             this.props.enqueueSnackbar(res.text(), { variant: "error" });
           }
