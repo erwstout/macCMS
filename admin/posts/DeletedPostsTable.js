@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -19,6 +19,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
 import moment from "moment";
 import { withSnackbar } from "notistack";
+import RestoreIcon from "@material-ui/icons/Restore";
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -163,6 +164,8 @@ const toolbarStyles = theme => ({
     flex: "1 1 100%"
   },
   actions: {
+    display: "flex",
+    flexFlow: "row nowrap",
     color: theme.palette.text.secondary
   },
   title: {
@@ -179,6 +182,7 @@ let EnhancedTableToolbar = props => {
         [classes.highlight]: numSelected > 0
       })}
       handleDelete={props.handleDelete}
+      handleRestore={props.handleRestore}
     >
       <div className={classes.title}>
         {numSelected > 0 ? (
@@ -194,14 +198,24 @@ let EnhancedTableToolbar = props => {
       <div className={classes.spacer} />
       <div className={classes.actions}>
         {numSelected > 0 ? (
-          <Tooltip handleDelete={props.handleDelete} title="Delete">
-            <IconButton
-              onClick={() => props.handleDelete()}
-              aria-label="Delete"
-            >
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
+          <Fragment>
+            <Tooltip handleDelete={props.handleDelete} title="Delete">
+              <IconButton
+                onClick={() => props.handleDelete()}
+                aria-label="Delete"
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip handleRestore={props.handleRestore} title="Restore">
+              <IconButton
+                onClick={() => props.handleRestore()}
+                aria-label="Restore"
+              >
+                <RestoreIcon />
+              </IconButton>
+            </Tooltip>
+          </Fragment>
         ) : null}
       </div>
     </Toolbar>
@@ -243,6 +257,30 @@ class DeletedPostsTable extends React.Component {
       this.setState({ data: this.props.data });
     }
   }
+
+  handleRestore = () => {
+    const users = this.state.selected;
+    return users.forEach(user => {
+      fetch(`/mac-cms/api/posts/restore/${user}`, {
+        method: "POST"
+      })
+        .then(res => res.text())
+        .then(() => this.props.getDeletedPosts())
+        .then(() =>
+          this.setState({ selected: [] }, () =>
+            this.props.enqueueSnackbar("Post restored", {
+              variant: "success"
+            })
+          )
+        )
+        .catch(err => {
+          console.error(err);
+          this.props.enqueueSnackbar("Post not restored", {
+            variant: "error"
+          });
+        });
+    });
+  };
 
   handleDelete = () => {
     const posts = this.state.selected;
@@ -344,6 +382,7 @@ class DeletedPostsTable extends React.Component {
           tableTitle={this.props.tableTitle}
           numSelected={selected.length}
           handleDelete={this.handleDelete}
+          handleRestore={this.handleRestore}
         />
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">

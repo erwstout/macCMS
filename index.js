@@ -213,6 +213,11 @@ app.post("/mac-cms/api/posts/remove/:id", (req, res) =>
   posts.removePost(req, res)
 );
 
+// restore a post
+app.post("/mac-cms/api/posts/restore/:id", (req, res) =>
+  posts.restorePost(req, res)
+);
+
 // get deleted posts
 app.get("/mac-cms/api/posts/deleted", (req, res) =>
   posts.deletedPosts(req, res)

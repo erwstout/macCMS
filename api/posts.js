@@ -69,6 +69,21 @@ exports.removePost = async (req, res) => {
 };
 
 /**
+ * Restore A Post
+ */
+exports.restorePost = async (req, res) => {
+  await db
+    .knex("posts")
+    .where("id", "=", req.params.id)
+    .update({ deleted_at: null })
+    .catch(err => {
+      console.error("Error restoring post", err);
+      return res.status(500).send("Error restoring post");
+    });
+  return res.sendStatus(200);
+};
+
+/**
  * Get Deleted Posts
  */
 exports.deletedPosts = async (req, res) => {

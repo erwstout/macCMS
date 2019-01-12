@@ -211,11 +211,7 @@ let EnhancedTableToolbar = props => {
       <div className={classes.actions}>
         {numSelected > 0 ? (
           <Fragment>
-            <Tooltip
-              handleDelete={props.handleDelete}
-              handleRestore={props.handleRestore}
-              title="Delete"
-            >
+            <Tooltip handleDelete={props.handleDelete} title="Delete">
               <IconButton
                 onClick={() => props.handleDelete()}
                 aria-label="Delete"
@@ -223,11 +219,7 @@ let EnhancedTableToolbar = props => {
                 <DeleteIcon />
               </IconButton>
             </Tooltip>
-            <Tooltip
-              handleDelete={props.handleDelete}
-              handleRestore={props.handleRestore}
-              title="Restore"
-            >
+            <Tooltip handleRestore={props.handleRestore} title="Restore">
               <IconButton
                 onClick={() => props.handleRestore()}
                 aria-label="Restore"
