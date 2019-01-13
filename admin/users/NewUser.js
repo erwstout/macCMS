@@ -13,7 +13,7 @@ import Button from "@material-ui/core/Button";
 import { withSnackbar } from "notistack";
 
 import { withGlobalContext } from "../GlobalContext";
-import AdminContainer from "../Common/AdminContainer";
+import AdminContainer from "../common/AdminContainer";
 import Heading from "../common/Heading";
 
 type $Props = {

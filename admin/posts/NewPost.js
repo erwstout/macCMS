@@ -8,7 +8,7 @@ import moment from "moment";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { withGlobalContext } from "../GlobalContext";
-import AdminContainer from "../Common/AdminContainer";
+import AdminContainer from "../common/AdminContainer";
 import Heading from "../common/Heading";
 import Paper from "@material-ui/core/Paper";
 import Add from "@material-ui/icons/Add";
