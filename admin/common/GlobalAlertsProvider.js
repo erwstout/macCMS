@@ -1,9 +1,9 @@
 // @flow
-import React, { Component, Fragment } from "react";
-import { SnackbarProvider, withSnackbar } from "notistack";
+import React, { Component } from "react";
+import { SnackbarProvider } from "notistack";
 
 type $Props = {
-  children: any
+  children: any,
 };
 
 class GlobalAlertsProvider extends Component<$Props> {

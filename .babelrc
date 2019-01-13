@@ -1,1 +1,6 @@
-{ "plugins": ["@babel/plugin-proposal-class-properties"] }
+{
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    "transform-flow-strip-types"
+  ]
+}

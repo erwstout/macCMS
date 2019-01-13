@@ -1,4 +1,3 @@
-// @flow
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").load();
 }
@@ -9,7 +8,7 @@ var pg = require("pg");
 pg.defaults.ssl = true;
 const knex = require("knex")({
   client: "pg",
-  connection: DB
+  connection: DB,
 });
 
 const generateInitialSchema = async () => {
@@ -42,7 +41,7 @@ const generateInitialSchema = async () => {
           title: "A Demo Post",
           author: 0,
           status: "published",
-          content: "Lorem ipsum dolor sit amet!"
+          content: "Lorem ipsum dolor sit amet!",
         });
     })
 
@@ -53,14 +52,16 @@ const generateInitialSchema = async () => {
 
     // map over results
     .map(function(row) {
+      /* eslint-disable-next-line */
       return console.log(row);
     })
 
     .catch(function(e) {
+      /* eslint-disable-next-line */
       console.error(e);
       process.exit(1);
     });
-
+  /* eslint-disable-next-line */
   console.log("Posts table created successfully");
   return process.exit();
 };

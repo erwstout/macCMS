@@ -22,10 +22,10 @@ import Wysiwyg from "./Editor";
 type $Props = {
   classes: Object,
   user: Object,
-  enqueueSnackbar: function,
+  enqueueSnackbar: Function,
 };
 type $State = {
-  publishDate: string
+  publishDate: string,
 };
 
 class NewPost extends Component<$Props, $State> {
@@ -33,14 +33,14 @@ class NewPost extends Component<$Props, $State> {
     super(props);
 
     this.state = {
-      publishDate: moment().format()
+      publishDate: moment().format(),
     };
   }
 
   // make flow happy for ref
   postForm: any;
 
-  handleDateChange = date => {
+  handleDateChange = (date) => {
     const formattedDate = moment(date).format();
     this.setState({ publishDate: formattedDate }, () =>
       this.postForm.setFieldValue("published_at", formattedDate)
@@ -60,14 +60,14 @@ class NewPost extends Component<$Props, $State> {
           <Paper className={classes.container}>
             <Heading heading="New Post" Icon={<Add />} />
             <Formik
-              ref={node => (this.postForm = node)}
+              ref={(node) => (this.postForm = node)}
               initialValues={{
                 title: "",
                 content: "",
                 author: user.id,
                 status: "draft",
                 published_at: moment().format(),
-                updated_at: moment().format()
+                updated_at: moment().format(),
               }}
               validationSchema={() =>
                 Yup.object.shape({
@@ -75,20 +75,19 @@ class NewPost extends Component<$Props, $State> {
                   content: Yup.string().required("Post content is required"),
                   author: Yup.integer(),
                   status: Yup.string().required("A post status is required"),
-                  published_at: Yup.string()
+                  published_at: Yup.string(),
                 })
               }
-              onSubmit={(values, { setSubmitting }) => {
-                console.log(values);
+              onSubmit={(values) => {
                 return fetch("/mac-cms/api/posts/create", {
                   method: "POST",
                   headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                   },
-                  body: JSON.stringify(values)
+                  body: JSON.stringify(values),
                 })
-                  .then(res => res.text())
-                  .then(res => {
+                  .then((res) => res.text())
+                  .then((res) => {
                     if (res === "Created") {
                       this.handleReset();
                       return this.props.enqueueSnackbar(
@@ -96,20 +95,22 @@ class NewPost extends Component<$Props, $State> {
                         { variant: "success" }
                       );
                     } else {
+                      /* eslint-disable-next-line */
                       console.error(res);
                       return this.props.enqueueSnackbar("Error creating post", {
-                        variant: "error"
+                        variant: "error",
                       });
                     }
                   })
-                  .catch(err => {
+                  .catch((err) => {
+                    /* eslint-disable-next-line */
                     console.error(err);
                     return this.props.enqueueSnackbar("Error creating post", {
-                      variant: "error"
+                      variant: "error",
                     });
                   });
               }}
-              render={({ errors, touched, isSubmitting }) => (
+              render={({ errors, touched }) => (
                 <Form noValidate id="newPost">
                   <div className={classes.postContainer}>
                     <Field
@@ -132,8 +133,14 @@ class NewPost extends Component<$Props, $State> {
                         <Field
                           id="content"
                           name="content"
-                          render={({field: {value}, form: { setFieldValue } }) => (
-                            <Wysiwyg value={value} setFieldValue={setFieldValue} />
+                          render={({
+                            field: { value },
+                            form: { setFieldValue },
+                          }) => (
+                            <Wysiwyg
+                              value={value}
+                              setFieldValue={setFieldValue}
+                            />
                           )}
                         />
                       </div>
@@ -163,8 +170,8 @@ class NewPost extends Component<$Props, $State> {
                               className={classes.selectInput}
                               SelectProps={{
                                 MenuProps: {
-                                  className: classes.menu
-                                }
+                                  className: classes.menu,
+                                },
                               }}
                               helperText="Select the status of the post"
                               margin="normal"
@@ -204,12 +211,12 @@ class NewPost extends Component<$Props, $State> {
   }
 }
 
-const styles = theme => ({
+const styles = (theme) => ({
   container: {
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
-    width: "100%"
+    width: "100%",
   },
   postContainer: {
     display: "flex",
@@ -217,10 +224,10 @@ const styles = theme => ({
     justifyContent: "flex-start",
     alignItems: "flex-start",
     margin: "30px 0 20px",
-    width: "100%"
+    width: "100%",
   },
   postTitle: {
-    width: "100%"
+    width: "100%",
   },
   postBody: {
     display: "flex",
@@ -228,26 +235,26 @@ const styles = theme => ({
     justifyContent: "space-between",
     alignItems: "stretch",
     width: "100%",
-    padding: "20px 0 0"
+    padding: "20px 0 0",
   },
   postMain: {
-    flex: "0 0 75%"
+    flex: "0 0 75%",
   },
   postSidebar: {
     flex: "0 0 25%",
-    paddingLeft: theme.spacing.unit * 2
+    paddingLeft: theme.spacing.unit * 2,
   },
   selectInput: {
     marginBottom: "12px",
-    width: "100%"
+    width: "100%",
   },
   buttonContainer: {
     marginTop: "22px",
-    width: "100%"
+    width: "100%",
   },
   saveButton: {
-    width: "100%"
-  }
+    width: "100%",
+  },
 });
 
 export default withStyles(styles)(withGlobalContext(withSnackbar(NewPost)));

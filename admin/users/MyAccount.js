@@ -7,7 +7,6 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
-import MenuItem from "@material-ui/core/MenuItem";
 import UpdateIcon from "@material-ui/icons/Update";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import LockIcon from "@material-ui/icons/Lock";
@@ -21,13 +20,13 @@ import Heading from "../common/Heading";
 type $Props = {
   classes: Object,
   user: Object,
-  enqueueSnackbar: Function
+  enqueueSnackbar: Function,
 };
 
 type $State = {
   successSnackOpen: boolean,
   failureSnackOpen: boolean,
-  incorrectPassword: boolean
+  incorrectPassword: boolean,
 };
 
 class MyAccount extends Component<$Props, $State> {
@@ -37,7 +36,7 @@ class MyAccount extends Component<$Props, $State> {
     this.state = {
       successSnackOpen: false,
       failureSnackOpen: false,
-      incorrectPassword: false
+      incorrectPassword: false,
     };
   }
 
@@ -57,11 +56,6 @@ class MyAccount extends Component<$Props, $State> {
 
   render() {
     const { classes, user } = this.props;
-    const {
-      successSnackOpen,
-      failureSnackOpen,
-      incorrectPassword
-    } = this.state;
 
     return (
       <AdminContainer>
@@ -81,7 +75,7 @@ class MyAccount extends Component<$Props, $State> {
               facebook_url: user.facebook_url,
               linkedin_url: user.linkedin_url,
               instagram_url: user.instagram_url,
-              youtube_url: user.youtube_url
+              youtube_url: user.youtube_url,
             }}
             validationSchema={() =>
               Yup.object().shape({
@@ -104,25 +98,22 @@ class MyAccount extends Component<$Props, $State> {
                   .nullable(),
                 youtube_url: Yup.string()
                   .url("Invalid URL, must include http:// or https://")
-                  .nullable()
+                  .nullable(),
               })
             }
             onSubmit={(values, { setSubmitting }) => {
-              console.log(values);
-
               return fetch("/mac-cms/api/users/update", {
                 method: "POST",
                 headers: {
-                  "Content-Type": "application/json"
+                  "Content-Type": "application/json",
                 },
-                body: JSON.stringify(values)
+                body: JSON.stringify(values),
               })
-                .then(res => res.text())
-                .then(res => {
-                  console.log(res);
+                .then((res) => res.text())
+                .then((res) => {
                   if (res === "Accepted") {
                     this.props.enqueueSnackbar("Account information updated", {
-                      variant: "success"
+                      variant: "success",
                     });
                   } else {
                     this.props.enqueueSnackbar(
@@ -132,7 +123,8 @@ class MyAccount extends Component<$Props, $State> {
                   }
                   setSubmitting(false);
                 })
-                .catch(err => {
+                .catch((err) => {
+                  /* eslint-disable-next-line */
                   console.error(err);
                   this.props.enqueueSnackbar(
                     "Failed to update account information",
@@ -140,7 +132,7 @@ class MyAccount extends Component<$Props, $State> {
                   );
                 });
             }}
-            render={({ errors, touched, isSubmitting, resetForm }) => (
+            render={({ errors, touched, isSubmitting }) => (
               <Form noValidate id="updateUser">
                 <div className={classes.formContainer}>
                   <Field
@@ -152,7 +144,7 @@ class MyAccount extends Component<$Props, $State> {
                         label="First Name"
                         className={classes.input}
                         inputProps={{
-                          "aria-label": "First Name"
+                          "aria-label": "First Name",
                         }}
                         required
                         error={
@@ -171,7 +163,7 @@ class MyAccount extends Component<$Props, $State> {
                         label="Last Name"
                         className={classes.input}
                         inputProps={{
-                          "aria-label": "Last Name"
+                          "aria-label": "Last Name",
                         }}
                         error={
                           touched.last_name && errors.last_name ? true : false
@@ -190,7 +182,7 @@ class MyAccount extends Component<$Props, $State> {
                         label="Email"
                         className={classes.input}
                         inputProps={{
-                          "aria-label": "Email"
+                          "aria-label": "Email",
                         }}
                         type="email"
                         required
@@ -209,7 +201,7 @@ class MyAccount extends Component<$Props, $State> {
                         label="Twitter URL "
                         className={classes.input}
                         inputProps={{
-                          "aria-label": "Twitter URL "
+                          "aria-label": "Twitter URL ",
                         }}
                         error={
                           touched.twitter_url && errors.twitter_url
@@ -229,7 +221,7 @@ class MyAccount extends Component<$Props, $State> {
                         label="Facebook URL "
                         className={classes.input}
                         inputProps={{
-                          "aria-label": "Facebook URL "
+                          "aria-label": "Facebook URL ",
                         }}
                         type="url"
                         error={
@@ -250,7 +242,7 @@ class MyAccount extends Component<$Props, $State> {
                         label="LinkedIn URL "
                         className={classes.input}
                         inputProps={{
-                          "aria-label": "LinkedIn URL "
+                          "aria-label": "LinkedIn URL ",
                         }}
                         type="url"
                         error={
@@ -271,7 +263,7 @@ class MyAccount extends Component<$Props, $State> {
                         label="Instagram URL "
                         className={classes.input}
                         inputProps={{
-                          "aria-label": "Instagram URL "
+                          "aria-label": "Instagram URL ",
                         }}
                         type="url"
                         error={
@@ -294,7 +286,7 @@ class MyAccount extends Component<$Props, $State> {
                         label="YouTube URL "
                         className={classes.input}
                         inputProps={{
-                          "aria-label": "YouTube URL "
+                          "aria-label": "YouTube URL ",
                         }}
                         type="url"
                         error={
@@ -330,7 +322,7 @@ class MyAccount extends Component<$Props, $State> {
             initialValues={{
               currentPassword: "",
               newPassword: "",
-              id: user.id
+              id: user.id,
             }}
             validationSchema={() =>
               Yup.object().shape({
@@ -340,28 +332,26 @@ class MyAccount extends Component<$Props, $State> {
                 newPassword: Yup.string()
                   .min(9, "Must be at least 9 characters long")
                   .required("New password is required"),
-                id: Yup.string()
+                id: Yup.string(),
               })
             }
             onSubmit={(values, { setSubmitting, resetForm }) => {
-              console.log(values);
               return fetch("/mac-cms/api/users/change-password", {
                 method: "POST",
                 headers: {
-                  "Content-Type": "application/json"
+                  "Content-Type": "application/json",
                 },
-                body: JSON.stringify(values)
+                body: JSON.stringify(values),
               })
-                .then(res => res.text())
-                .then(res => {
-                  console.log(res);
+                .then((res) => res.text())
+                .then((res) => {
                   if (res === "Accepted") {
                     this.props.enqueueSnackbar("Password updated", {
-                      variant: "success"
+                      variant: "success",
                     });
                   } else if (res === "Unauthorized") {
                     this.props.enqueueSnackbar("Failed to update password", {
-                      variant: "error"
+                      variant: "error",
                     });
                   } else {
                     this.setState({ failureSnackOpen: true });
@@ -369,14 +359,15 @@ class MyAccount extends Component<$Props, $State> {
                   setSubmitting(false);
                   resetForm();
                 })
-                .catch(err => {
+                .catch((err) => {
+                  /* eslint-disable-next-line */
                   console.error(err);
                   this.props.enqueueSnackbar("Failed to update password", {
-                    variant: "error"
+                    variant: "error",
                   });
                 });
             }}
-            render={({ errors, touched, isSubmitting }) => (
+            render={() => (
               <Form noValidate id="changePassword">
                 <div className={classes.formContainer}>
                   <Field
@@ -388,7 +379,7 @@ class MyAccount extends Component<$Props, $State> {
                         label="Current Password"
                         className={classes.input}
                         inputProps={{
-                          "aria-label": "Current Password"
+                          "aria-label": "Current Password",
                         }}
                         required
                         type="password"
@@ -412,7 +403,7 @@ class MyAccount extends Component<$Props, $State> {
                         label="New Password"
                         className={classes.input}
                         inputProps={{
-                          "aria-label": "New Password"
+                          "aria-label": "New Password",
                         }}
                         required
                         type="password"
@@ -444,43 +435,43 @@ class MyAccount extends Component<$Props, $State> {
   }
 }
 
-const styles = theme => ({
+const styles = (theme) => ({
   container: {
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
-    width: "100%"
+    width: "100%",
   },
   header: {
-    margin: `26px ${theme.spacing.unit} 0`
+    margin: `26px ${theme.spacing.unit} 0`,
   },
   subHeading: {
-    marginLeft: theme.spacing.unit
+    marginLeft: theme.spacing.unit,
   },
   input: {
     margin: theme.spacing.unit,
-    width: "100%"
+    width: "100%",
   },
   divider: {
-    margin: `20px ${theme.spacing.unit}`
+    margin: `20px ${theme.spacing.unit}`,
   },
   button: {
-    margin: `${theme.spacing.unit * 4} ${theme.spacing.unit}`
+    margin: `${theme.spacing.unit * 4} ${theme.spacing.unit}`,
   },
   updateIcon: {
-    marginRight: theme.spacing.unit
+    marginRight: theme.spacing.unit,
   },
   formContainer: {
     display: "grid",
     gridTemplateColumns: "repeat(2, 1fr)",
-    gridColumnGap: "50px"
+    gridColumnGap: "50px",
   },
   close: {
-    padding: theme.spacing.unit / 2
+    padding: theme.spacing.unit / 2,
   },
   snack: {
-    bottom: 24
-  }
+    bottom: 24,
+  },
 });
 
 export default withStyles(styles)(withGlobalContext(withSnackbar(MyAccount)));

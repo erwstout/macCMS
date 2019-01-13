@@ -1,0 +1,8 @@
+.eslintrc
+**/*.pug
+dist/**
+flow-coverage/**
+flow-typed/**
+flow/**
+node_modules/**
+package.json

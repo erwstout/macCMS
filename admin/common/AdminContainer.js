@@ -3,11 +3,16 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { withGlobalContext } from "../GlobalContext";
 
-const AdminContainer = ({ classes, children }) => (
+type $Props = {
+  classes: Object,
+  children: any,
+};
+
+const AdminContainer = ({ classes, children }: $Props) => (
   <div className={classes.root}>{children}</div>
 );
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     flex: "1 1 auto",
     display: "flex",
@@ -17,8 +22,8 @@ const styles = theme => ({
     alignItems: "center",
     padding: "20px 14px",
     backgroundColor: "#353535",
-    overflow: "hidden"
-  }
+    overflow: "hidden",
+  },
 });
 
 export default withStyles(styles)(withGlobalContext(AdminContainer));

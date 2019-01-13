@@ -1,6 +1,5 @@
 import React from "react";
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -20,6 +19,21 @@ import { lighten } from "@material-ui/core/styles/colorManipulator";
 import moment from "moment";
 import { withSnackbar } from "notistack";
 
+type $Props = {
+  handleDelete: Function,
+  tableTitle: string,
+  orderBy: any,
+  data: Array<Object>,
+  getAllUsers?: Function,
+  enqueueSnackbar?: Function,
+  onSelectAllClick: Function,
+  order: any,
+  numSelected: number,
+  rowCount: number,
+  onRequestSort?: Function,
+  classes: Object,
+};
+
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -37,7 +51,7 @@ function stableSort(array, cmp) {
     if (order !== 0) return order;
     return a[1] - b[1];
   });
-  return stabilizedThis.map(el => el[0]);
+  return stabilizedThis.map((el) => el[0]);
 }
 
 function getSorting(order, orderBy) {
@@ -51,44 +65,44 @@ const rows = [
     id: "id",
     numeric: true,
     disablePadding: true,
-    label: "ID"
+    label: "ID",
   },
   { id: "username", numeric: false, disablePadding: false, label: "Username" },
   {
     id: "user_type",
     numeric: false,
     disablePadding: false,
-    label: "User Type"
+    label: "User Type",
   },
   {
     id: "first_name",
     numeric: false,
     disablePadding: false,
-    label: "First Name"
+    label: "First Name",
   },
   {
     id: "last_name",
     numeric: false,
     disablePadding: false,
-    label: "Last Name"
+    label: "Last Name",
   },
   { id: "email", numeric: false, disablePadding: false, label: "Email" },
   {
     id: "created_at",
     numeric: false,
     disablePadding: false,
-    label: "Created On"
+    label: "Created On",
   },
   {
     id: "last_login",
     numeric: false,
     disablePadding: false,
-    label: "Last Login"
-  }
+    label: "Last Login",
+  },
 ];
 
-class EnhancedTableHead extends React.Component {
-  createSortHandler = property => event => {
+class EnhancedTableHead extends React.Component<$Props> {
+  createSortHandler = (property) => (event) => {
     this.props.onRequestSort(event, property);
   };
 
@@ -98,7 +112,7 @@ class EnhancedTableHead extends React.Component {
       order,
       orderBy,
       numSelected,
-      rowCount
+      rowCount,
     } = this.props;
 
     return (
@@ -111,7 +125,7 @@ class EnhancedTableHead extends React.Component {
               onChange={onSelectAllClick}
             />
           </TableCell>
-          {rows.map(row => {
+          {rows.map((row) => {
             return (
               <TableCell
                 key={row.id}
@@ -141,47 +155,38 @@ class EnhancedTableHead extends React.Component {
   }
 }
 
-EnhancedTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.string.isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired
-};
-
-const toolbarStyles = theme => ({
+const toolbarStyles = (theme) => ({
   root: {
-    paddingRight: theme.spacing.unit
+    paddingRight: theme.spacing.unit,
   },
   highlight:
     theme.palette.type === "light"
       ? {
           color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85)
+          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
         }
       : {
           color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark
+          backgroundColor: theme.palette.secondary.dark,
         },
   spacer: {
-    flex: "1 1 100%"
+    flex: "1 1 100%",
   },
   actions: {
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
   },
   title: {
-    flex: "0 0 auto"
-  }
+    flex: "0 0 auto",
+  },
 });
 
-let EnhancedTableToolbar = props => {
+let EnhancedTableToolbar = (props: $Props) => {
   const { numSelected, classes } = props;
 
   return (
     <Toolbar
       className={classNames(classes.root, {
-        [classes.highlight]: numSelected > 0
+        [classes.highlight]: numSelected > 0,
       })}
       handleDelete={props.handleDelete}
     >
@@ -213,34 +218,29 @@ let EnhancedTableToolbar = props => {
   );
 };
 
-EnhancedTableToolbar.propTypes = {
-  classes: PropTypes.object.isRequired,
-  numSelected: PropTypes.number.isRequired
-};
-
 EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     width: "100%",
-    marginTop: theme.spacing.unit * 3
+    marginTop: theme.spacing.unit * 3,
   },
   table: {
-    minWidth: 0
+    minWidth: 0,
   },
   tableWrapper: {
-    overflowX: "scroll"
-  }
+    overflowX: "scroll",
+  },
 });
 
-class UserTable extends React.Component {
+class UserTable extends React.Component<$Props> {
   state = {
     order: "asc",
     orderBy: this.props.orderBy,
     selected: [],
     data: this.props.data,
     page: 0,
-    rowsPerPage: 25
+    rowsPerPage: 25,
   };
 
   componentDidUpdate(prevProps) {
@@ -255,23 +255,24 @@ class UserTable extends React.Component {
       return null;
     }
 
-    return users.forEach(user => {
+    return users.forEach((user) => {
       fetch(`/mac-cms/api/users/delete/${user}`, {
-        method: "POST"
+        method: "POST",
       })
-        .then(res => res.text())
+        .then((res) => res.text())
         .then(() => this.props.getAllUsers())
         .then(() =>
           this.setState({ selected: [] }, () =>
             this.props.enqueueSnackbar("Successfully deleted user", {
-              variant: "success"
+              variant: "success",
             })
           )
         )
-        .catch(err => {
+        .catch((err) => {
+          /* eslint-disable-next-line */
           console.error(err);
           this.props.enqueueSnackbar("User deletion failed, please try again", {
-            variant: "error"
+            variant: "error",
           });
         });
     });
@@ -288,9 +289,9 @@ class UserTable extends React.Component {
     this.setState({ order, orderBy });
   };
 
-  handleSelectAllClick = event => {
+  handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      this.setState(state => ({ selected: state.data.map(n => n.id) }));
+      this.setState((state) => ({ selected: state.data.map((n) => n.id) }));
       return;
     }
     this.setState({ selected: [] });
@@ -321,11 +322,11 @@ class UserTable extends React.Component {
     this.setState({ page });
   };
 
-  handleChangeRowsPerPage = event => {
+  handleChangeRowsPerPage = (event) => {
     this.setState({ rowsPerPage: event.target.value });
   };
 
-  isSelected = id => this.state.selected.indexOf(id) !== -1;
+  isSelected = (id) => this.state.selected.indexOf(id) !== -1;
 
   render() {
     const { classes } = this.props;
@@ -353,12 +354,12 @@ class UserTable extends React.Component {
             <TableBody>
               {stableSort(data, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(n => {
+                .map((n) => {
                   const isSelected = this.isSelected(n.id);
                   return (
                     <TableRow
                       hover
-                      onClick={event => this.handleClick(event, n.id)}
+                      onClick={(event) => this.handleClick(event, n.id)}
                       role="checkbox"
                       aria-checked={isSelected}
                       tabIndex={-1}
@@ -402,10 +403,10 @@ class UserTable extends React.Component {
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{
-            "aria-label": "Previous Page"
+            "aria-label": "Previous Page",
           }}
           nextIconButtonProps={{
-            "aria-label": "Next Page"
+            "aria-label": "Next Page",
           }}
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
@@ -414,9 +415,5 @@ class UserTable extends React.Component {
     );
   }
 }
-
-UserTable.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 export default withStyles(styles)(withSnackbar(UserTable));

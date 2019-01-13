@@ -22,6 +22,18 @@ import moment from "moment";
 import ConfirmDelete from "./ConfirmDelete";
 import { withSnackbar } from "notistack";
 
+type $Props = {
+  handleDelete: Function,
+  handleRestore: Function,
+  tableTitle: string,
+  orderBy: any,
+  order: any,
+  data: Array<Object>,
+  getDeletedUsers: Function,
+  enqueueSnackbar: Function,
+  classes: Object,
+};
+
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -39,7 +51,7 @@ function stableSort(array, cmp) {
     if (order !== 0) return order;
     return a[1] - b[1];
   });
-  return stabilizedThis.map(el => el[0]);
+  return stabilizedThis.map((el) => el[0]);
 }
 
 function getSorting(order, orderBy) {
@@ -53,50 +65,50 @@ const rows = [
     id: "id",
     numeric: true,
     disablePadding: true,
-    label: "ID"
+    label: "ID",
   },
   { id: "username", numeric: false, disablePadding: false, label: "Username" },
   {
     id: "user_type",
     numeric: false,
     disablePadding: false,
-    label: "User Type"
+    label: "User Type",
   },
   {
     id: "first_name",
     numeric: false,
     disablePadding: false,
-    label: "First Name"
+    label: "First Name",
   },
   {
     id: "last_name",
     numeric: false,
     disablePadding: false,
-    label: "Last Name"
+    label: "Last Name",
   },
   { id: "email", numeric: false, disablePadding: false, label: "Email" },
   {
     id: "created_at",
     numeric: false,
     disablePadding: false,
-    label: "Created On"
+    label: "Created On",
   },
   {
     id: "deleted_at",
     numeric: false,
     disablePadding: false,
-    label: "Deleted On"
+    label: "Deleted On",
   },
   {
     id: "last_login",
     numeric: false,
     disablePadding: false,
-    label: "Last Login"
-  }
+    label: "Last Login",
+  },
 ];
 
-class EnhancedTableHead extends React.Component {
-  createSortHandler = property => event => {
+class EnhancedTableHead extends React.Component<$Props> {
+  createSortHandler = (property) => (event) => {
     this.props.onRequestSort(event, property);
   };
 
@@ -106,7 +118,7 @@ class EnhancedTableHead extends React.Component {
       order,
       orderBy,
       numSelected,
-      rowCount
+      rowCount,
     } = this.props;
 
     return (
@@ -119,7 +131,7 @@ class EnhancedTableHead extends React.Component {
               onChange={onSelectAllClick}
             />
           </TableCell>
-          {rows.map(row => {
+          {rows.map((row) => {
             return (
               <TableCell
                 key={row.id}
@@ -155,43 +167,43 @@ EnhancedTableHead.propTypes = {
   onSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.string.isRequired,
   orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired
+  rowCount: PropTypes.number.isRequired,
 };
 
-const toolbarStyles = theme => ({
+const toolbarStyles = (theme) => ({
   root: {
-    paddingRight: theme.spacing.unit
+    paddingRight: theme.spacing.unit,
   },
   highlight:
     theme.palette.type === "light"
       ? {
           color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85)
+          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
         }
       : {
           color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark
+          backgroundColor: theme.palette.secondary.dark,
         },
   spacer: {
-    flex: "1 1 100%"
+    flex: "1 1 100%",
   },
   actions: {
     display: "flex",
     flexFlow: "row nowrap",
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
   },
   title: {
-    flex: "0 0 auto"
-  }
+    flex: "0 0 auto",
+  },
 });
 
-let EnhancedTableToolbar = props => {
+let EnhancedTableToolbar = (props: $Props) => {
   const { numSelected, classes } = props;
 
   return (
     <Toolbar
       className={classNames(classes.root, {
-        [classes.highlight]: numSelected > 0
+        [classes.highlight]: numSelected > 0,
       })}
       handleDelete={props.handleDelete}
       handleRestore={props.handleRestore}
@@ -236,28 +248,28 @@ let EnhancedTableToolbar = props => {
 
 EnhancedTableToolbar.propTypes = {
   classes: PropTypes.object.isRequired,
-  numSelected: PropTypes.number.isRequired
+  numSelected: PropTypes.number.isRequired,
 };
 
 EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     width: "100%",
-    marginTop: theme.spacing.unit * 3
+    marginTop: theme.spacing.unit * 3,
   },
   table: {
-    minWidth: 0
+    minWidth: 0,
   },
   tableWrapper: {
-    overflowX: "scroll"
+    overflowX: "scroll",
   },
   tooltip: {
-    display: "inline-block"
-  }
+    display: "inline-block",
+  },
 });
 
-class DeletedUsersTable extends React.Component {
+class DeletedUsersTable extends React.Component<$Props> {
   state = {
     order: "asc",
     orderBy: this.props.orderBy,
@@ -265,7 +277,7 @@ class DeletedUsersTable extends React.Component {
     data: this.props.data,
     page: 0,
     rowsPerPage: 25,
-    showDialog: false
+    showDialog: false,
   };
 
   componentDidUpdate(prevProps) {
@@ -279,57 +291,59 @@ class DeletedUsersTable extends React.Component {
     if (!users) {
       return null;
     }
-    this.setState(state => ({ showDialog: !state.showDialog }));
+    this.setState((state) => ({ showDialog: !state.showDialog }));
   };
 
   handleRestore = () => {
     const users = this.state.selected;
-    return users.forEach(user => {
+    return users.forEach((user) => {
       fetch(`/mac-cms/api/users/restore/${user}`, {
-        method: "POST"
+        method: "POST",
       })
-        .then(res => res.text())
+        .then((res) => res.text())
         .then(() => this.props.getDeletedUsers())
         .then(() =>
           this.setState({ selected: [] }, () =>
             this.props.enqueueSnackbar("User restored", {
-              variant: "success"
+              variant: "success",
             })
           )
         )
-        .catch(err => {
+        .catch((err) => {
+          /* eslint-disable-next-line */
           console.error(err);
           this.props.enqueueSnackbar("User not restored", {
-            variant: "error"
+            variant: "error",
           });
         });
     });
   };
 
   handleConfirmClose = () => {
-    this.setState(state => ({ showDialog: false }));
+    this.setState(() => ({ showDialog: false }));
   };
 
   handlePermanentDelete = () => {
     const users = this.state.selected;
-    return users.forEach(user => {
+    return users.forEach((user) => {
       fetch(`/mac-cms/api/users/remove/${user}`, {
-        method: "POST"
+        method: "POST",
       })
-        .then(res => res.text())
+        .then((res) => res.text())
         .then(() => this.props.getDeletedUsers())
         .then(() =>
           this.setState({ selected: [] }, () =>
             this.props.enqueueSnackbar("Successfully deleted user", {
-              variant: "success"
+              variant: "success",
             })
           )
         )
         .then(() => this.handleConfirmClose())
-        .catch(err => {
+        .catch((err) => {
+          /* eslint-disable-next-line */
           console.error(err);
           this.props.enqueueSnackbar("Failed to delete user", {
-            variant: "error"
+            variant: "error",
           });
         });
     });
@@ -346,9 +360,9 @@ class DeletedUsersTable extends React.Component {
     this.setState({ order, orderBy });
   };
 
-  handleSelectAllClick = event => {
+  handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      this.setState(state => ({ selected: state.data.map(n => n.id) }));
+      this.setState((state) => ({ selected: state.data.map((n) => n.id) }));
       return;
     }
     this.setState({ selected: [] });
@@ -379,11 +393,11 @@ class DeletedUsersTable extends React.Component {
     this.setState({ page });
   };
 
-  handleChangeRowsPerPage = event => {
+  handleChangeRowsPerPage = (event) => {
     this.setState({ rowsPerPage: event.target.value });
   };
 
-  isSelected = id => this.state.selected.indexOf(id) !== -1;
+  isSelected = (id) => this.state.selected.indexOf(id) !== -1;
 
   render() {
     const { classes } = this.props;
@@ -412,12 +426,12 @@ class DeletedUsersTable extends React.Component {
             <TableBody>
               {stableSort(data, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(n => {
+                .map((n) => {
                   const isSelected = this.isSelected(n.id);
                   return (
                     <TableRow
                       hover
-                      onClick={event => this.handleClick(event, n.id)}
+                      onClick={(event) => this.handleClick(event, n.id)}
                       role="checkbox"
                       aria-checked={isSelected}
                       tabIndex={-1}
@@ -464,10 +478,10 @@ class DeletedUsersTable extends React.Component {
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{
-            "aria-label": "Previous Page"
+            "aria-label": "Previous Page",
           }}
           nextIconButtonProps={{
-            "aria-label": "Next Page"
+            "aria-label": "Next Page",
           }}
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}

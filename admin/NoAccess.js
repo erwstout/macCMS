@@ -1,9 +1,8 @@
 import React from "react";
-import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import AdminContainer from "./common/AdminContainer";
 
-const NoAccess = ({ classes }) => (
+const NoAccess = () => (
   <AdminContainer>
     <Typography variant="h3">Restricted</Typography>
     <Typography variant="body1">

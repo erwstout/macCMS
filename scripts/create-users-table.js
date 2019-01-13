@@ -1,4 +1,3 @@
-// @flow
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").load();
 }
@@ -9,7 +8,7 @@ var pg = require("pg");
 pg.defaults.ssl = true;
 const knex = require("knex")({
   client: "pg",
-  connection: DB
+  connection: DB,
 });
 const bcrypt = require("bcrypt");
 
@@ -36,7 +35,7 @@ const generateInitialSchema = async () => {
 
     // Then set email to unique
     .then(() => {
-      return knex.schema.alterTable("users", t => {
+      return knex.schema.alterTable("users", (t) => {
         t.unique("email");
         t.unique("user_name");
       });
@@ -52,7 +51,7 @@ const generateInitialSchema = async () => {
           first_name: "Delete",
           last_name: "Me!",
           email: "nouser@example.com",
-          password: hash
+          password: hash,
         });
     })
 
@@ -63,14 +62,17 @@ const generateInitialSchema = async () => {
 
     // map over results
     .map(function(row) {
+      /* eslint-disable-next-line */
       return console.log(row);
     })
 
     .catch(function(e) {
+      /* eslint-disable-next-line */
       console.error(e);
       process.exit(1);
     });
 
+  /* eslint-disable-next-line */
   console.log("User Table and Admin Generated Successfully");
   return process.exit();
 };

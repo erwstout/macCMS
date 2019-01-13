@@ -1,29 +1,24 @@
 // @flow
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import classNames from "classnames";
 import AdminContainer from "../common/AdminContainer";
 import Heading from "../common/Heading";
 import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import Delete from "@material-ui/icons/Delete";
 import CreateIcon from "@material-ui/icons/Create";
 import Loading from "../common/Loading";
 import { withGlobalContext } from "../GlobalContext";
 import PostsTable from "./PostsTable";
-import values from "lodash/values";
 import { withSnackbar } from "notistack";
 
 type $Props = {
   classes: Object,
   user: Object,
-  enqueueSnackbar: Function
+  enqueueSnackbar: Function,
 };
 
 type $State = {
   loading: boolean,
-  posts: Array<Object>
+  posts: Array<Object>,
 };
 
 class AllPosts extends Component<$Props, $State> {
@@ -32,7 +27,7 @@ class AllPosts extends Component<$Props, $State> {
 
     this.state = {
       loading: true,
-      posts: []
+      posts: [],
     };
   }
 
@@ -42,12 +37,13 @@ class AllPosts extends Component<$Props, $State> {
 
   getAllPosts = () => {
     return fetch("/mac-cms/api/posts/all")
-      .then(res => res.json())
-      .then(posts => this.setState({ posts, loading: false }))
-      .catch(err => {
+      .then((res) => res.json())
+      .then((posts) => this.setState({ posts, loading: false }))
+      .catch((err) => {
+        /* eslint-disable-next-line */
         console.error(err);
         return this.props.enqueueSnackbar("Error loading posts", {
-          variant: "error"
+          variant: "error",
         });
       });
   };
@@ -75,12 +71,12 @@ class AllPosts extends Component<$Props, $State> {
   }
 }
 
-const styles = theme => ({
+const styles = (theme) => ({
   container: {
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
-    width: "100%"
+    width: "100%",
   },
   userTable: {
     display: "flex",
@@ -90,7 +86,7 @@ const styles = theme => ({
     alignItems: "flex-start",
     margin: "20px 0 10px",
     border: `1px solid ${theme.palette.grey["300"]}`,
-    borderRadius: 4
+    borderRadius: 4,
   },
   userTableRow: {
     flex: "0 0 auto",
@@ -102,12 +98,12 @@ const styles = theme => ({
     padding: 8,
     "& > div": {
       flex: "0 0 14.28%",
-      padding: "0 4px"
-    }
+      padding: "0 4px",
+    },
   },
   userTableHeader: {
-    backgroundColor: theme.palette.grey["300"]
-  }
+    backgroundColor: theme.palette.grey["300"],
+  },
 });
 
 export default withStyles(styles)(withGlobalContext(withSnackbar(AllPosts)));

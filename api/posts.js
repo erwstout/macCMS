@@ -1,7 +1,4 @@
-// @flow
 const db = require("../util/db");
-const pickBy = require("lodash/pickBy");
-const identity = require("lodash/identity");
 
 /**
  * Get ALL Posts, except deleted {@private}
@@ -46,7 +43,8 @@ exports.deletePost = async (req, res) => {
     .knex("posts")
     .where("id", "=", req.params.id)
     .update({ deleted_at: db.knex.fn.now() })
-    .catch(err => {
+    .catch((err) => {
+      /* eslint-disable-next-line */
       console.error("Error deleting post", err);
       return res.sendStatus(500);
     });
@@ -61,7 +59,8 @@ exports.removePost = async (req, res) => {
     .knex("posts")
     .where("id", "=", req.params.id)
     .del()
-    .catch(err => {
+    .catch((err) => {
+      /* eslint-disable-next-line */
       console.error("Error permanently deleting post", err);
       return res.status(500).send("Error permanently deleting post");
     });
@@ -76,7 +75,8 @@ exports.restorePost = async (req, res) => {
     .knex("posts")
     .where("id", "=", req.params.id)
     .update({ deleted_at: null })
-    .catch(err => {
+    .catch((err) => {
+      /* eslint-disable-next-line */
       console.error("Error restoring post", err);
       return res.status(500).send("Error restoring post");
     });

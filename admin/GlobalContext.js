@@ -3,11 +3,16 @@ import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import theme from "../styles/theme";
 import GlobalAlertsProvider from "./common/GlobalAlertsProvider";
 
+type $Props = {
+  user: Object,
+  children: any,
+};
+
 const GlobalContext = React.createContext({
-  user: {}
+  user: {},
 });
 
-export class GlobalProvider extends Component {
+export class GlobalProvider extends Component<$Props> {
   render() {
     const { user } = this.props;
 
@@ -21,8 +26,8 @@ export class GlobalProvider extends Component {
   }
 }
 
-export const withGlobalContext = Component => props => (
+export const withGlobalContext = (Component: any) => (props: $Props) => (
   <GlobalContext.Consumer>
-    {globalContext => <Component {...globalContext} {...props} />}
+    {(globalContext) => <Component {...globalContext} {...props} />}
   </GlobalContext.Consumer>
 );

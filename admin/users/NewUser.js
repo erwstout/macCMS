@@ -10,7 +10,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
 import { withSnackbar } from "notistack";
 
 import { withGlobalContext } from "../GlobalContext";
@@ -20,12 +19,12 @@ import Heading from "../common/Heading";
 type $Props = {
   classes: Object,
   user: Object,
-  enqueueSnackbar: function,
+  enqueueSnackbar: Function,
 };
 
 type $State = {
   success: boolean,
-  error: boolean
+  error: boolean,
 };
 
 class NewUser extends Component<$Props, $State> {
@@ -34,7 +33,7 @@ class NewUser extends Component<$Props, $State> {
 
     this.state = {
       success: false,
-      error: false
+      error: false,
     };
   }
 
@@ -65,7 +64,7 @@ class NewUser extends Component<$Props, $State> {
               instagram_url: "",
               youtube_url: "",
               user_type: "standard",
-              created_by: this.props.user.id
+              created_by: this.props.user.id,
             }}
             validationSchema={() =>
               Yup.object().shape({
@@ -94,20 +93,19 @@ class NewUser extends Component<$Props, $State> {
                   "Invalid URL, must include http:// or https://"
                 ),
                 user_type: Yup.string().required("User Type is required"),
-                created_by: Yup.string()
+                created_by: Yup.string(),
               })
             }
-            onSubmit={(values, { setSubmitting }) => {
-              console.log(values);
+            onSubmit={(values) => {
               return fetch("/mac-cms/api/users/add", {
                 method: "POST",
                 headers: {
-                  "Content-Type": "application/json"
+                  "Content-Type": "application/json",
                 },
-                body: JSON.stringify(values)
+                body: JSON.stringify(values),
               })
-                .then(res => res.text())
-                .then(res => {
+                .then((res) => res.text())
+                .then((res) => {
                   if (res === "Created") {
                     this.handleReset();
                     return this.props.enqueueSnackbar(
@@ -116,19 +114,20 @@ class NewUser extends Component<$Props, $State> {
                     );
                   } else {
                     return this.props.enqueueSnackbar("Error creating user", {
-                      variant: "error"
+                      variant: "error",
                     });
                   }
                 })
-                .catch(err => {
+                .catch((err) => {
+                  /* eslint-disable-next-line */
                   console.error(err);
                   return this.props.enqueueSnackbar("Error creating user", {
-                    variant: "error"
+                    variant: "error",
                   });
                 });
             }}
-            ref={node => (this.newUserForm = node)}
-            render={({ errors, touched, isSubmitting, resetForm }) => (
+            ref={(node) => (this.newUserForm = node)}
+            render={({ errors, touched, isSubmitting }) => (
               <Form noValidate id="newUser">
                 <Typography className={classes.sectionHeadline} variant="h6">
                   User Information
@@ -143,7 +142,7 @@ class NewUser extends Component<$Props, $State> {
                         label="Username"
                         className={classes.input}
                         InputProps={{
-                          "aria-label": "Username"
+                          "aria-label": "Username",
                         }}
                         required
                         error={
@@ -162,7 +161,7 @@ class NewUser extends Component<$Props, $State> {
                         label="Password"
                         className={classes.input}
                         InputProps={{
-                          "aria-label": "Password"
+                          "aria-label": "Password",
                         }}
                         required
                         type="password"
@@ -182,7 +181,7 @@ class NewUser extends Component<$Props, $State> {
                         label="First Name"
                         className={classes.input}
                         InputProps={{
-                          "aria-label": "First Name"
+                          "aria-label": "First Name",
                         }}
                         required
                         error={
@@ -201,7 +200,7 @@ class NewUser extends Component<$Props, $State> {
                         label="Last Name"
                         className={classes.input}
                         InputProps={{
-                          "aria-label": "Last Name"
+                          "aria-label": "Last Name",
                         }}
                         error={
                           touched.last_name && errors.last_name ? true : false
@@ -220,7 +219,7 @@ class NewUser extends Component<$Props, $State> {
                         label="Email"
                         className={classes.input}
                         InputProps={{
-                          "aria-label": "Email"
+                          "aria-label": "Email",
                         }}
                         type="email"
                         required
@@ -239,7 +238,7 @@ class NewUser extends Component<$Props, $State> {
                         label="Twitter URL "
                         className={classes.input}
                         InputProps={{
-                          "aria-label": "Twitter URL "
+                          "aria-label": "Twitter URL ",
                         }}
                         error={
                           touched.twitter_url && errors.twitter_url
@@ -259,7 +258,7 @@ class NewUser extends Component<$Props, $State> {
                         label="Facebook URL "
                         className={classes.input}
                         InputProps={{
-                          "aria-label": "Facebook URL "
+                          "aria-label": "Facebook URL ",
                         }}
                         type="url"
                         error={
@@ -280,7 +279,7 @@ class NewUser extends Component<$Props, $State> {
                         label="LinkedIn URL "
                         className={classes.input}
                         InputProps={{
-                          "aria-label": "LinkedIn URL "
+                          "aria-label": "LinkedIn URL ",
                         }}
                         type="url"
                         error={
@@ -301,7 +300,7 @@ class NewUser extends Component<$Props, $State> {
                         label="Instagram URL "
                         className={classes.input}
                         InputProps={{
-                          "aria-label": "Instagram URL "
+                          "aria-label": "Instagram URL ",
                         }}
                         type="url"
                         error={
@@ -324,7 +323,7 @@ class NewUser extends Component<$Props, $State> {
                         label="YouTube URL "
                         className={classes.input}
                         InputProps={{
-                          "aria-label": "YouTube URL "
+                          "aria-label": "YouTube URL ",
                         }}
                         type="url"
                         error={
@@ -355,8 +354,8 @@ class NewUser extends Component<$Props, $State> {
                           className={classes.input}
                           SelectProps={{
                             MenuProps: {
-                              className: classes.menu
-                            }
+                              className: classes.menu,
+                            },
                           }}
                           error={
                             touched.user_type && errors.user_type ? true : false
@@ -397,37 +396,37 @@ class NewUser extends Component<$Props, $State> {
   }
 }
 
-const styles = theme => ({
+const styles = (theme) => ({
   container: {
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
-    width: "100%"
+    width: "100%",
   },
   input: {
     margin: theme.spacing.unit,
-    width: "100%"
+    width: "100%",
   },
   sectionHeadline: {
-    margin: `40px ${theme.spacing.unit} 0`
+    margin: `40px ${theme.spacing.unit} 0`,
   },
   formContainer: {
     display: "grid",
     gridTemplateColumns: "repeat(2, 1fr)",
-    gridColumnGap: "50px"
+    gridColumnGap: "50px",
   },
   menu: {
-    width: 200
+    width: 200,
   },
   bottomDivider: {
-    margin: "20px 0"
+    margin: "20px 0",
   },
   button: {
-    marginRight: theme.spacing.unit
+    marginRight: theme.spacing.unit,
   },
   informationText: {
-    margin: "26px 0 16px"
-  }
+    margin: "26px 0 16px",
+  },
 });
 
 export default withStyles(styles)(withGlobalContext(withSnackbar(NewUser)));

@@ -7,20 +7,17 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import Switch from "@material-ui/core/Switch";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormGroup from "@material-ui/core/FormGroup";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { Link } from "react-router-dom";
 
 type $Props = {
   classes: Object,
-  viewTitle: string
+  viewTitle: string,
 };
 
 type $State = {
-  anchorEl: any
+  anchorEl: any,
 };
 
 class Header extends Component<$Props, $State> {
@@ -28,11 +25,11 @@ class Header extends Component<$Props, $State> {
     super(props);
 
     this.state = {
-      anchorEl: null
+      anchorEl: null,
     };
   }
 
-  handleMenu = event => {
+  handleMenu = (event) => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
@@ -43,7 +40,8 @@ class Header extends Component<$Props, $State> {
   handleLogout = () => {
     fetch("/mac-cms/logout")
       .then(() => location.reload(true))
-      .catch(err => console.error(err));
+      /* eslint-disable-next-line */
+      .catch((err) => console.error(err));
   };
 
   render() {
@@ -80,11 +78,11 @@ class Header extends Component<$Props, $State> {
                 anchorEl={anchorEl}
                 anchorOrigin={{
                   vertical: "top",
-                  horizontal: "right"
+                  horizontal: "right",
                 }}
                 transformOrigin={{
                   vertical: "top",
-                  horizontal: "right"
+                  horizontal: "right",
                 }}
                 open={open}
                 onClose={this.handleClose}
@@ -105,23 +103,23 @@ class Header extends Component<$Props, $State> {
   }
 }
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     position: "relative",
     flexGrow: 1,
-    zIndex: 999
+    zIndex: 999,
   },
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
     marginLeft: -12,
-    marginRight: 20
+    marginRight: 20,
   },
   linkStyle: {
     outline: "none",
-    textDecoration: "none"
-  }
+    textDecoration: "none",
+  },
 });
 
 export default withStyles(styles)(Header);

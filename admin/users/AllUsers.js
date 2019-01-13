@@ -1,29 +1,24 @@
 // @flow
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import classNames from "classnames";
 import AdminContainer from "../common/AdminContainer";
 import Heading from "../common/Heading";
 import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import Delete from "@material-ui/icons/Delete";
 import Loading from "../common/Loading";
 import NoAccess from "../NoAccess";
 import { withGlobalContext } from "../GlobalContext";
 import UserTable from "./UserTable";
-import values from "lodash/values";
 
 type $Props = {
   classes: Object,
-  user: Object
+  user: Object,
 };
 
 type $State = {
   loading: boolean,
   users: Array<Object>,
-  restricted: boolean
+  restricted: boolean,
 };
 
 class AllUsers extends Component<$Props, $State> {
@@ -33,7 +28,7 @@ class AllUsers extends Component<$Props, $State> {
     this.state = {
       loading: true,
       users: [],
-      restricted: false
+      restricted: false,
     };
   }
 
@@ -46,10 +41,13 @@ class AllUsers extends Component<$Props, $State> {
   }
 
   getAllUsers = () => {
-    return fetch("/mac-cms/api/users")
-      .then(res => res.json())
-      .then(users => this.setState({ users, loading: false }))
-      .catch(err => console.error(err));
+    return (
+      fetch("/mac-cms/api/users")
+        .then((res) => res.json())
+        .then((users) => this.setState({ users, loading: false }))
+        /* eslint-disable-next-line */
+        .catch((err) => console.error(err))
+    );
   };
 
   setRestricted = () => {
@@ -81,12 +79,12 @@ class AllUsers extends Component<$Props, $State> {
   }
 }
 
-const styles = theme => ({
+const styles = (theme) => ({
   container: {
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
-    width: "100%"
+    width: "100%",
   },
   userTable: {
     display: "flex",
@@ -96,7 +94,7 @@ const styles = theme => ({
     alignItems: "flex-start",
     margin: "20px 0 10px",
     border: `1px solid ${theme.palette.grey["300"]}`,
-    borderRadius: 4
+    borderRadius: 4,
   },
   userTableRow: {
     flex: "0 0 auto",
@@ -108,12 +106,12 @@ const styles = theme => ({
     padding: 8,
     "& > div": {
       flex: "0 0 14.28%",
-      padding: "0 4px"
-    }
+      padding: "0 4px",
+    },
   },
   userTableHeader: {
-    backgroundColor: theme.palette.grey["300"]
-  }
+    backgroundColor: theme.palette.grey["300"],
+  },
 });
 
 export default withStyles(styles)(withGlobalContext(AllUsers));

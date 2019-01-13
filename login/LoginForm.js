@@ -11,27 +11,26 @@ import * as Yup from "yup";
 import theme from "../styles/theme";
 import { withSnackbar } from "notistack";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
-import uniq from 'lodash/uniq';
+import uniq from "lodash/uniq";
 
 type $Props = {
   classes: Object,
   messages: Object,
-  enqueueSnackbar: function,
+  enqueueSnackbar: Function,
 };
 
 class LoginForm extends Component<$Props> {
   componentDidMount() {
     const { messages, enqueueSnackbar } = this.props;
     messages &&
-      Object.keys(messages).forEach(key => {
-        uniq(messages[key]).forEach(snack => {
+      Object.keys(messages).forEach((key) => {
+        uniq(messages[key]).forEach((snack) => {
           return enqueueSnackbar(snack, { variant: key });
-        })
+        });
       });
   }
   render() {
     const { classes } = this.props;
-    console.log(theme);
     return (
       <MuiThemeProvider theme={theme}>
         <div className={classes.root}>
@@ -43,14 +42,15 @@ class LoginForm extends Component<$Props> {
               validationSchema={() =>
                 Yup.object().shape({
                   username: Yup.string().required("Username is required"),
-                  password: Yup.string().required("Password is required")
+                  password: Yup.string().required("Password is required"),
                 })
               }
-              onSubmit={(values, { setSubmitting }) => {
+              onSubmit={() => {
                 // manually submit the form
+                // $FlowIgnore
                 document.getElementById("login-form").submit();
               }}
-              render={({ touched, errors, isSubmitting }) => (
+              render={({ touched, errors }) => (
                 <Form method="POST" action="/mac-cms/login" id="login-form">
                   <div className={classes.formContainer}>
                     <Field
@@ -62,7 +62,7 @@ class LoginForm extends Component<$Props> {
                           label="Username"
                           className={classes.input}
                           inputProps={{
-                            "aria-label": "Username"
+                            "aria-label": "Username",
                           }}
                           error={
                             touched.username && errors.username ? true : false
@@ -81,7 +81,7 @@ class LoginForm extends Component<$Props> {
                           label="Password"
                           className={classes.input}
                           inputProps={{
-                            "aria-label": "Password"
+                            "aria-label": "Password",
                           }}
                           type="password"
                           error={
@@ -105,16 +105,16 @@ class LoginForm extends Component<$Props> {
   }
 }
 
-const styles = theme => ({
+const styles = (theme) => ({
   "@global": {
     html: {
       margin: 0,
-      padding: 0
+      padding: 0,
     },
     body: {
       margin: 0,
-      padding: 0
-    }
+      padding: 0,
+    },
   },
   root: {
     display: "flex",
@@ -123,22 +123,22 @@ const styles = theme => ({
     alignItems: "center",
     minHeight: "100vh",
     width: "100%",
-    backgroundColor: "#353535"
+    backgroundColor: "#353535",
   },
   loginContainer: {
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
     width: "100%",
-    maxWidth: 600
+    maxWidth: 600,
   },
   input: {
     margin: theme.spacing.unit,
-    width: "100%"
+    width: "100%",
   },
   formContainer: {
-    margin: "18px 0"
-  }
+    margin: "18px 0",
+  },
 });
 
 export default withStyles(styles)(withSnackbar(LoginForm));

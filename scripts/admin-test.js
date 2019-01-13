@@ -1,4 +1,3 @@
-// @flow
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").load();
 }
@@ -9,16 +8,17 @@ var pg = require("pg");
 pg.defaults.ssl = true;
 const knex = require("knex")({
   client: "pg",
-  connection: DB
+  connection: DB,
 });
 
 async function getUser() {
-  const user = await knex("users")
+  return await knex("users")
     .where({
       user_name: "admin",
-      id: 1
+      id: 1,
     })
     .select("*");
+  /* eslint-disable-next-line */
   console.warn("Default Admin user still exists! Delete user immediately!");
 }
 

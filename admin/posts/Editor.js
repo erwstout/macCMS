@@ -3,23 +3,22 @@ import React, { Component } from "react";
 import { EditorState, convertToRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
-import htmlToDraft from "html-to-draftjs";
 
 type $Props = {
-  setFieldValue: function,
-  value: string
+  setFieldValue: Function,
+  value: string,
 };
 type $State = { editorState: Function };
 
 class Wysiwyg extends Component<$Props, $State> {
   state = {
-    editorState: EditorState.createEmpty()
+    editorState: EditorState.createEmpty(),
   };
 
-  onEditorStateChange: Function = editorState => {
+  onEditorStateChange: Function = (editorState) => {
     this.setState(
       {
-        editorState
+        editorState,
       },
       () =>
         this.props.setFieldValue(
@@ -31,11 +30,15 @@ class Wysiwyg extends Component<$Props, $State> {
 
   render() {
     const { editorState } = this.state;
-    const {value} = this.props
+    const { value } = this.props;
     return (
       <div>
         <Editor
-          editorState={value === '' || value === '<p></p>' ? EditorState.createEmpty() : editorState}
+          editorState={
+            value === "" || value === "<p></p>"
+              ? EditorState.createEmpty()
+              : editorState
+          }
           onEditorStateChange={this.onEditorStateChange}
         />
       </div>
