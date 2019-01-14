@@ -41,7 +41,8 @@
   "scripts": {
     "start": "node index.js",
     "lint": "yarn run eslint .",
-    "test": "yarn run eslint . && yarn run flow"
+    "test": "yarn run lint && yarn run flow",
+    "prebuild": "yarn prettier --write ./*.js",
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
