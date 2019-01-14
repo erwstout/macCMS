@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -16,6 +16,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
+import CreateIcon from "@material-ui/icons/Create";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
 import moment from "moment";
 import { withSnackbar } from "notistack";
@@ -181,6 +182,8 @@ const toolbarStyles = (theme) => ({
     flex: "1 1 100%",
   },
   actions: {
+    display: "flex",
+    flexFlow: "row nowrap",
     color: theme.palette.text.secondary,
   },
   title: {
@@ -212,14 +215,24 @@ let EnhancedTableToolbar = (props: $Props) => {
       <div className={classes.spacer} />
       <div className={classes.actions}>
         {numSelected > 0 ? (
-          <Tooltip handleDelete={props.handleDelete} title="Delete">
-            <IconButton
-              onClick={() => props.handleDelete()}
-              aria-label="Delete"
-            >
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
+          <Fragment>
+            {numSelected > 0 && numSelected < 2 ? (
+              <Tooltip handleDelete={props.handleDelete} title="Edit">
+                <IconButton aria-label="Edit">
+                  <CreateIcon />
+                </IconButton>
+              </Tooltip>
+            ) : null}
+
+            <Tooltip handleDelete={props.handleDelete} title="Delete">
+              <IconButton
+                onClick={() => props.handleDelete()}
+                aria-label="Delete"
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+          </Fragment>
         ) : null}
       </div>
     </Toolbar>
@@ -248,7 +261,7 @@ const styles = (theme) => ({
 
 class PostsTable extends React.Component<$Props, $State> {
   state = {
-    order: "asc",
+    order: "desc",
     orderBy: this.props.orderBy,
     selected: [],
     data: this.props.data,

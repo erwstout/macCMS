@@ -81775,7 +81775,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _DialogActions = _interopRequireDefault(require("./DialogActions"));
-},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","./DialogActions":"node_modules/@material-ui/core/DialogActions/DialogActions.js"}],"admin/users/ConfirmDelete.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"node_modules/@babel/runtime/helpers/interopRequireDefault.js","./DialogActions":"node_modules/@material-ui/core/DialogActions/DialogActions.js"}],"admin/common/ConfirmDelete.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -81802,7 +81802,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ConfirmDelete = function ConfirmDelete(_ref) {
   var showDialog = _ref.showDialog,
       handleConfirmClose = _ref.handleConfirmClose,
-      handlePermanentDelete = _ref.handlePermanentDelete;
+      handlePermanentDelete = _ref.handlePermanentDelete,
+      headline = _ref.headline,
+      body = _ref.body;
   return _react.default.createElement(_Dialog.default, {
     open: showDialog,
     onClose: handleConfirmClose,
@@ -81810,9 +81812,9 @@ var ConfirmDelete = function ConfirmDelete(_ref) {
     "aria-describedby": "alert-dialog-description"
   }, _react.default.createElement(_DialogTitle.default, {
     id: "alert-dialog-title"
-  }, "Confirm Delete"), _react.default.createElement(_DialogContent.default, null, _react.default.createElement(_DialogContentText.default, {
+  }, headline), _react.default.createElement(_DialogContent.default, null, _react.default.createElement(_DialogContentText.default, {
     id: "alert-dialog-description"
-  }, "Deleting inactive users is a permanent action. Once they are deleted they can NOT be restored. Are you sure you want to do this?")), _react.default.createElement(_DialogActions.default, null, _react.default.createElement(_Button.default, {
+  }, body)), _react.default.createElement(_DialogActions.default, null, _react.default.createElement(_Button.default, {
     onClick: handleConfirmClose,
     autoFocus: true,
     color: "primary"
@@ -81874,7 +81876,7 @@ var _colorManipulator = require("@material-ui/core/styles/colorManipulator");
 
 var _moment = _interopRequireDefault(require("moment"));
 
-var _ConfirmDelete = _interopRequireDefault(require("./ConfirmDelete"));
+var _ConfirmDelete = _interopRequireDefault(require("../common/ConfirmDelete"));
 
 var _notistack = require("notistack");
 
@@ -82425,7 +82427,9 @@ function (_React$Component2) {
       }), _react.default.createElement(_ConfirmDelete.default, {
         showDialog: this.state.showDialog,
         handleConfirmClose: this.handleConfirmClose,
-        handlePermanentDelete: this.handlePermanentDelete
+        handlePermanentDelete: this.handlePermanentDelete,
+        headline: "Confirm Delete",
+        body: "Deleting inactive users is a permanent action. Once they are deleted they can NOT be restored. Are you sure you want to do this?"
       }));
     }
   }]);
@@ -82436,7 +82440,7 @@ function (_React$Component2) {
 var _default = (0, _styles.withStyles)(styles)((0, _notistack.withSnackbar)(DeletedUsersTable));
 
 exports.default = _default;
-},{"react":"node_modules/react/index.js","classnames":"node_modules/classnames/index.js","prop-types":"node_modules/prop-types/index.js","@material-ui/core/styles":"node_modules/@material-ui/core/styles/index.js","@material-ui/core/Table":"node_modules/@material-ui/core/Table/index.js","@material-ui/core/TableBody":"node_modules/@material-ui/core/TableBody/index.js","@material-ui/core/TableCell":"node_modules/@material-ui/core/TableCell/index.js","@material-ui/core/TableHead":"node_modules/@material-ui/core/TableHead/index.js","@material-ui/core/TablePagination":"node_modules/@material-ui/core/TablePagination/index.js","@material-ui/core/TableRow":"node_modules/@material-ui/core/TableRow/index.js","@material-ui/core/TableSortLabel":"node_modules/@material-ui/core/TableSortLabel/index.js","@material-ui/core/Toolbar":"node_modules/@material-ui/core/Toolbar/index.js","@material-ui/core/Typography":"node_modules/@material-ui/core/Typography/index.js","@material-ui/core/Paper":"node_modules/@material-ui/core/Paper/index.js","@material-ui/core/Checkbox":"node_modules/@material-ui/core/Checkbox/index.js","@material-ui/core/IconButton":"node_modules/@material-ui/core/IconButton/index.js","@material-ui/core/Tooltip":"node_modules/@material-ui/core/Tooltip/index.js","@material-ui/icons/Delete":"node_modules/@material-ui/icons/Delete.js","@material-ui/icons/Restore":"node_modules/@material-ui/icons/Restore.js","@material-ui/core/styles/colorManipulator":"node_modules/@material-ui/core/styles/colorManipulator.js","moment":"node_modules/moment/moment.js","./ConfirmDelete":"admin/users/ConfirmDelete.js","notistack":"node_modules/notistack/build/index.js"}],"admin/users/DeletedUsers.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","classnames":"node_modules/classnames/index.js","prop-types":"node_modules/prop-types/index.js","@material-ui/core/styles":"node_modules/@material-ui/core/styles/index.js","@material-ui/core/Table":"node_modules/@material-ui/core/Table/index.js","@material-ui/core/TableBody":"node_modules/@material-ui/core/TableBody/index.js","@material-ui/core/TableCell":"node_modules/@material-ui/core/TableCell/index.js","@material-ui/core/TableHead":"node_modules/@material-ui/core/TableHead/index.js","@material-ui/core/TablePagination":"node_modules/@material-ui/core/TablePagination/index.js","@material-ui/core/TableRow":"node_modules/@material-ui/core/TableRow/index.js","@material-ui/core/TableSortLabel":"node_modules/@material-ui/core/TableSortLabel/index.js","@material-ui/core/Toolbar":"node_modules/@material-ui/core/Toolbar/index.js","@material-ui/core/Typography":"node_modules/@material-ui/core/Typography/index.js","@material-ui/core/Paper":"node_modules/@material-ui/core/Paper/index.js","@material-ui/core/Checkbox":"node_modules/@material-ui/core/Checkbox/index.js","@material-ui/core/IconButton":"node_modules/@material-ui/core/IconButton/index.js","@material-ui/core/Tooltip":"node_modules/@material-ui/core/Tooltip/index.js","@material-ui/icons/Delete":"node_modules/@material-ui/icons/Delete.js","@material-ui/icons/Restore":"node_modules/@material-ui/icons/Restore.js","@material-ui/core/styles/colorManipulator":"node_modules/@material-ui/core/styles/colorManipulator.js","moment":"node_modules/moment/moment.js","../common/ConfirmDelete":"admin/common/ConfirmDelete.js","notistack":"node_modules/notistack/build/index.js"}],"admin/users/DeletedUsers.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -110855,7 +110859,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _classnames = _interopRequireDefault(require("classnames"));
 
@@ -110891,6 +110895,8 @@ var _Tooltip = _interopRequireDefault(require("@material-ui/core/Tooltip"));
 
 var _Delete = _interopRequireDefault(require("@material-ui/icons/Delete"));
 
+var _Create = _interopRequireDefault(require("@material-ui/icons/Create"));
+
 var _colorManipulator = require("@material-ui/core/styles/colorManipulator");
 
 var _moment = _interopRequireDefault(require("moment"));
@@ -110898,6 +110904,8 @@ var _moment = _interopRequireDefault(require("moment"));
 var _notistack = require("notistack");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -111076,6 +111084,8 @@ var toolbarStyles = function toolbarStyles(theme) {
       flex: "1 1 100%"
     },
     actions: {
+      display: "flex",
+      flexFlow: "row nowrap",
       color: theme.palette.text.secondary
     },
     title: {
@@ -111102,7 +111112,12 @@ var EnhancedTableToolbar = function EnhancedTableToolbar(props) {
     className: classes.spacer
   }), _react.default.createElement("div", {
     className: classes.actions
-  }, numSelected > 0 ? _react.default.createElement(_Tooltip.default, {
+  }, numSelected > 0 ? _react.default.createElement(_react.Fragment, null, numSelected > 0 && numSelected < 2 ? _react.default.createElement(_Tooltip.default, {
+    handleDelete: props.handleDelete,
+    title: "Edit"
+  }, _react.default.createElement(_IconButton.default, {
+    "aria-label": "Edit"
+  }, _react.default.createElement(_Create.default, null))) : null, _react.default.createElement(_Tooltip.default, {
     handleDelete: props.handleDelete,
     title: "Delete"
   }, _react.default.createElement(_IconButton.default, {
@@ -111110,7 +111125,7 @@ var EnhancedTableToolbar = function EnhancedTableToolbar(props) {
       return props.handleDelete();
     },
     "aria-label": "Delete"
-  }, _react.default.createElement(_Delete.default, null))) : null));
+  }, _react.default.createElement(_Delete.default, null)))) : null));
 };
 
 EnhancedTableToolbar.propTypes = {
@@ -111153,7 +111168,7 @@ function (_React$Component2) {
     _this3 = _possibleConstructorReturn(this, (_getPrototypeOf3 = _getPrototypeOf(PostsTable)).call.apply(_getPrototypeOf3, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this3)), "state", {
-      order: "asc",
+      order: "desc",
       orderBy: _this3.props.orderBy,
       selected: [],
       data: _this3.props.data,
@@ -111374,7 +111389,7 @@ function (_React$Component2) {
 var _default = (0, _styles.withStyles)(styles)((0, _notistack.withSnackbar)(PostsTable));
 
 exports.default = _default;
-},{"react":"node_modules/react/index.js","classnames":"node_modules/classnames/index.js","prop-types":"node_modules/prop-types/index.js","@material-ui/core/styles":"node_modules/@material-ui/core/styles/index.js","@material-ui/core/Table":"node_modules/@material-ui/core/Table/index.js","@material-ui/core/TableBody":"node_modules/@material-ui/core/TableBody/index.js","@material-ui/core/TableCell":"node_modules/@material-ui/core/TableCell/index.js","@material-ui/core/TableHead":"node_modules/@material-ui/core/TableHead/index.js","@material-ui/core/TablePagination":"node_modules/@material-ui/core/TablePagination/index.js","@material-ui/core/TableRow":"node_modules/@material-ui/core/TableRow/index.js","@material-ui/core/TableSortLabel":"node_modules/@material-ui/core/TableSortLabel/index.js","@material-ui/core/Toolbar":"node_modules/@material-ui/core/Toolbar/index.js","@material-ui/core/Typography":"node_modules/@material-ui/core/Typography/index.js","@material-ui/core/Paper":"node_modules/@material-ui/core/Paper/index.js","@material-ui/core/Checkbox":"node_modules/@material-ui/core/Checkbox/index.js","@material-ui/core/IconButton":"node_modules/@material-ui/core/IconButton/index.js","@material-ui/core/Tooltip":"node_modules/@material-ui/core/Tooltip/index.js","@material-ui/icons/Delete":"node_modules/@material-ui/icons/Delete.js","@material-ui/core/styles/colorManipulator":"node_modules/@material-ui/core/styles/colorManipulator.js","moment":"node_modules/moment/moment.js","notistack":"node_modules/notistack/build/index.js"}],"admin/posts/AllPosts.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","classnames":"node_modules/classnames/index.js","prop-types":"node_modules/prop-types/index.js","@material-ui/core/styles":"node_modules/@material-ui/core/styles/index.js","@material-ui/core/Table":"node_modules/@material-ui/core/Table/index.js","@material-ui/core/TableBody":"node_modules/@material-ui/core/TableBody/index.js","@material-ui/core/TableCell":"node_modules/@material-ui/core/TableCell/index.js","@material-ui/core/TableHead":"node_modules/@material-ui/core/TableHead/index.js","@material-ui/core/TablePagination":"node_modules/@material-ui/core/TablePagination/index.js","@material-ui/core/TableRow":"node_modules/@material-ui/core/TableRow/index.js","@material-ui/core/TableSortLabel":"node_modules/@material-ui/core/TableSortLabel/index.js","@material-ui/core/Toolbar":"node_modules/@material-ui/core/Toolbar/index.js","@material-ui/core/Typography":"node_modules/@material-ui/core/Typography/index.js","@material-ui/core/Paper":"node_modules/@material-ui/core/Paper/index.js","@material-ui/core/Checkbox":"node_modules/@material-ui/core/Checkbox/index.js","@material-ui/core/IconButton":"node_modules/@material-ui/core/IconButton/index.js","@material-ui/core/Tooltip":"node_modules/@material-ui/core/Tooltip/index.js","@material-ui/icons/Delete":"node_modules/@material-ui/icons/Delete.js","@material-ui/icons/Create":"node_modules/@material-ui/icons/Create.js","@material-ui/core/styles/colorManipulator":"node_modules/@material-ui/core/styles/colorManipulator.js","moment":"node_modules/moment/moment.js","notistack":"node_modules/notistack/build/index.js"}],"admin/posts/AllPosts.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -111588,6 +111603,8 @@ var _moment = _interopRequireDefault(require("moment"));
 var _notistack = require("notistack");
 
 var _Restore = _interopRequireDefault(require("@material-ui/icons/Restore"));
+
+var _ConfirmDelete = _interopRequireDefault(require("../common/ConfirmDelete"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -111868,7 +111885,8 @@ function (_React$Component2) {
       selected: [],
       data: _this3.props.data,
       page: 0,
-      rowsPerPage: 25
+      rowsPerPage: 25,
+      showDialog: false
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this3)), "handleRestore", function () {
@@ -111906,6 +111924,15 @@ function (_React$Component2) {
         return null;
       }
 
+      _this3.setState(function (state) {
+        return {
+          showDialog: !state.showDialog
+        };
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this3)), "handlePermanentDelete", function () {
+      var posts = _this3.state.selected;
       return posts.forEach(function (post) {
         fetch("/mac-cms/api/posts/remove/".concat(post), {
           method: "POST"
@@ -111930,6 +111957,8 @@ function (_React$Component2) {
               variant: "success"
             });
           });
+        }).then(function () {
+          return _this3.handleConfirmClose();
         }).catch(function (err) {
           /* eslint-disable-next-line */
           console.error(err);
@@ -111938,6 +111967,14 @@ function (_React$Component2) {
             variant: "error"
           });
         });
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this3)), "handleConfirmClose", function () {
+      _this3.setState(function () {
+        return {
+          showDialog: false
+        };
       });
     });
 
@@ -112105,6 +112142,12 @@ function (_React$Component2) {
         },
         onChangePage: this.handleChangePage,
         onChangeRowsPerPage: this.handleChangeRowsPerPage
+      }), _react.default.createElement(_ConfirmDelete.default, {
+        showDialog: this.state.showDialog,
+        handleConfirmClose: this.handleConfirmClose,
+        handlePermanentDelete: this.handlePermanentDelete,
+        headline: "Confirm Delete",
+        body: "This is a permanent action. Posts cannot be restored after permanently deleted. Are you sure you want to do this?"
       }));
     }
   }]);
@@ -112115,7 +112158,7 @@ function (_React$Component2) {
 var _default = (0, _styles.withStyles)(styles)((0, _notistack.withSnackbar)(DeletedPostsTable));
 
 exports.default = _default;
-},{"react":"node_modules/react/index.js","classnames":"node_modules/classnames/index.js","prop-types":"node_modules/prop-types/index.js","@material-ui/core/styles":"node_modules/@material-ui/core/styles/index.js","@material-ui/core/Table":"node_modules/@material-ui/core/Table/index.js","@material-ui/core/TableBody":"node_modules/@material-ui/core/TableBody/index.js","@material-ui/core/TableCell":"node_modules/@material-ui/core/TableCell/index.js","@material-ui/core/TableHead":"node_modules/@material-ui/core/TableHead/index.js","@material-ui/core/TablePagination":"node_modules/@material-ui/core/TablePagination/index.js","@material-ui/core/TableRow":"node_modules/@material-ui/core/TableRow/index.js","@material-ui/core/TableSortLabel":"node_modules/@material-ui/core/TableSortLabel/index.js","@material-ui/core/Toolbar":"node_modules/@material-ui/core/Toolbar/index.js","@material-ui/core/Typography":"node_modules/@material-ui/core/Typography/index.js","@material-ui/core/Paper":"node_modules/@material-ui/core/Paper/index.js","@material-ui/core/Checkbox":"node_modules/@material-ui/core/Checkbox/index.js","@material-ui/core/IconButton":"node_modules/@material-ui/core/IconButton/index.js","@material-ui/core/Tooltip":"node_modules/@material-ui/core/Tooltip/index.js","@material-ui/icons/Delete":"node_modules/@material-ui/icons/Delete.js","@material-ui/core/styles/colorManipulator":"node_modules/@material-ui/core/styles/colorManipulator.js","moment":"node_modules/moment/moment.js","notistack":"node_modules/notistack/build/index.js","@material-ui/icons/Restore":"node_modules/@material-ui/icons/Restore.js"}],"admin/posts/DeletedPosts.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","classnames":"node_modules/classnames/index.js","prop-types":"node_modules/prop-types/index.js","@material-ui/core/styles":"node_modules/@material-ui/core/styles/index.js","@material-ui/core/Table":"node_modules/@material-ui/core/Table/index.js","@material-ui/core/TableBody":"node_modules/@material-ui/core/TableBody/index.js","@material-ui/core/TableCell":"node_modules/@material-ui/core/TableCell/index.js","@material-ui/core/TableHead":"node_modules/@material-ui/core/TableHead/index.js","@material-ui/core/TablePagination":"node_modules/@material-ui/core/TablePagination/index.js","@material-ui/core/TableRow":"node_modules/@material-ui/core/TableRow/index.js","@material-ui/core/TableSortLabel":"node_modules/@material-ui/core/TableSortLabel/index.js","@material-ui/core/Toolbar":"node_modules/@material-ui/core/Toolbar/index.js","@material-ui/core/Typography":"node_modules/@material-ui/core/Typography/index.js","@material-ui/core/Paper":"node_modules/@material-ui/core/Paper/index.js","@material-ui/core/Checkbox":"node_modules/@material-ui/core/Checkbox/index.js","@material-ui/core/IconButton":"node_modules/@material-ui/core/IconButton/index.js","@material-ui/core/Tooltip":"node_modules/@material-ui/core/Tooltip/index.js","@material-ui/icons/Delete":"node_modules/@material-ui/icons/Delete.js","@material-ui/core/styles/colorManipulator":"node_modules/@material-ui/core/styles/colorManipulator.js","moment":"node_modules/moment/moment.js","notistack":"node_modules/notistack/build/index.js","@material-ui/icons/Restore":"node_modules/@material-ui/icons/Restore.js","../common/ConfirmDelete":"admin/common/ConfirmDelete.js"}],"admin/posts/DeletedPosts.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -112483,7 +112526,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57017" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61114" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

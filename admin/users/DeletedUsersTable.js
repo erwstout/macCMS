@@ -19,7 +19,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import RestoreIcon from "@material-ui/icons/Restore";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
 import moment from "moment";
-import ConfirmDelete from "./ConfirmDelete";
+import ConfirmDelete from "../common/ConfirmDelete";
 import { withSnackbar } from "notistack";
 
 type $Props = {
@@ -490,6 +490,9 @@ class DeletedUsersTable extends React.Component<$Props> {
           showDialog={this.state.showDialog}
           handleConfirmClose={this.handleConfirmClose}
           handlePermanentDelete={this.handlePermanentDelete}
+          headline="Confirm Delete"
+          body="Deleting inactive users is a permanent action. Once they are deleted
+        they can NOT be restored. Are you sure you want to do this?"
         />
       </Paper>
     );

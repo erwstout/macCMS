@@ -11,12 +11,16 @@ type $Props = {
   showDialog: boolean,
   handleConfirmClose: Function,
   handlePermanentDelete: Function,
+  headline: string,
+  body: string,
 };
 
 const ConfirmDelete = ({
   showDialog,
   handleConfirmClose,
   handlePermanentDelete,
+  headline,
+  body,
 }: $Props) => (
   <Dialog
     open={showDialog}
@@ -24,11 +28,10 @@ const ConfirmDelete = ({
     aria-labelledby="alert-dialog-title"
     aria-describedby="alert-dialog-description"
   >
-    <DialogTitle id="alert-dialog-title">{"Confirm Delete"}</DialogTitle>
+    <DialogTitle id="alert-dialog-title">{headline}</DialogTitle>
     <DialogContent>
       <DialogContentText id="alert-dialog-description">
-        Deleting inactive users is a permanent action. Once they are deleted
-        they can NOT be restored. Are you sure you want to do this?
+        {body}
       </DialogContentText>
     </DialogContent>
     <DialogActions>

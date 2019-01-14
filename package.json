@@ -20,6 +20,7 @@
     "draftjs-to-html": "^0.8.4",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
+    "foreman": "^3.0.1",
     "formik": "^1.4.1",
     "html-to-draftjs": "^1.4.0",
     "knex": "^0.16.3",
@@ -39,7 +40,8 @@
     "yup": "^0.26.6"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "yarn run web",
+    "web": "nf run -- node index.js",
     "lint": "yarn run eslint .",
     "test": "yarn run lint && yarn run flow",
     "prebuild": "yarn prettier --write ./*.js"

@@ -20,6 +20,7 @@ import { lighten } from "@material-ui/core/styles/colorManipulator";
 import moment from "moment";
 import { withSnackbar } from "notistack";
 import RestoreIcon from "@material-ui/icons/Restore";
+import ConfirmDelete from "../common/ConfirmDelete";
 
 type $Props = {
   handleDelete: Function,
@@ -262,6 +263,7 @@ class DeletedPostsTable extends React.Component<$Props> {
     data: this.props.data,
     page: 0,
     rowsPerPage: 25,
+    showDialog: false,
   };
 
   componentDidUpdate(prevProps) {
@@ -300,7 +302,11 @@ class DeletedPostsTable extends React.Component<$Props> {
     if (!posts) {
       return null;
     }
+    this.setState((state) => ({ showDialog: !state.showDialog }));
+  };
 
+  handlePermanentDelete = () => {
+    const posts = this.state.selected;
     return posts.forEach((post) => {
       fetch(`/mac-cms/api/posts/remove/${post}`, {
         method: "POST",
@@ -322,6 +328,7 @@ class DeletedPostsTable extends React.Component<$Props> {
             })
           )
         )
+        .then(() => this.handleConfirmClose())
         .catch((err) => {
           /* eslint-disable-next-line */
           console.error(err);
@@ -333,6 +340,10 @@ class DeletedPostsTable extends React.Component<$Props> {
           );
         });
     });
+  };
+
+  handleConfirmClose = () => {
+    this.setState(() => ({ showDialog: false }));
   };
 
   handleRequestSort = (event, property) => {
@@ -470,6 +481,13 @@ class DeletedPostsTable extends React.Component<$Props> {
           }}
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
+        />
+        <ConfirmDelete
+          showDialog={this.state.showDialog}
+          handleConfirmClose={this.handleConfirmClose}
+          handlePermanentDelete={this.handlePermanentDelete}
+          headline="Confirm Delete"
+          body="This is a permanent action. Posts cannot be restored after permanently deleted. Are you sure you want to do this?"
         />
       </Paper>
     );
