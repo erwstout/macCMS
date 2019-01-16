@@ -4,7 +4,6 @@ const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const Bundler = require("parcel-bundler");
 const bcrypt = require("bcrypt");
 const users = require("./api/users");
 const posts = require("./api/posts");
@@ -17,21 +16,11 @@ const app = express();
 const port = process.env.PORT || 3005;
 
 /**
- * Parcel Bundler
- */
-const adminFile = ["./admin/index.js", "./login/index.js"];
-const adminOptions = {
-  outDir: "./public",
-};
-const adminBundler = new Bundler(adminFile, adminOptions);
-
-/**
  * Express Configs
  */
 
 app.use(cookieParser("123423"));
 
-app.use(adminBundler.middleware());
 app.use(express.static("public"));
 app.set("view engine", "pug");
 app.use(session({ cookie: { maxAge: 60000 * 60 * 24 }, secret: "123423" }));

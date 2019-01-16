@@ -14,6 +14,7 @@
     "bcrypt": "^3.0.3",
     "body-parser": "^1.18.3",
     "classnames": "^2.2.6",
+    "concurrently": "^4.1.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.3",
     "draft-js": "^0.10.5",
@@ -40,8 +41,10 @@
     "yup": "^0.26.6"
   },
   "scripts": {
-    "start": "yarn run web",
+    "start": "concurrently \"yarn run login\" \"yarn run admin\"  \"yarn run web\"",
     "web": "nf run -- babel-watch index.js",
+    "admin": "parcel watch admin/index.js --out-dir public/admin",
+    "login": "parcel watch login/index.js --out-dir public/login",
     "lint": "yarn run eslint .",
     "test": "yarn run lint && yarn run flow",
     "prebuild": "yarn prettier --write ./*.js"
