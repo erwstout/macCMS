@@ -47,7 +47,14 @@
     "login": "parcel watch login/index.js --out-dir public/login",
     "lint": "yarn run eslint .",
     "test": "yarn run lint && yarn run flow",
-    "prebuild": "yarn prettier --write ./*.js"
+    "prebuild": "yarn prettier --write ./*.js",
+    "clean": " rm -Rf dist/",
+    "copy-static-files": "cp package.json dist/package.json",
+    "build-structure": "mkdir dist && cd dist && mkdir public",
+    "build-server": "parcel build index.js --out-dir dist/ --target node",
+    "build-react": "concurrently \"parcel build admin/index.js --out-dir dist/public/admin\" \"parcel build login/index.js --out-dir dist/public/login\"",
+    "build": "NODE_ENV=production yarn run prebuild && yarn run clean && yarn run build-structure && yarn run build-server && yarn run build-react",
+    "build-preview": "yarn build && nf run -e prod.env -- node dist/index.js"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
