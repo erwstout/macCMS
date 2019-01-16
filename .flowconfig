@@ -6,10 +6,13 @@
 [libs]
 
 # local/custom libdefs
-flow
+flow/types
 flow-typed
 
 [options]
+module.system.node.resolve_dirname=.
+module.system.node.resolve_dirname=node_modules
 suppress_type=$FlowFixMe
 suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
 suppress_comment= \\(.\\|\n\\)*\\$FlowIgnore
+emoji=true

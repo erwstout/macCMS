@@ -1,7 +1,9 @@
 import React, { Fragment } from "react";
-import classNames from "classnames";
-import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
+import { withSnackbar } from "notistack";
+import classNames from "classnames";
+import moment from "moment";
+
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -18,9 +20,8 @@ import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
 import RestoreIcon from "@material-ui/icons/Restore";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
-import moment from "moment";
+
 import ConfirmDelete from "../common/ConfirmDelete";
-import { withSnackbar } from "notistack";
 
 type $Props = {
   handleDelete: Function,
@@ -161,15 +162,6 @@ class EnhancedTableHead extends React.Component<$Props> {
   }
 }
 
-EnhancedTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.string.isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
-
 const toolbarStyles = (theme) => ({
   root: {
     paddingRight: theme.spacing.unit,
@@ -244,11 +236,6 @@ let EnhancedTableToolbar = (props: $Props) => {
       </div>
     </Toolbar>
   );
-};
-
-EnhancedTableToolbar.propTypes = {
-  classes: PropTypes.object.isRequired,
-  numSelected: PropTypes.number.isRequired,
 };
 
 EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);

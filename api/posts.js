@@ -1,9 +1,12 @@
+// @flow
 const db = require("../util/db");
+
+import type { $Req, $Res } from "flow/types";
 
 /**
  * Get ALL Posts, except deleted {@private}
  */
-exports.getAllPosts = async (req, res) => {
+exports.getAllPosts = async (req: $Req, res: $Res) => {
   if (!req.user) {
     return res.sendStatus(401);
   }
@@ -17,7 +20,7 @@ exports.getAllPosts = async (req, res) => {
 /**
  * Get Published Posts {@public}
  */
-exports.getPublishedPosts = async (req, res) => {
+exports.getPublishedPosts = async (req: $Req, res: $Res) => {
   const posts = await db
     .knex("posts")
     .where({ status: "published", deleted_at: null });
@@ -27,7 +30,7 @@ exports.getPublishedPosts = async (req, res) => {
 /**
  * Create a post {@private}
  */
-exports.createPost = async (req, res) => {
+exports.createPost = async (req: $Req, res: $Res) => {
   await db.knex("posts").insert(req.body);
   return res.sendStatus(201);
 };
@@ -35,7 +38,7 @@ exports.createPost = async (req, res) => {
 /**
  * Delete a post {@private}
  */
-exports.deletePost = async (req, res) => {
+exports.deletePost = async (req: $Req, res: $Res) => {
   if (!req.user) {
     return res.sendStatus(401);
   }
@@ -54,7 +57,7 @@ exports.deletePost = async (req, res) => {
 /**
  * Permanently Delete a Post from the DB
  */
-exports.removePost = async (req, res) => {
+exports.removePost = async (req: $Req, res: $Res) => {
   await db
     .knex("posts")
     .where("id", "=", req.params.id)
@@ -70,7 +73,7 @@ exports.removePost = async (req, res) => {
 /**
  * Restore A Post
  */
-exports.restorePost = async (req, res) => {
+exports.restorePost = async (req: $Req, res: $Res) => {
   await db
     .knex("posts")
     .where("id", "=", req.params.id)
@@ -86,7 +89,7 @@ exports.restorePost = async (req, res) => {
 /**
  * Get Deleted Posts
  */
-exports.deletedPosts = async (req, res) => {
+exports.deletedPosts = async (req: $Req, res: $Res) => {
   if (!req.user) {
     return res.sendStatus(401);
   }

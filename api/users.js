@@ -1,7 +1,10 @@
+// @flow
 const db = require("../util/db");
 const pickBy = require("lodash/pickBy");
 const identity = require("lodash/identity");
 const bcrypt = require("bcrypt");
+
+import type { $Req, $Res } from "flow/types";
 
 const defaultColumns = [
   "id",
@@ -22,7 +25,7 @@ const defaultColumns = [
 ];
 
 // gets all active users
-exports.getAllUsers = async (req, res) => {
+exports.getAllUsers = async (req: $Req, res: $Res) => {
   const users = await db
     .knex("users")
     .columns(defaultColumns)
@@ -32,7 +35,7 @@ exports.getAllUsers = async (req, res) => {
 };
 
 // get all deleted users
-exports.getDeletedUsers = async (req, res) => {
+exports.getDeletedUsers = async (req: $Req, res: $Res) => {
   const users = await db
     .knex("users")
     .columns(defaultColumns)
@@ -42,7 +45,7 @@ exports.getDeletedUsers = async (req, res) => {
 };
 
 // delete a user
-exports.deleteUser = async (req, res) => {
+exports.deleteUser = async (req: $Req, res: $Res) => {
   await db
     .knex("users")
     .where("id", "=", req.params.id)
@@ -56,7 +59,7 @@ exports.deleteUser = async (req, res) => {
 };
 
 // permanently delete a user from the database
-exports.permanentDeleteUser = async (req, res) => {
+exports.permanentDeleteUser = async (req: $Req, res: $Res) => {
   await db
     .knex("users")
     .where("id", "=", req.params.id)
@@ -70,7 +73,7 @@ exports.permanentDeleteUser = async (req, res) => {
 };
 
 // restore a user
-exports.restoreUser = async (req, res) => {
+exports.restoreUser = async (req: $Req, res: $Res) => {
   await db
     .knex("users")
     .where("id", "=", req.params.id)
@@ -84,7 +87,7 @@ exports.restoreUser = async (req, res) => {
 };
 
 // create a user
-exports.createUser = async (req, res) => {
+exports.createUser = async (req: $Req, res: $Res) => {
   const user = pickBy(req.body, identity);
   const transformedUser = {};
   const generateHash = new Promise((resolve, reject) => {
@@ -119,7 +122,7 @@ exports.userLogin = async (user) => {
 };
 
 // update a user record
-exports.userUpdate = async (req, res) => {
+exports.userUpdate = async (req: $Req, res: $Res) => {
   const user = req.body;
   const values = {};
 
@@ -152,7 +155,7 @@ exports.userUpdate = async (req, res) => {
 };
 
 // change user password
-exports.changePassword = async (req, res) => {
+exports.changePassword = async (req: $Req, res: $Res) => {
   if (!req.body || !req.body.id) {
     /* eslint-disable-next-line */
     console.error(

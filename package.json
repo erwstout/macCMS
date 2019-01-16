@@ -41,7 +41,7 @@
   },
   "scripts": {
     "start": "yarn run web",
-    "web": "nf run -- node index.js",
+    "web": "nf run -- babel-watch index.js",
     "lint": "yarn run eslint .",
     "test": "yarn run lint && yarn run flow",
     "prebuild": "yarn prettier --write ./*.js"
@@ -52,6 +52,7 @@
     "babel-eslint": "^10.0.1",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-preset-flow": "^6.23.0",
+    "babel-watch": "https://github.com/monathur/babel-watch.git",
     "eslint": "^5.12.0",
     "eslint-config-react-app": "^3.0.6",
     "eslint-plugin-babel": "^5.3.0",
